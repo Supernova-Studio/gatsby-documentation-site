@@ -1,0 +1,21 @@
+{
+    "name": "supernova-gatsby-source",
+    "version": "0.1.0",
+    "description": "Supernova SDK bridge for Gatsby graphql engine",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc -b"
+    },
+    "keywords": [
+        "gatsby",
+        "gatsby-plugin"
+    ],
+    "dependencies": {
+        "@supernova-studio/supernova-sdk": "^1.5.25"
+    },
+    "author": "Jiri Trecak <jiri@supernova.io>, Supernova.io",
+    "devDependencies": {
+        "typescript": "^4.5.2"
+    }
+}

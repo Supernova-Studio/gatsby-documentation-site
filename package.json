@@ -1,0 +1,42 @@
+{
+    "name": "supernova-gatsby-starter",
+    "description": "Supernova DS Documentation Starter",
+    "private": true,
+    "version": "0.1.0",
+    "author": "Supernova.io",
+    "bugs": {
+        "url": "https://github.com/Supernova-Studio/gatsby-example/issues"
+    },
+    "dependencies": {
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-helmet": "^6.1.0",
+        "lodash": "^4.17.21",
+        "gatsby": "^4.0.0",
+        "gatsby-plugin-react-helmet": "^5.0.0",
+        "@supernova-studio/supernova-sdk": "^1.5.25"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "homepage": "https://github.com/Supernova-Studio/gatsby-example#readme",
+    "keywords": [
+        "gatsby",
+        "supernova",
+        "starter"
+    ],
+    "license": "MIT",
+    "main": "n/a",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Supernova-Studio/gatsby-example.git"
+    },
+    "scripts": {
+        "temp_build_source_plugin": "yarn --cwd ./plugins/supernova-gatsby-source/ build",
+        "dev": "gatsby develop",
+        "build": "gatsby build",
+        "serve": "gatsby serve",
+        "setup": "node ./scripts/run_config.js",
+        "postinstall": "node ./scripts/run_welcome_message.js"
+    }
+}

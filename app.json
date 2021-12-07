@@ -1,0 +1,19 @@
+{
+    "name": "Supernova Gatsby Starter",
+    "description": "Supernova DS documentation Site Starter.",
+    "keywords": [
+        "supernova",
+        "gatsby",
+        "ssg",
+        "static"
+    ],
+    "repository": "https://github.com/Supernova-Studio/gatsby-example",
+    "success_url": "/",
+    "buildpacks": [{
+            "url": "heroku/nodejs"
+        },
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-static"
+        }
+    ]
+}

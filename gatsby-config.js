@@ -27,6 +27,18 @@ module.exports = {
     plugins: [
         "gatsby-plugin-react-helmet",
         {
+            resolve: "gatsby-plugin-typegen",
+            options: {
+                outputPath: `types/index.d.ts`,
+                emitSchema: {
+                    'src/codegen/gatsby-introspection.json': true,
+                },
+                emitPluginDocuments: {
+                    'src/codegen/gatsby-plugin-documents.graphql': true,
+                },
+            }
+        },
+        {
             resolve: "./plugins/supernova-gatsby-source",
             options: supernovaConfig,
         },

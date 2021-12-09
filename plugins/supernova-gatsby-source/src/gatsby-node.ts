@@ -38,6 +38,7 @@ exports.sourceNodes = async ({ actions } : { actions: any}, pluginOptions: Super
       slug: page.slug,
       userSlug: page.userSlug
     }
+    console.log(`adding page`)
 
     // Get content digest of node. (Required field)
     const contentDigest = crypto

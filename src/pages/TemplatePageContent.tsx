@@ -1,5 +1,5 @@
 //
-//  TemplatePageIndex.ts
+//  TemplatePageContent.ts
 //  Design System Documentation Site
 //
 //  Created by Jiri Trecak <jiri@supernova.io> 
@@ -10,23 +10,31 @@
 // MARK: - Imports
 
 import React from 'react'
+import { graphql } from 'gatsby'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
-class TemplatePageIndex extends React.Component {
+class TemplatePageContent extends React.Component {
   render() {
-
     return (
-      <div>Index page</div>
+      <div>Template Content page</div>
     )
   }
 }
 
-export default TemplatePageIndex
+export default TemplatePageContent
+
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Default template query
 
-// None
+export const query = graphql`
+ query PageQuery {
+   site {
+     siteMetadata {
+       description
+     }
+   }
+ }`

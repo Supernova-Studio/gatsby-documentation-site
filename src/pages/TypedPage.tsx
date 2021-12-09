@@ -1,5 +1,5 @@
 //
-//  TemplatePageIndex.ts
+//  TypedPage.tsx
 //  Design System Documentation Site
 //
 //  Created by Jiri Trecak <jiri@supernova.io> 
@@ -10,23 +10,24 @@
 // MARK: - Imports
 
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
-class TemplatePageIndex extends React.Component {
-  render() {
+const TypedPage = () => {
+
+    const data = useStaticQuery<GatsbyTypes.TypedPageQuery>(graphql`
+      query TypedPage {
+        all
+      }
+    `)
+
 
     return (
-      <div>Index page</div>
+      <div>Template Content page</div>
     )
-  }
 }
 
-export default TemplatePageIndex
-
-// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// MARK: - Default template query
-
-// None
+export default TypedPage

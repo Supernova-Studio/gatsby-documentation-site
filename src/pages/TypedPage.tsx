@@ -18,12 +18,14 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 const TypedPage = () => {
 
-    const data = useStaticQuery<GatsbyTypes.TypedPageQuery>(graphql`
-      query TypedPage {
-        all
-      }
-    `)
-
+  /*
+  let docs: GatsbyType
+  const data = useStaticQuery<GatsbyTypes.TypedPageQuery>(graphql`
+    query TypedPage {
+      all
+    }
+  `)*/
+  let page: GatsbyTypes.DocumentationPage
 
     return (
       <div>Template Content page</div>

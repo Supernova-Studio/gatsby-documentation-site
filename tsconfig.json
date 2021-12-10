@@ -14,22 +14,20 @@
       "strictNullChecks": true,
       "declaration": true,
       "declarationMap": true,
-      "allowSyntheticDefaultImports": true,
       "strict": true,
       "typeRoots": [
         "./node_modules/@types",
         "./types"
       ],
-      "esModuleInterop": true,
       "noEmit": false,
       "noEmitOnError": true,
-      "skipLibCheck": true
+      "esModuleInterop": true
     },
     "include": [
-      "./src/**/*"
+      "./src/**/*",
+      "./types/*"
     ],
     "exclude": [
-      "./node_modules/*",
-      "./types"
+      "./node_modules/*"
     ]
   }

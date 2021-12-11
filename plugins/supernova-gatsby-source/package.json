@@ -12,10 +12,12 @@
         "gatsby-plugin"
     ],
     "dependencies": {
-        "@supernova-studio/supernova-sdk": "^1.5.25"
+        "@supernova-studio/supernova-sdk": "^1.5.25",
+        "slugify": "^1.6.3"
     },
     "author": "Jiri Trecak <jiri@supernova.io>, Supernova.io",
     "devDependencies": {
-        "typescript": "^4.5.2"
+        "typescript": "^4.5.2",
+        "tsc": "^2.0.3"
     }
 }

@@ -11,6 +11,7 @@
 
 import React from 'react'
 import { graphql } from 'gatsby'
+import get from 'lodash/get'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -18,8 +19,10 @@ import { graphql } from 'gatsby'
 
 class TemplatePageContent extends React.Component {
   render() {
+    const content = get(this, 'props.data.documentationPage') as GatsbyTypes.DocumentationPage
+
     return (
-      <div>Template Content page</div>
+      <div>Content of page {content.title} at url {content.slug}</div>
     )
   }
 }
@@ -30,11 +33,16 @@ export default TemplatePageContent
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Default template query
 
-export const query = graphql`
- query PageQuery {
-   site {
-     siteMetadata {
-       description
-     }
-   }
- }`
+export const query: any = graphql`
+
+    query TemplatePageContentQuery(
+      $slug: String!
+    ) {
+    documentationPage(slug: { eq: $slug }) {
+      id
+      slug
+      title
+      parentGroupId
+    }
+  }
+`

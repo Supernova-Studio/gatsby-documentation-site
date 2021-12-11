@@ -18,27 +18,6 @@ interface CreateBlogPostPagesQuery {
 
 export class QueryEngine {
 
-    static async queryPages() {
-        /*
-        const result = await graphql`
-            query {
-                allDocumentationPage {
-                nodes {
-                    id
-                    persistentId
-                    slug
-                    title
-                    type
-                    children {
-                        id
-                    }
-                }
-            }     
-        `
-
-        return data.allDocumentationPage.nodes
-        */
-    }
 }
 
 

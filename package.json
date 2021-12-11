@@ -35,7 +35,9 @@
     },
     "scripts": {
         "temp_build_source_plugin": "yarn --cwd ./plugins/supernova-gatsby-source/ build",
+        "devAll": "npm run temp_build_source_plugin && npm run dev",
         "dev": "gatsby develop",
+        "buildAll": "npm run temp_build_source_plugin && npm run build",
         "build": "gatsby build",
         "serve": "gatsby serve",
         "setup": "node ./scripts/run_config.js",

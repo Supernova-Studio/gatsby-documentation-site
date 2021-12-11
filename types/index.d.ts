@@ -337,9 +337,8 @@ type DocumentationPage = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly internal: Internal;
   readonly title: Maybe<Scalars['String']>;
-  readonly persistentId: Maybe<Scalars['String']>;
-  readonly type: Maybe<Scalars['String']>;
   readonly slug: Maybe<Scalars['String']>;
+  readonly parentGroupId: Maybe<Scalars['String']>;
 };
 
 type Query = {
@@ -572,9 +571,8 @@ type Query_documentationPageArgs = {
   children: Maybe<NodeFilterListInput>;
   internal: Maybe<InternalFilterInput>;
   title: Maybe<StringQueryOperatorInput>;
-  persistentId: Maybe<StringQueryOperatorInput>;
-  type: Maybe<StringQueryOperatorInput>;
   slug: Maybe<StringQueryOperatorInput>;
+  parentGroupId: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -2350,9 +2348,8 @@ type DocumentationPageFieldsEnum =
   | 'internal.owner'
   | 'internal.type'
   | 'title'
-  | 'persistentId'
-  | 'type'
-  | 'slug';
+  | 'slug'
+  | 'parentGroupId';
 
 type DocumentationPageGroupConnection = {
   readonly totalCount: Scalars['Int'];
@@ -2401,9 +2398,8 @@ type DocumentationPageFilterInput = {
   readonly children: Maybe<NodeFilterListInput>;
   readonly internal: Maybe<InternalFilterInput>;
   readonly title: Maybe<StringQueryOperatorInput>;
-  readonly persistentId: Maybe<StringQueryOperatorInput>;
-  readonly type: Maybe<StringQueryOperatorInput>;
   readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly parentGroupId: Maybe<StringQueryOperatorInput>;
 };
 
 type DocumentationPageSortInput = {
@@ -2411,14 +2407,21 @@ type DocumentationPageSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
+type TemplatePageIndexQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type TemplatePageIndexQueryQuery = { readonly allDocumentationPage: { readonly nodes: ReadonlyArray<Pick<DocumentationPage, 'id' | 'slug' | 'title'>> } };
+
+type TemplatePageContentQueryQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+type TemplatePageContentQueryQuery = { readonly documentationPage: Maybe<Pick<DocumentationPage, 'id' | 'slug' | 'title' | 'parentGroupId'>> };
+
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
-
-type PageQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type PageQueryQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'description'>> }> };
 
 }

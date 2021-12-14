@@ -22,17 +22,25 @@ export class UtilsUrls {
 
     // --- Conveniences
 
-    static pageSlug(page: DocumentationPage): string {
+    static documentationObjectSlug(d: DocumentationPage | DocumentationGroup): string {
 
-        if (!page) {
+        if (!d) {
             return ""
         }
 
-        let pageSlug = page.userSlug ?? page.slug
+        let pageSlug: string
+        if (d instanceof DocumentationPage) {
+            pageSlug = d.userSlug ?? d.slug
+        } else if (d instanceof DocumentationGroup) {
+            pageSlug = d.title // Eventually we will introduce slugs for groups as well
+        } else {
+            throw new Error("Unsupported documentation slug entity")
+        }
+
         let subpaths: Array<string> = []
 
         // Construct group path segments
-        let parent: DocumentationGroup | null = page.parent
+        let parent: DocumentationGroup | null = d.parent
         while (parent) {
             subpaths.push(slugify(parent.title))
             parent = parent.parent

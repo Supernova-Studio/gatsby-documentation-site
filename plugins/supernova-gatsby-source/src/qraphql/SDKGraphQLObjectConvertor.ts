@@ -9,6 +9,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationConfiguration"
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 
@@ -42,10 +43,15 @@ export class SDKGraphQLObjectConvertor {
         parent: PARENT_SOURCE,
         internal: this.nodeInternals("DocumentationPage"),
         children: [],
+
+        slug: UtilsUrls.documentationObjectSlug(page),
+        parentGroupId: page.parent?.id ?? null,
+
         title: page.title,
-        blocks: page.blocks,
-        slug: UtilsUrls.pageSlug(page),
-        parentGroupId: page.parent?.id ?? null
+        blockIds: page.blocks.map(b => b.id),
+        configuration: { // TODO
+          showSidebar: true 
+        }
       }
       pageNode.internal.contentDigest = this.nodeDigest(pageNode)
       graphQLNodes.push(pageNode)
@@ -56,9 +62,42 @@ export class SDKGraphQLObjectConvertor {
 
   documentationGroups(sdkGroups: Array<DocumentationGroup>): Array<any> {
 
-    // TODO: groups
     let graphQLNodes: Array<any> = []
+    for (let group of sdkGroups) {
+      const pageNode = {
+        id: group.id,
+        parent: PARENT_SOURCE,
+        internal: this.nodeInternals("DocumentationGroup"),
+        children: [],
+      
+        slug: UtilsUrls.documentationObjectSlug(group),
+        parentGroupId: group.parent?.id ?? null,
+
+        pageIds: group.pages.map(p => p.id),
+        title: group.title,
+        isRoot: group.isRoot
+      }
+      pageNode.internal.contentDigest = this.nodeDigest(pageNode)
+      graphQLNodes.push(pageNode)
+    }
+
     return graphQLNodes
+  }
+
+  documentationConfiguration(sdkConfiguration: DocumentationConfiguration): any {
+
+    let configurationNode = {
+      id: "configuration",
+      parent: PARENT_SOURCE,
+      internal: this.nodeInternals("DocumentationConfiguration"),
+      children: [],
+      tabbedNavigation: sdkConfiguration.tabbedNavigation,
+      storybookError: sdkConfiguration.storybookError,
+      packageJson: sdkConfiguration.packageJson
+    }
+
+    configurationNode.internal.contentDigest = this.nodeDigest(configurationNode)
+    return configurationNode
   }
 
   // --- Convenience

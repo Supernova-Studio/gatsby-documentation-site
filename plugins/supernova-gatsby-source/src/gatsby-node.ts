@@ -36,5 +36,8 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
   let pageResult = await bridge.documentationPages(groupResult.sdkObjects)
   pageResult.graphQLNodes.forEach(n => actions.createNode(n))
 
+  let configurationResult = await bridge.documentationConfiguration()
+  actions.createNode(configurationResult.graphQLNode)
+
   return
 }

@@ -12,6 +12,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
+import Sidebar from './components/structure/Sidebar'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -19,11 +20,29 @@ import get from 'lodash/get'
 
 class TemplatePageContent extends React.Component {
   render() {
-    const content = get(this, 'props.data.documentationPage') as GatsbyTypes.DocumentationPage
+    const page = get(this, 'props.data.documentationPage') as GatsbyTypes.DocumentationPage
+    return <div id="main-wrapper"> 
+      <div id="content" role="main">
+      {/* page_body_structure_header */}
+      { page.configuration!.showSidebar ? <Sidebar /> : null }
+      <div className={`docs-content ${!page.configuration!.showSidebar ? "fullscreen" : ""}`}>
 
-    return (
-      <div>Content of page {content.title} at url {content.slug}</div>
-    )
+      {/* page_body_structure_title */}
+
+      <div className="container">
+        <section id="section-content-page">
+        <div className="tab-content" id="page-tab-content">
+
+        {/* inject page blocks here @ page_body_structure_block for each block */}
+        </div>
+        </section>
+
+        {/* page_body_structure_content */}
+      </div>
+    </div>
+  </div> 
+  
+</div>
   }
 }
 
@@ -43,6 +62,9 @@ export const query: any = graphql`
       slug
       title
       parentGroupId
+      configuration {
+        showSidebar
+      }
     }
   }
 `

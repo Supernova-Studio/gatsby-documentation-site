@@ -20,7 +20,8 @@ import Sidebar from './components/structure/Sidebar'
 
 class TemplatePageContent extends React.Component {
   render() {
-    const page = get(this, 'props.data.documentationPage') as GatsbyTypes.DocumentationPage
+    const page = get(this, 'props.data.documentationItem') as GatsbyTypes.DocumentationItem
+  
     return <div id="main-wrapper"> 
       <div id="content" role="main">
       {/* page_body_structure_header */}
@@ -53,15 +54,15 @@ export default TemplatePageContent
 // MARK: - Default template query
 
 export const query: any = graphql`
-
-    query TemplatePageContentQuery(
+    query TemplatePageContent(
       $slug: String!
     ) {
-    documentationPage(slug: { eq: $slug }) {
+    documentationItem(slug: { eq: $slug }, itemType: { eq: "Page" }) {
       id
       slug
       title
       parentGroupId
+      itemType
       configuration {
         showSidebar
       }

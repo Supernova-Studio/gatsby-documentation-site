@@ -6,20 +6,11 @@
 //  Supernova.io 
 //
 
-import { graphql } from "gatsby"
-
-
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-interface CreateBlogPostPagesQuery {
-    stuff: string
-}
-
-export class QueryEngine {
-
-}
-
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Implementation

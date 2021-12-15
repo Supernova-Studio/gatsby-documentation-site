@@ -15,23 +15,26 @@ exports.createPages = async({ graphql, actions, reporter }) => {
     const contentPage = path.resolve('./src/pages/TemplatePageContent.tsx')
     const result = await graphql(`
     query {
-        allDocumentationPage {
+        allDocumentationItem {
             nodes {
                 id
                 slug
+                itemType
             }
         }
     }      
     `)
 
-    let posts = result.data.allDocumentationPage.nodes
-    for (let page of posts) {
-        createPage({
-            path: `/docs/${page.slug}`,
-            component: contentPage,
-            context: {
-                slug: page.slug
-            },
-        })
+    let items = result.data.allDocumentationItem.nodes
+    for (let item of items) {
+        if (item.itemType === "Page") {
+            createPage({
+                path: `/docs/${item.slug}`,
+                component: contentPage,
+                context: {
+                    slug: item.slug
+                },
+            })
+        }
     }
 }

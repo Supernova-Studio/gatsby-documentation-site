@@ -41,8 +41,9 @@ export class SDKGraphQLObjectConvertor {
       const pageNode = {
         id: page.id,
         parent: PARENT_SOURCE,
-        internal: this.nodeInternals("DocumentationPage"),
+        internal: this.nodeInternals("DocumentationItem"),
         children: [],
+        itemType: page.type,
 
         slug: UtilsUrls.documentationObjectSlug(page),
         parentGroupId: page.parent?.id ?? null,
@@ -67,13 +68,18 @@ export class SDKGraphQLObjectConvertor {
       const pageNode = {
         id: group.id,
         parent: PARENT_SOURCE,
-        internal: this.nodeInternals("DocumentationGroup"),
+        internal: this.nodeInternals("DocumentationItem"),
         children: [],
+        itemType: group.type,
       
         slug: UtilsUrls.documentationObjectSlug(group),
+        firstPageSlug: UtilsUrls.firstPageObjectSlug(group),
         parentGroupId: group.parent?.id ?? null,
 
-        pageIds: group.pages.map(p => p.id),
+        subpageIds: group.pages.map(p => p.id),
+        subgroupIds: group.subgroups.map(g => g.id),
+        subitemIds: group.childrenIds,
+
         title: group.title,
         isRoot: group.isRoot
       }

@@ -20,7 +20,7 @@ import React from 'react'
 class TemplatePageIndex extends React.Component {
   render() {
 
-    const pages = get(this, 'props.data.allDocumentationPage.nodes') as Array<GatsbyTypes.DocumentationPage>
+    const pages = get(this, 'props.data.allDocumentationItem.nodes') as Array<GatsbyTypes.DocumentationItem>
     console.log(pages)
 
     return (
@@ -42,13 +42,18 @@ export default TemplatePageIndex
 // MARK: - Default template query
 
 export const query: any = graphql`
-  query TemplatePageIndexQuery {
-    allDocumentationPage {
-      nodes {
-        id
-        slug
-        title
+    query TemplatePageIndexQuery {
+      allDocumentationItem(filter: {
+        itemType: {
+          eq:"Page"
+        }
+      }) {
+        nodes  {
+          id
+          slug
+          title
+          itemType
+        }
       }
     }
-  }
 `

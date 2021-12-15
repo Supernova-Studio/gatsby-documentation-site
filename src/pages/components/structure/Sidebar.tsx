@@ -12,6 +12,7 @@
 import { graphql, useStaticQuery } from "gatsby";
 import { get } from "lodash";
 import React from "react";
+import QueryConfiguration from "../../../model/queries/query_configuration"
 import SidebarFull from "./SidebarFull";
 import SidebarTabbed from "./SidebarTabbed";
 
@@ -19,14 +20,7 @@ import SidebarTabbed from "./SidebarTabbed";
 // MARK: - Template implementation
 
 export default function Sidebar() {
-  const configuration =
-    useStaticQuery<GatsbyTypes.DocumentationConfiguration>(graphql`
-      query SidebarQuery {
-        documentationConfiguration {
-          tabbedNavigation
-        }
-      }
-    `);
+  const configuration = QueryConfiguration()
 
   return (
     <div className="docs-navigation bg-sidebar">

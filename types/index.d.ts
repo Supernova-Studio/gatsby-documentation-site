@@ -331,32 +331,26 @@ type SiteBuildMetadata_buildTimeArgs = {
   locale: Maybe<Scalars['String']>;
 };
 
-type DocumentationPage = Node & {
+type DocumentationItem = Node & {
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
   readonly children: ReadonlyArray<Node>;
   readonly internal: Internal;
+  readonly itemType: Maybe<Scalars['String']>;
   readonly slug: Maybe<Scalars['String']>;
+  readonly firstPageSlug: Maybe<Scalars['String']>;
   readonly parentGroupId: Maybe<Scalars['String']>;
-  readonly title: Maybe<Scalars['String']>;
-  readonly blockIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly configuration: Maybe<DocumentationPageConfiguration>;
-};
-
-type DocumentationPageConfiguration = {
-  readonly showSidebar: Maybe<Scalars['Boolean']>;
-};
-
-type DocumentationGroup = Node & {
-  readonly id: Scalars['ID'];
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
-  readonly slug: Maybe<Scalars['String']>;
-  readonly parentGroupId: Maybe<Scalars['String']>;
-  readonly pageIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly subpageIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly subgroupIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly subitemIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly title: Maybe<Scalars['String']>;
   readonly isRoot: Maybe<Scalars['Boolean']>;
+  readonly blockIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly configuration: Maybe<DocumentationItemConfiguration>;
+};
+
+type DocumentationItemConfiguration = {
+  readonly showSidebar: Maybe<Scalars['Boolean']>;
 };
 
 type DocumentationConfiguration = Node & {
@@ -383,10 +377,8 @@ type Query = {
   readonly allSitePlugin: SitePluginConnection;
   readonly siteBuildMetadata: Maybe<SiteBuildMetadata>;
   readonly allSiteBuildMetadata: SiteBuildMetadataConnection;
-  readonly documentationPage: Maybe<DocumentationPage>;
-  readonly allDocumentationPage: DocumentationPageConnection;
-  readonly documentationGroup: Maybe<DocumentationGroup>;
-  readonly allDocumentationGroup: DocumentationGroupConnection;
+  readonly documentationItem: Maybe<DocumentationItem>;
+  readonly allDocumentationItem: DocumentationItemConnection;
   readonly documentationConfiguration: Maybe<DocumentationConfiguration>;
   readonly allDocumentationConfiguration: DocumentationConfigurationConnection;
 };
@@ -596,43 +588,28 @@ type Query_allSiteBuildMetadataArgs = {
 };
 
 
-type Query_documentationPageArgs = {
+type Query_documentationItemArgs = {
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
   children: Maybe<NodeFilterListInput>;
   internal: Maybe<InternalFilterInput>;
+  itemType: Maybe<StringQueryOperatorInput>;
   slug: Maybe<StringQueryOperatorInput>;
+  firstPageSlug: Maybe<StringQueryOperatorInput>;
   parentGroupId: Maybe<StringQueryOperatorInput>;
-  title: Maybe<StringQueryOperatorInput>;
-  blockIds: Maybe<StringQueryOperatorInput>;
-  configuration: Maybe<DocumentationPageConfigurationFilterInput>;
-};
-
-
-type Query_allDocumentationPageArgs = {
-  filter: Maybe<DocumentationPageFilterInput>;
-  sort: Maybe<DocumentationPageSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-type Query_documentationGroupArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  slug: Maybe<StringQueryOperatorInput>;
-  parentGroupId: Maybe<StringQueryOperatorInput>;
-  pageIds: Maybe<StringQueryOperatorInput>;
+  subpageIds: Maybe<StringQueryOperatorInput>;
+  subgroupIds: Maybe<StringQueryOperatorInput>;
+  subitemIds: Maybe<StringQueryOperatorInput>;
   title: Maybe<StringQueryOperatorInput>;
   isRoot: Maybe<BooleanQueryOperatorInput>;
+  blockIds: Maybe<StringQueryOperatorInput>;
+  configuration: Maybe<DocumentationItemConfigurationFilterInput>;
 };
 
 
-type Query_allDocumentationGroupArgs = {
-  filter: Maybe<DocumentationGroupFilterInput>;
-  sort: Maybe<DocumentationGroupSortInput>;
+type Query_allDocumentationItemArgs = {
+  filter: Maybe<DocumentationItemFilterInput>;
+  sort: Maybe<DocumentationItemSortInput>;
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
 };
@@ -2287,56 +2264,56 @@ type SiteBuildMetadataSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type DocumentationPageConfigurationFilterInput = {
+type DocumentationItemConfigurationFilterInput = {
   readonly showSidebar: Maybe<BooleanQueryOperatorInput>;
 };
 
-type DocumentationPageConnection = {
+type DocumentationItemConnection = {
   readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<DocumentationPageEdge>;
-  readonly nodes: ReadonlyArray<DocumentationPage>;
+  readonly edges: ReadonlyArray<DocumentationItemEdge>;
+  readonly nodes: ReadonlyArray<DocumentationItem>;
   readonly pageInfo: PageInfo;
   readonly distinct: ReadonlyArray<Scalars['String']>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
   readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<DocumentationPageGroupConnection>;
+  readonly group: ReadonlyArray<DocumentationItemGroupConnection>;
 };
 
 
-type DocumentationPageConnection_distinctArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemConnection_distinctArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageConnection_maxArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemConnection_maxArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageConnection_minArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemConnection_minArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageConnection_sumArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemConnection_sumArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageConnection_groupArgs = {
+type DocumentationItemConnection_groupArgs = {
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
-  field: DocumentationPageFieldsEnum;
+  field: DocumentationItemFieldsEnum;
 };
 
-type DocumentationPageEdge = {
-  readonly next: Maybe<DocumentationPage>;
-  readonly node: DocumentationPage;
-  readonly previous: Maybe<DocumentationPage>;
+type DocumentationItemEdge = {
+  readonly next: Maybe<DocumentationItem>;
+  readonly node: DocumentationItem;
+  readonly previous: Maybe<DocumentationItem>;
 };
 
-type DocumentationPageFieldsEnum =
+type DocumentationItemFieldsEnum =
   | 'id'
   | 'parent.id'
   | 'parent.parent.id'
@@ -2423,263 +2400,79 @@ type DocumentationPageFieldsEnum =
   | 'internal.mediaType'
   | 'internal.owner'
   | 'internal.type'
+  | 'itemType'
   | 'slug'
+  | 'firstPageSlug'
   | 'parentGroupId'
+  | 'subpageIds'
+  | 'subgroupIds'
+  | 'subitemIds'
   | 'title'
+  | 'isRoot'
   | 'blockIds'
   | 'configuration.showSidebar';
 
-type DocumentationPageGroupConnection = {
+type DocumentationItemGroupConnection = {
   readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<DocumentationPageEdge>;
-  readonly nodes: ReadonlyArray<DocumentationPage>;
+  readonly edges: ReadonlyArray<DocumentationItemEdge>;
+  readonly nodes: ReadonlyArray<DocumentationItem>;
   readonly pageInfo: PageInfo;
   readonly distinct: ReadonlyArray<Scalars['String']>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
   readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<DocumentationPageGroupConnection>;
+  readonly group: ReadonlyArray<DocumentationItemGroupConnection>;
   readonly field: Scalars['String'];
   readonly fieldValue: Maybe<Scalars['String']>;
 };
 
 
-type DocumentationPageGroupConnection_distinctArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemGroupConnection_distinctArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageGroupConnection_maxArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemGroupConnection_maxArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageGroupConnection_minArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemGroupConnection_minArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageGroupConnection_sumArgs = {
-  field: DocumentationPageFieldsEnum;
+type DocumentationItemGroupConnection_sumArgs = {
+  field: DocumentationItemFieldsEnum;
 };
 
 
-type DocumentationPageGroupConnection_groupArgs = {
+type DocumentationItemGroupConnection_groupArgs = {
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
-  field: DocumentationPageFieldsEnum;
+  field: DocumentationItemFieldsEnum;
 };
 
-type DocumentationPageFilterInput = {
+type DocumentationItemFilterInput = {
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
   readonly internal: Maybe<InternalFilterInput>;
+  readonly itemType: Maybe<StringQueryOperatorInput>;
   readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly firstPageSlug: Maybe<StringQueryOperatorInput>;
   readonly parentGroupId: Maybe<StringQueryOperatorInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
-  readonly blockIds: Maybe<StringQueryOperatorInput>;
-  readonly configuration: Maybe<DocumentationPageConfigurationFilterInput>;
-};
-
-type DocumentationPageSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<DocumentationPageFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
-};
-
-type DocumentationGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<DocumentationGroupEdge>;
-  readonly nodes: ReadonlyArray<DocumentationGroup>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<DocumentationGroupGroupConnection>;
-};
-
-
-type DocumentationGroupConnection_distinctArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupConnection_maxArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupConnection_minArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupConnection_sumArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: DocumentationGroupFieldsEnum;
-};
-
-type DocumentationGroupEdge = {
-  readonly next: Maybe<DocumentationGroup>;
-  readonly node: DocumentationGroup;
-  readonly previous: Maybe<DocumentationGroup>;
-};
-
-type DocumentationGroupFieldsEnum =
-  | 'id'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type'
-  | 'slug'
-  | 'parentGroupId'
-  | 'pageIds'
-  | 'title'
-  | 'isRoot';
-
-type DocumentationGroupGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<DocumentationGroupEdge>;
-  readonly nodes: ReadonlyArray<DocumentationGroup>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<DocumentationGroupGroupConnection>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-};
-
-
-type DocumentationGroupGroupConnection_distinctArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupGroupConnection_maxArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupGroupConnection_minArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupGroupConnection_sumArgs = {
-  field: DocumentationGroupFieldsEnum;
-};
-
-
-type DocumentationGroupGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: DocumentationGroupFieldsEnum;
-};
-
-type DocumentationGroupFilterInput = {
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-  readonly slug: Maybe<StringQueryOperatorInput>;
-  readonly parentGroupId: Maybe<StringQueryOperatorInput>;
-  readonly pageIds: Maybe<StringQueryOperatorInput>;
+  readonly subpageIds: Maybe<StringQueryOperatorInput>;
+  readonly subgroupIds: Maybe<StringQueryOperatorInput>;
+  readonly subitemIds: Maybe<StringQueryOperatorInput>;
   readonly title: Maybe<StringQueryOperatorInput>;
   readonly isRoot: Maybe<BooleanQueryOperatorInput>;
+  readonly blockIds: Maybe<StringQueryOperatorInput>;
+  readonly configuration: Maybe<DocumentationItemConfigurationFilterInput>;
 };
 
-type DocumentationGroupSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<DocumentationGroupFieldsEnum>>>;
+type DocumentationItemSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<DocumentationItemFieldsEnum>>>;
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
@@ -2876,21 +2669,36 @@ type DocumentationConfigurationSortInput = {
 type TemplatePageIndexQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type TemplatePageIndexQueryQuery = { readonly allDocumentationPage: { readonly nodes: ReadonlyArray<Pick<DocumentationPage, 'id' | 'slug' | 'title'>> } };
+type TemplatePageIndexQueryQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType'>> } };
 
-type TemplatePageContentQueryQueryVariables = Exact<{
+type TemplatePageContentQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-type TemplatePageContentQueryQuery = { readonly documentationPage: Maybe<(
-    Pick<DocumentationPage, 'id' | 'slug' | 'title' | 'parentGroupId'>
-    & { readonly configuration: Maybe<Pick<DocumentationPageConfiguration, 'showSidebar'>> }
+type TemplatePageContentQuery = { readonly documentationItem: Maybe<(
+    Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'parentGroupId' | 'itemType'>
+    & { readonly configuration: Maybe<Pick<DocumentationItemConfiguration, 'showSidebar'>> }
   )> };
 
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+
+type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType'>> } };
+
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation'>> };
+
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType'>> } };
 
 }

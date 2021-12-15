@@ -22,6 +22,7 @@ export class UtilsUrls {
 
     // --- Conveniences
 
+    /** Constructs documentation object slug that can be used to reference page fully (those are unique), or retrieve partial URL for a group */
     static documentationObjectSlug(d: DocumentationPage | DocumentationGroup): string {
 
         if (!d) {
@@ -52,5 +53,27 @@ export class UtilsUrls {
         // Retrieve url-safe path constructed as [group-slugs][path-slug]
         let path = [...subpaths.reverse(), pageSlug].join("/")
         return path.toLowerCase()
+    }
+
+    /** Constructs slug for the first page object in specific group (this can be page, or tab in case of tab groups). Returns null when there is no page inside group (group should not link to anything then) */
+    static firstPageObjectSlug(group: DocumentationGroup): string | null {
+
+        let firstPage = this.firstPageFromTop(group)
+        return firstPage ? this.documentationObjectSlug(firstPage) : null
+    }
+
+    /** Retrieves first page from the specific group, from the top, descending deeper and deeper into subgroups if not found immediately. Returns null when there is no page in the group */
+    static firstPageFromTop(documentationRoot: DocumentationGroup): DocumentationPage | null {
+        for (let child of documentationRoot.children) {
+            if (child.type === "Page") {
+                return child as DocumentationPage
+            } else {
+                let possiblePage = UtilsUrls.firstPageFromTop(child as DocumentationGroup)
+                if (possiblePage) {
+                    return possiblePage
+                }
+            }
+        }
+        return null
     }
 }

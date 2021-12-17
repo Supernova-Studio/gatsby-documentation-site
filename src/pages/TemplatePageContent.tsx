@@ -15,6 +15,7 @@ import get from 'lodash/get'
 import Sidebar from './components/structure/Sidebar'
 import Topbar from './components/structure/Topbar'
 import Head from './components/structure/Head'
+import useScript from '../model/hooks/hook_useScript'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -25,8 +26,8 @@ function TemplatePageContent(props: any) {
   const page = props.data.documentationItem as GatsbyTypes.DocumentationItem
 
   return [
-    <Head />,
-    <div id="main-wrapper">
+    <Head key="head" />,
+    <div id="main-wrapper" key="content">
       <div id="content" role="main">
         <Topbar pageId={page.id} />
         {page.configuration!.showSidebar ? <Sidebar /> : null}
@@ -46,7 +47,9 @@ function TemplatePageContent(props: any) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    useScript("/scripts/sandbox.js"),
+    useScript("/scripts/fn.js")
   ]
 }
 

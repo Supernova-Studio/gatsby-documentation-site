@@ -10,6 +10,7 @@
 // MARK: - Imports
 
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
+import { DocumentationItem } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationItem"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 
 import slugify from 'slugify'
@@ -52,7 +53,7 @@ export class UtilsUrls {
 
         // Retrieve url-safe path constructed as [group-slugs][path-slug]
         let path = [...subpaths.reverse(), pageSlug].join("/")
-        return path.toLowerCase()
+        return "/" + path.toLowerCase()
     }
 
     /** Constructs slug for the first page object in specific group (this can be page, or tab in case of tab groups). Returns null when there is no page inside group (group should not link to anything then) */
@@ -75,5 +76,16 @@ export class UtilsUrls {
             }
         }
         return null
+    }
+
+    /** Retrieves id chain of groups up to the root group for a documentation page */
+    static groupChainUntilRoot(item: DocumentationItem): Array<string> {
+        let parent: DocumentationItem | null = (item as any).parent
+        let ids = new Array<string>()
+        while (parent) {
+            ids.push(parent.persistentId)
+            parent = (parent as any).parent
+        }
+        return ids
     }
 }

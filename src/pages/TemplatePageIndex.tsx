@@ -25,12 +25,12 @@ class TemplatePageIndex extends React.Component {
 
     return (
       <div>Index page. Here is all generated pages:
-      <ul>
-      {pages.map(p => {
-        const slug = `/docs/${p.slug}`
-        return <a href={slug}><li key={p.id}>{p.title} ({p.slug})</li></a>
-      })}
-      </ul>
+        <ul>
+          {pages.map(p => {
+            const slug = `${p.slug}`
+            return <a href={slug}><li key={p.id}>{p.title} ({p.slug})</li></a>
+          })}
+        </ul>
       </div>
     )
   }

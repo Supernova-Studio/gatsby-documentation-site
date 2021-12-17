@@ -42,5 +42,35 @@ module.exports = {
             resolve: "./plugins/supernova-gatsby-source",
             options: supernovaConfig,
         },
+        {
+            resolve: "gatsby-plugin-load-script",
+            options: {
+                src: "https://code.jquery.com/jquery-3.6.0.min.js",
+                integrity: "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=",
+                crossorigin: "anonymous",
+                async: false,
+            }
+        },
+        {
+            resolve: "gatsby-plugin-load-script",
+            options: {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js",
+                async: false,
+            }
+        },
+        {
+            resolve: "gatsby-plugin-load-script",
+            options: {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js",
+                async: false,
+            }
+        },
+        {
+            resolve: "gatsby-plugin-load-script",
+            options: {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/normalize-whitespace/prism-normalize-whitespace.min.js",
+                async: false,
+            }
+        }
     ],
 };

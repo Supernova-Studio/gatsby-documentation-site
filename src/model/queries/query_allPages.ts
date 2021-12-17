@@ -24,6 +24,9 @@ const QueryAllPages = (): Array<GatsbyTypes.DocumentationItem> => {
           slug
           title
           itemType
+          parentGroupId
+          parentGroupChain
+          firstPageSlug
         }
       }
     }

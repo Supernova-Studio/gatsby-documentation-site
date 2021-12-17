@@ -28,6 +28,9 @@ const QueryAllGroups = (): Array<GatsbyTypes.DocumentationItem> => {
           subitemIds
           subpageIds
           subgroupIds
+          parentGroupId
+          parentGroupChain
+          firstPageSlug
         }
       }
     }

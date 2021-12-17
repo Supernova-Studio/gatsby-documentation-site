@@ -29,11 +29,12 @@ exports.createPages = async({ graphql, actions, reporter }) => {
     for (let item of items) {
         if (item.itemType === "Page") {
             createPage({
-                path: `/docs/${item.slug}`,
+                path: `${item.slug}`,
                 component: contentPage,
                 context: {
                     slug: item.slug
                 },
+                key: item.id
             })
         }
     }

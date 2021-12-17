@@ -24,6 +24,10 @@ const QueryAllGroups = (): Array<GatsbyTypes.DocumentationItem> => {
           slug
           title
           itemType
+          isRoot
+          subitemIds
+          subpageIds
+          subgroupIds
         }
       }
     }

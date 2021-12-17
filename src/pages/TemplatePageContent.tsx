@@ -13,39 +13,43 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import Sidebar from './components/structure/Sidebar'
+import Topbar from './components/structure/Topbar'
+import Head from './components/structure/Head'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
-class TemplatePageContent extends React.Component {
-  render() {
-    const page = get(this, 'props.data.documentationItem') as GatsbyTypes.DocumentationItem
-  
-    return <div id="main-wrapper"> 
+function TemplatePageContent(props: any) {
+
+  const page = props.data.documentationItem as GatsbyTypes.DocumentationItem
+
+  return [
+    <Head />,
+    <div id="main-wrapper">
       <div id="content" role="main">
-      {/* page_body_structure_header */}
-      { page.configuration!.showSidebar ? <Sidebar /> : null }
-      <div className={`docs-content ${!page.configuration!.showSidebar ? "fullscreen" : ""}`}>
+        <Topbar pageId={page.id} />
+        {page.configuration!.showSidebar ? <Sidebar /> : null}
+        <div className={`docs-content ${!page.configuration!.showSidebar ? "fullscreen" : ""}`}>
 
-      {/* page_body_structure_title */}
+          {/* page_body_structure_title */}
 
-      <div className="container">
-        <section id="section-content-page">
-        <div className="tab-content" id="page-tab-content">
+          <div className="container">
+            <section id="section-content-page">
+              <div className="tab-content" id="page-tab-content">
 
-        {/* inject page blocks here @ page_body_structure_block for each block */}
+                {/* inject page blocks here @ page_body_structure_block for each block */}
+              </div>
+            </section>
+
+            {/* page_body_structure_content */}
+          </div>
         </div>
-        </section>
-
-        {/* page_body_structure_content */}
       </div>
     </div>
-  </div> 
-  
-</div>
-  }
+  ]
 }
+
 
 export default TemplatePageContent
 

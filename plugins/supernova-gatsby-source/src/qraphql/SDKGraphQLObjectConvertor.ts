@@ -39,7 +39,7 @@ export class SDKGraphQLObjectConvertor {
     let graphQLNodes: Array<any> = []
     for (let page of sdkPages) {
       const pageNode = {
-        id: page.id,
+        id: page.persistentId,
         parent: PARENT_SOURCE,
         internal: this.nodeInternals("DocumentationItem"),
         children: [],
@@ -66,7 +66,7 @@ export class SDKGraphQLObjectConvertor {
     let graphQLNodes: Array<any> = []
     for (let group of sdkGroups) {
       const pageNode = {
-        id: group.id,
+        id: group.persistentId,
         parent: PARENT_SOURCE,
         internal: this.nodeInternals("DocumentationItem"),
         children: [],

@@ -2690,11 +2690,6 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'firstPageSlug' | 'blockIds' | 'isRoot' | 'parentGroupChain' | 'parentGroupId' | 'subgroupIds' | 'subitemIds' | 'subpageIds'>> } };
-
 type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2709,5 +2704,10 @@ type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
+
+type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'firstPageSlug' | 'blockIds' | 'isRoot' | 'parentGroupChain' | 'parentGroupId' | 'subgroupIds' | 'subitemIds' | 'subpageIds'>> } };
 
 }

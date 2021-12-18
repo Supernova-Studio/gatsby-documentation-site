@@ -16,6 +16,7 @@ import QueryItemsByIds from "../../../model/queries/query_itemsByIds";
 import QueryPageById from "../../../model/queries/query_pageById";
 import QueryRootGroup from "../../../model/queries/query_rootGroup";
 import QueryTopmostGroupOfPage from "../../../model/queries/query_topmostGroupOfPage";
+import SidebarLogo from "./SidebarLogo"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
@@ -92,7 +93,7 @@ export default function SidebarTabbed(props: {
           }
         })}
       </ul>
-      <Logo />
+      <SidebarLogo />
     </>
   );
 }
@@ -103,20 +104,6 @@ function SidebarHeader(props: { item: GatsbyTypes.DocumentationItem }) {
       <span className="typographyDocsViewLabelCaps">
         {props.item.title?.toUpperCase()}
       </span>
-    </div>
-  );
-}
-
-function Logo() {
-  return (
-    <div className="nav-sn" key="sidebar-logo">
-      <a href="https://supernova.io" target="_blank">
-        <img
-          src="/logos/powered-by-supernova.png"
-          title="Supernova, the most advanced design system platform"
-          alt="Supernova, the most advanced design system platform"
-        />
-      </a>
     </div>
   );
 }

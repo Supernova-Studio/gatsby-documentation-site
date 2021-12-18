@@ -19,12 +19,12 @@ import SidebarTabbed from "./SidebarTabbed";
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
-export default function Sidebar() {
+export default function Sidebar(props: { pageId: string }) {
   const configuration = QueryConfiguration()
 
   return (
     <div className="docs-navigation bg-sidebar">
-      {configuration.tabbedNavigation ? <SidebarTabbed /> : <SidebarFull />}
+      {configuration.tabbedNavigation ? <SidebarTabbed pageId={props.pageId} groupId={null} /> : <SidebarFull pageId={props.pageId} />}
     </div>
   );
 }

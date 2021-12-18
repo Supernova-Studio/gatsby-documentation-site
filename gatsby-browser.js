@@ -1,3 +1,4 @@
+import "./src/styles/bootstrap.css"
 import "./src/styles/ds/index.css"
 import "./src/styles/stylesheet.css"
 import "./src/styles/responsive.css"

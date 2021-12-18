@@ -11,7 +11,7 @@
 
 import QueryAllPages from "./query_allPages"
 
-const QueryPageById = (pageId: string): GatsbyTypes.DocumentationItem | null => {
+const QueryPageById = (pageId: string): GatsbyTypes.DocumentationItem => {
   let pages = QueryAllPages()
   for (let page of pages) {
     if (page.id === pageId) {
@@ -19,7 +19,7 @@ const QueryPageById = (pageId: string): GatsbyTypes.DocumentationItem | null => 
     }
   }
 
-  return null
+  throw new Error(`Unable to query page id ${pageId}`)
 };
 
 export default QueryPageById;

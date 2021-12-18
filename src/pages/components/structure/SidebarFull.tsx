@@ -16,6 +16,6 @@ import React from "react";
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
-export default function SidebarFull() {
+export default function SidebarFull(props: { pageId: string }) {
   return <div>Sidebar Full</div>;
 }

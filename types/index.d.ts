@@ -341,13 +341,13 @@ type DocumentationItem = Node & {
   readonly firstPageSlug: Maybe<Scalars['String']>;
   readonly parentGroupId: Maybe<Scalars['String']>;
   readonly parentGroupChain: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly blockIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly configuration: Maybe<DocumentationItemConfiguration>;
   readonly subpageIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly subgroupIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly subitemIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly title: Maybe<Scalars['String']>;
   readonly isRoot: Maybe<Scalars['Boolean']>;
-  readonly blockIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly configuration: Maybe<DocumentationItemConfiguration>;
 };
 
 type DocumentationItemConfiguration = {
@@ -599,13 +599,13 @@ type Query_documentationItemArgs = {
   firstPageSlug: Maybe<StringQueryOperatorInput>;
   parentGroupId: Maybe<StringQueryOperatorInput>;
   parentGroupChain: Maybe<StringQueryOperatorInput>;
+  title: Maybe<StringQueryOperatorInput>;
+  blockIds: Maybe<StringQueryOperatorInput>;
+  configuration: Maybe<DocumentationItemConfigurationFilterInput>;
   subpageIds: Maybe<StringQueryOperatorInput>;
   subgroupIds: Maybe<StringQueryOperatorInput>;
   subitemIds: Maybe<StringQueryOperatorInput>;
-  title: Maybe<StringQueryOperatorInput>;
   isRoot: Maybe<BooleanQueryOperatorInput>;
-  blockIds: Maybe<StringQueryOperatorInput>;
-  configuration: Maybe<DocumentationItemConfigurationFilterInput>;
 };
 
 
@@ -2407,13 +2407,13 @@ type DocumentationItemFieldsEnum =
   | 'firstPageSlug'
   | 'parentGroupId'
   | 'parentGroupChain'
+  | 'title'
+  | 'blockIds'
+  | 'configuration.showSidebar'
   | 'subpageIds'
   | 'subgroupIds'
   | 'subitemIds'
-  | 'title'
-  | 'isRoot'
-  | 'blockIds'
-  | 'configuration.showSidebar';
+  | 'isRoot';
 
 type DocumentationItemGroupConnection = {
   readonly totalCount: Scalars['Int'];
@@ -2466,13 +2466,13 @@ type DocumentationItemFilterInput = {
   readonly firstPageSlug: Maybe<StringQueryOperatorInput>;
   readonly parentGroupId: Maybe<StringQueryOperatorInput>;
   readonly parentGroupChain: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly blockIds: Maybe<StringQueryOperatorInput>;
+  readonly configuration: Maybe<DocumentationItemConfigurationFilterInput>;
   readonly subpageIds: Maybe<StringQueryOperatorInput>;
   readonly subgroupIds: Maybe<StringQueryOperatorInput>;
   readonly subitemIds: Maybe<StringQueryOperatorInput>;
-  readonly title: Maybe<StringQueryOperatorInput>;
   readonly isRoot: Maybe<BooleanQueryOperatorInput>;
-  readonly blockIds: Maybe<StringQueryOperatorInput>;
-  readonly configuration: Maybe<DocumentationItemConfigurationFilterInput>;
 };
 
 type DocumentationItemSortInput = {
@@ -2690,24 +2690,24 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'isRoot' | 'subitemIds' | 'subpageIds' | 'subgroupIds' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
-
 type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'firstPageSlug' | 'blockIds' | 'isRoot' | 'parentGroupChain' | 'parentGroupId' | 'subgroupIds' | 'subitemIds' | 'subpageIds'>> } };
 
-type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'isRoot' | 'subitemIds' | 'subpageIds' | 'subgroupIds' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
 
 type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation'>> };
+
+type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
 
 }

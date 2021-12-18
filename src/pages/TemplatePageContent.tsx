@@ -30,7 +30,7 @@ function TemplatePageContent(props: any) {
     <div id="main-wrapper" key="content">
       <div id="content" role="main">
         <Topbar pageId={page.id} />
-        {page.configuration!.showSidebar ? <Sidebar /> : null}
+        {page.configuration!.showSidebar ? <Sidebar pageId={page.id} /> : null}
         <div className={`docs-content ${!page.configuration!.showSidebar ? "fullscreen" : ""}`}>
 
           {/* page_body_structure_title */}

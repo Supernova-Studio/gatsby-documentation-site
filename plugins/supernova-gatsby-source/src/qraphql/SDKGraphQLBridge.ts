@@ -14,6 +14,9 @@ import { Documentation } from "@supernova-studio/supernova-sdk/build/main/sdk/sr
 import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationConfiguration"
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
+import { DocumentationPageBlock } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPageBlock"
+import { keys } from "lodash"
+import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
 
 
@@ -26,14 +29,16 @@ export class SDKGraphQLBridge {
 
   version: DesignSystemVersion
   documentation: Documentation
-  convertor: SDKGraphQLObjectConvertor
+  itemConvertor: SDKGraphQLObjectConvertor
+  docBlockConvertor: SDKGraphQLDocBlockConvertor
 
   // --- Constructor
 
   constructor(version: DesignSystemVersion, documentation: Documentation) {
     this.version = version
     this.documentation = documentation
-    this.convertor = new SDKGraphQLObjectConvertor()
+    this.itemConvertor = new SDKGraphQLObjectConvertor()
+    this.docBlockConvertor = new SDKGraphQLDocBlockConvertor()
   }
 
   // --- Data Bridge
@@ -47,7 +52,28 @@ export class SDKGraphQLBridge {
     let pages = await this.documentation.pages()
     return {
       sdkObjects: pages,
-      graphQLNodes: this.convertor.documentationPages(groups, pages)
+      graphQLNodes: this.itemConvertor.documentationPages(groups, pages)
+    }
+  }
+
+  /** Build and convert SDK documentation blocks */
+  async documentationBlocks(pages: Array<DocumentationPage>): Promise<{
+    sdkObjects: Array<DocumentationPageBlock>
+    graphQLNodes: Array<any>
+  }> {
+
+    let blocks: Array<DocumentationPageBlock> = []
+    let graphQLNodes: Array<any> = []
+
+    for (let page of pages) {
+      let pageBlocks = this.docBlockConvertor.flattenedBlocksOfPage(page)
+      let graphQLBlocks = this.docBlockConvertor.documentationPageBlocks(page)
+      blocks = pageBlocks.concat(blocks)
+      graphQLNodes = graphQLBlocks.concat(graphQLNodes)
+    }
+    return {
+      sdkObjects: blocks,
+      graphQLNodes: graphQLNodes
     }
   }
 
@@ -60,7 +86,7 @@ export class SDKGraphQLBridge {
     let groups = await this.documentation.groups()
     return {
       sdkObjects: groups,
-      graphQLNodes: this.convertor.documentationGroups(groups)
+      graphQLNodes: this.itemConvertor.documentationGroups(groups)
     }
   }
 
@@ -72,7 +98,7 @@ export class SDKGraphQLBridge {
     let configuration = this.documentation.settings
     return {
       sdkObject: configuration,
-      graphQLNode: this.convertor.documentationConfiguration(configuration)
+      graphQLNode: this.itemConvertor.documentationConfiguration(configuration)
     }
   }
 }

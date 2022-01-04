@@ -15,16 +15,17 @@ import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sd
 
 import crypto from 'crypto'
 import { UtilsUrls } from "./convenience/UtilsUrls"
+import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Definitions
 
-type NodeInternals = {
+export type NodeInternals = {
   type: string,
   contentDigest: string | null
 }
 
-const PARENT_SOURCE: string = "__SOURCE__"
+export const PARENT_SOURCE: string = "__SOURCE__"
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -41,7 +42,7 @@ export class SDKGraphQLObjectConvertor {
       const pageNode = {
         id: page.persistentId,
         parent: PARENT_SOURCE,
-        internal: this.nodeInternals("DocumentationItem"),
+        internal: SDKGraphQLObjectConvertor.nodeInternals("DocumentationItem"),
         children: [],
         itemType: page.type,
 
@@ -56,11 +57,17 @@ export class SDKGraphQLObjectConvertor {
           showSidebar: true 
         }
       }
-      pageNode.internal.contentDigest = this.nodeDigest(pageNode)
+      pageNode.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(pageNode)
       graphQLNodes.push(pageNode)
     }
 
     return graphQLNodes
+  }
+
+  documentationBlocksOfPage(page: DocumentationPage): Array<any> {
+
+    let convertor = new SDKGraphQLDocBlockConvertor()
+    return convertor.documentationPageBlocks(page)
   }
 
   documentationGroups(sdkGroups: Array<DocumentationGroup>): Array<any> {
@@ -70,7 +77,7 @@ export class SDKGraphQLObjectConvertor {
       const pageNode = {
         id: group.persistentId,
         parent: PARENT_SOURCE,
-        internal: this.nodeInternals("DocumentationItem"),
+        internal: SDKGraphQLObjectConvertor.nodeInternals("DocumentationItem"),
         children: [],
         itemType: group.type,
       
@@ -86,7 +93,7 @@ export class SDKGraphQLObjectConvertor {
         title: group.title,
         isRoot: group.isRoot
       }
-      pageNode.internal.contentDigest = this.nodeDigest(pageNode)
+      pageNode.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(pageNode)
       graphQLNodes.push(pageNode)
     }
 
@@ -98,27 +105,27 @@ export class SDKGraphQLObjectConvertor {
     let configurationNode = {
       id: "configuration",
       parent: PARENT_SOURCE,
-      internal: this.nodeInternals("DocumentationConfiguration"),
+      internal: SDKGraphQLObjectConvertor.nodeInternals("DocumentationConfiguration"),
       children: [],
       tabbedNavigation: sdkConfiguration.tabbedNavigation,
       storybookError: sdkConfiguration.storybookError,
       packageJson: sdkConfiguration.packageJson
     }
 
-    configurationNode.internal.contentDigest = this.nodeDigest(configurationNode)
+    configurationNode.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(configurationNode)
     return configurationNode
   }
 
   // --- Convenience
 
-  nodeInternals(type: string): NodeInternals {
+  static nodeInternals(type: string): NodeInternals {
     return {
       type: type,
       contentDigest: null
     }
   }
 
-  nodeDigest(node: Object): string {
+  static nodeDigest(node: Object): string {
     let content = JSON.stringify(node)
     return crypto.createHash(`md5`).update(content).digest(`hex`)
   }

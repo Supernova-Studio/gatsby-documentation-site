@@ -9,12 +9,11 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryAllGroups from "./query_allGroups"
 
-const QueryRootGroup = (): GatsbyTypes.DocumentationItem | null => {
+const QueryRootGroup = (): SupernovaTypes.DocumentationGroup | null => {
   let groups = QueryAllGroups()
-  console.log("groups")
-  console.log(groups)
 
   // Find the group we are looking for
   for (let group of groups) {

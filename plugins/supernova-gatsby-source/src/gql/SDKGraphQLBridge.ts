@@ -15,6 +15,7 @@ import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/buil
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 import { DocumentationPageBlock } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPageBlock"
+import { SupernovaTypes } from "../gql_types/SupernovaTypes"
 import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
 

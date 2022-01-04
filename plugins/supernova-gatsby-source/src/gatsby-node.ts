@@ -22,7 +22,7 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
   // Create Supernova instance, connect it and create data bridge
   let instance = new Supernova(pluginOptions.apiToken, null, null)
   let designSystem = await instance.designSystem(pluginOptions.designSystemId)
-  console.log(designSystem)
+  
   let version = await instance.designSystemVersion(pluginOptions.designSystemId, pluginOptions.designSystemVersionId)
   if (!version) {
     throw Error("Unable to fetch design system version, please provide connect api key, documentation and version id")

@@ -9,9 +9,10 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryAllGroups from "./query_allGroups"
 
-const QueryGroupById = (groupId: string): GatsbyTypes.DocumentationItem | null => {
+const QueryGroupById = (groupId: string): SupernovaTypes.DocumentationGroup | null => {
   let groups = QueryAllGroups()
   for (let group of groups) {
     if (group.id === groupId) {

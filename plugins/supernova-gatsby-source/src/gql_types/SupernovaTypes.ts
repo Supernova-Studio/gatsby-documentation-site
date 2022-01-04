@@ -1,4 +1,4 @@
-declare namespace SupernovaTypes {
+export declare namespace SupernovaTypes {
   export enum TokenType {
     Color = "Color",
     Typography = "Typography",
@@ -177,11 +177,8 @@ declare namespace SupernovaTypes {
 
   export type GraphQLNode = {
     id: string
-    parent: string
-    internal: {
-      type: string
-      contentDigest: string | null
-    }
+    parent: any
+    internal: any
     children: Array<any>
   }
 
@@ -191,7 +188,11 @@ declare namespace SupernovaTypes {
       header: DocumentationItemHeader
       showSidebar: boolean
     }
-    itemType: DocumentationItemType
+    itemType: DocumentationItemType,
+    slug: string,
+    firstPageSlug: string | null, // Note: For page, first page slug is always the page slug itself
+    parentGroupId: string | null,
+    parentGroupChain: Array<string>,
   }
 
   export type DocumentationItemHeader = {
@@ -216,10 +217,6 @@ declare namespace SupernovaTypes {
   }
 
   export type DocumentationPage = DocumentationItem & {
-    slug: string,
-    firstPageSlug: string, // Note: For page, first page slug is always the page slug itself
-    parentGroupId: string | null,
-    parentGroupChain: Array<string>,
     blockIds: Array<string>
   }
 

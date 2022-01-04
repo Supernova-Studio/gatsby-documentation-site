@@ -9,9 +9,10 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryAllPages from "./query_allPages"
 
-const QueryPageBySlug = (slug: string): GatsbyTypes.DocumentationItem | null => {
+const QueryPageBySlug = (slug: string): SupernovaTypes.DocumentationPage | null => {
   let pages = QueryAllPages()
   for (let page of pages) {
     if (page.slug === slug) {

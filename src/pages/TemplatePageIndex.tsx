@@ -21,7 +21,6 @@ class TemplatePageIndex extends React.Component {
   render() {
 
     const pages = get(this, 'props.data.allDocumentationItem.nodes') as Array<GatsbyTypes.DocumentationItem>
-    console.log(pages)
 
     return (
       <div>Index page. Here is all generated pages:

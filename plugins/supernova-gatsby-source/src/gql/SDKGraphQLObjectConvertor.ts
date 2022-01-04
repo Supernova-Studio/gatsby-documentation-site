@@ -15,6 +15,7 @@ import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/s
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 
 import crypto from 'crypto'
+import { SupernovaTypes } from "../gql_types/SupernovaTypes"
 import { UtilsUrls } from "./convenience/UtilsUrls"
 
 

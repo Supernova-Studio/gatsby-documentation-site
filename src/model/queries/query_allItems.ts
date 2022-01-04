@@ -10,12 +10,22 @@
 // MARK: - Imports
 
 import { useStaticQuery, graphql } from "gatsby";
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 
-const QueryAllItems = (): Array<GatsbyTypes.DocumentationItem> => {
+const QueryAllItems = (): Array<SupernovaTypes.DocumentationItem> => {
   const data = useStaticQuery<GatsbyTypes.QueryAllItemsQuery>(graphql`
     query QueryAllItems {
       allDocumentationItem {
         nodes {
+            parent {
+              id
+            }
+            internal {
+              contentDigest
+            }
+            children {
+              id
+            }
             id
             slug
             title
@@ -28,12 +38,13 @@ const QueryAllItems = (): Array<GatsbyTypes.DocumentationItem> => {
             subgroupIds
             subitemIds
             subpageIds
+
         }
       }
     }
   `);
 
-  return data.allDocumentationItem.nodes as Array<GatsbyTypes.DocumentationItem>
+  return data.allDocumentationItem.nodes as any
 };
 
 export default QueryAllItems;

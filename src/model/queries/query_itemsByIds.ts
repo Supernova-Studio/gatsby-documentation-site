@@ -9,12 +9,13 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryAllItems from "./query_allItems"
 
-const QueryItemsByIds = (ids: Array<string>): Array<GatsbyTypes.DocumentationItem> => {
+const QueryItemsByIds = (ids: Array<string>): Array<SupernovaTypes.DocumentationItem> => {
  
   const docItems = QueryAllItems()
-  let items: Array<GatsbyTypes.DocumentationItem> = []
+  let items: Array<SupernovaTypes.DocumentationItem> = []
   for (let id of ids) {
     let index = docItems.findIndex(i => i.id === id)
     if (index) {

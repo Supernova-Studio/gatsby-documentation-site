@@ -2964,24 +2964,33 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'isRoot' | 'subitemIds' | 'subpageIds' | 'subgroupIds' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
-
 type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
+type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'title' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain'>
+      & { readonly parent: Maybe<Pick<File, 'id'> | Pick<Directory, 'id'> | Pick<Site, 'id'> | Pick<SiteFunction, 'id'> | Pick<SitePage, 'id'> | Pick<SitePlugin, 'id'> | Pick<SiteBuildMetadata, 'id'> | Pick<DocumentationItem, 'id'> | Pick<DocumentationConfiguration, 'id'> | Pick<DocumentationBlock, 'id'>>, readonly internal: Pick<Internal, 'contentDigest'>, readonly children: ReadonlyArray<Pick<File, 'id'> | Pick<Directory, 'id'> | Pick<Site, 'id'> | Pick<SiteFunction, 'id'> | Pick<SitePage, 'id'> | Pick<SitePlugin, 'id'> | Pick<SiteBuildMetadata, 'id'> | Pick<DocumentationItem, 'id'> | Pick<DocumentationConfiguration, 'id'> | Pick<DocumentationBlock, 'id'>> }
+    )> } };
+
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'title' | 'itemType' | 'isRoot' | 'subitemIds' | 'subpageIds' | 'subgroupIds' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain'>
+      & { readonly parent: Maybe<Pick<File, 'id'> | Pick<Directory, 'id'> | Pick<Site, 'id'> | Pick<SiteFunction, 'id'> | Pick<SitePage, 'id'> | Pick<SitePlugin, 'id'> | Pick<SiteBuildMetadata, 'id'> | Pick<DocumentationItem, 'id'> | Pick<DocumentationConfiguration, 'id'> | Pick<DocumentationBlock, 'id'>>, readonly internal: Pick<Internal, 'contentDigest'>, readonly children: ReadonlyArray<Pick<File, 'id'> | Pick<Directory, 'id'> | Pick<Site, 'id'> | Pick<SiteFunction, 'id'> | Pick<SitePage, 'id'> | Pick<SitePlugin, 'id'> | Pick<SiteBuildMetadata, 'id'> | Pick<DocumentationItem, 'id'> | Pick<DocumentationConfiguration, 'id'> | Pick<DocumentationBlock, 'id'>> }
+    )> } };
+
+type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'firstPageSlug' | 'blockIds' | 'isRoot' | 'parentGroupChain' | 'parentGroupId' | 'subgroupIds' | 'subitemIds' | 'subpageIds'>
+      & { readonly parent: Maybe<Pick<File, 'id'> | Pick<Directory, 'id'> | Pick<Site, 'id'> | Pick<SiteFunction, 'id'> | Pick<SitePage, 'id'> | Pick<SitePlugin, 'id'> | Pick<SiteBuildMetadata, 'id'> | Pick<DocumentationItem, 'id'> | Pick<DocumentationConfiguration, 'id'> | Pick<DocumentationBlock, 'id'>>, readonly internal: Pick<Internal, 'contentDigest'>, readonly children: ReadonlyArray<Pick<File, 'id'> | Pick<Directory, 'id'> | Pick<Site, 'id'> | Pick<SiteFunction, 'id'> | Pick<SitePage, 'id'> | Pick<SitePlugin, 'id'> | Pick<SiteBuildMetadata, 'id'> | Pick<DocumentationItem, 'id'> | Pick<DocumentationConfiguration, 'id'> | Pick<DocumentationBlock, 'id'>> }
+    )> } };
 
 type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation'>> };
-
-type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'firstPageSlug' | 'blockIds' | 'isRoot' | 'parentGroupChain' | 'parentGroupId' | 'subgroupIds' | 'subitemIds' | 'subpageIds'>> } };
 
 }

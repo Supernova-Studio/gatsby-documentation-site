@@ -10,12 +10,12 @@
 // MARK: - Imports
 
 import { useStaticQuery, graphql } from "gatsby";
-
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Query
 
-const QueryConfiguration = (): GatsbyTypes.DocumentationConfiguration => {
+const QueryConfiguration = (): SupernovaTypes.DocumentationConfiguration => {
   const data = useStaticQuery<GatsbyTypes.ConfigurationQuery>(graphql`
     query Configuration {
         documentationConfiguration {
@@ -24,7 +24,7 @@ const QueryConfiguration = (): GatsbyTypes.DocumentationConfiguration => {
     }
   `);
 
-  return data.documentationConfiguration as GatsbyTypes.DocumentationConfiguration
+  return data.documentationConfiguration as SupernovaTypes.DocumentationConfiguration
 };
 
 export default QueryConfiguration;

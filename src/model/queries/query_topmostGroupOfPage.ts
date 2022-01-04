@@ -9,9 +9,10 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryGroupById from "./query_groupById"
 
-const QueryTopmostGroupOfPage = (page: GatsbyTypes.DocumentationItem): GatsbyTypes.DocumentationItem | null => {
+const QueryTopmostGroupOfPage = (page: SupernovaTypes.DocumentationPage): SupernovaTypes.DocumentationGroup | null => {
     if (page.parentGroupChain && page.parentGroupChain.length > 1) {
         // We are not interested in root, but rather the group one below. The root is only virtual group that contains everything
         let parentId = page.parentGroupChain[page.parentGroupChain.length - 2]

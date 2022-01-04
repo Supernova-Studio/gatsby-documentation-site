@@ -17,7 +17,8 @@
       "strict": true,
       "typeRoots": [
         "./node_modules/@types",
-        "./types"
+        "./types",
+        "./plugins/supernova-gatsby-source"
       ],
       "noEmit": false,
       "noEmitOnError": true,
@@ -25,7 +26,8 @@
     },
     "include": [
       "./src/**/*",
-      "./types/*"
+      "./types/*",
+      "./plugins/supernova-gatsby-source/*"
     ],
     "exclude": [
       "./node_modules/*"

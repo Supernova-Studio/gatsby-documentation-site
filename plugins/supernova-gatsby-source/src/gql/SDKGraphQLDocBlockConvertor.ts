@@ -44,6 +44,7 @@ import { Size } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/s
 import { DocumentationHeadingType } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/enums/SDKDocumentationHeadingType"
 import { DocumentationCalloutType } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/enums/SDKDocumentationCalloutType"
 import { DocumentationCustomBlockPropertyType } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/custom_blocks/SDKDocumentationCustomBlockProperty"
+import { SupernovaTypes } from "../gql_types/SupernovaTypes"
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -61,7 +62,6 @@ export class SDKGraphQLDocBlockConvertor {
       graphQLNodes.push(this.convertBlockToGraphQL(block))
     }
 
-    console.log(graphQLNodes)
     return graphQLNodes
   }
 

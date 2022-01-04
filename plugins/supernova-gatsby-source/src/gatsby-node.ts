@@ -11,7 +11,7 @@
 
 import { Supernova } from '@supernova-studio/supernova-sdk'
 import { SupernovaPluginOptions } from './types'
-import { SDKGraphQLBridge } from './qraphql/SDKGraphQLBridge'
+import { SDKGraphQLBridge } from './gql/SDKGraphQLBridge'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

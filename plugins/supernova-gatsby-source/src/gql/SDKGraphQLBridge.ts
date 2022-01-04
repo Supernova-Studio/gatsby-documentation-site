@@ -15,7 +15,7 @@ import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/buil
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 import { DocumentationPageBlock } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPageBlock"
-import { keys } from "lodash"
+import { SNDocumentationPage } from "../gql_types/SDKDataTypesDocumentation"
 import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
 
@@ -46,7 +46,7 @@ export class SDKGraphQLBridge {
   /** Build and convert SDK documentation pages */
   async documentationPages(groups: Array<DocumentationGroup>): Promise<{
     sdkObjects: Array<DocumentationPage>
-    graphQLNodes: Array<any>
+    graphQLNodes: Array<SNDocumentationPage>
   }> {
 
     let pages = await this.documentation.pages()

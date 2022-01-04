@@ -348,10 +348,24 @@ type DocumentationItem = Node & {
   readonly subgroupIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly subitemIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly isRoot: Maybe<Scalars['Boolean']>;
+  readonly groupBehavior: Maybe<Scalars['String']>;
 };
 
 type DocumentationItemConfiguration = {
   readonly showSidebar: Maybe<Scalars['Boolean']>;
+  readonly header: Maybe<DocumentationItemConfigurationHeader>;
+};
+
+type DocumentationItemConfigurationHeader = {
+  readonly backgroundImageAssetUrl: Maybe<Scalars['String']>;
+  readonly backgroundImageAssetId: Maybe<Scalars['String']>;
+  readonly backgroundImageScaleType: Maybe<Scalars['String']>;
+  readonly description: Maybe<Scalars['String']>;
+  readonly alignment: Maybe<Scalars['String']>;
+  readonly foregroundColor: Maybe<Scalars['String']>;
+  readonly showBackgroundOverlay: Maybe<Scalars['Boolean']>;
+  readonly showCoverText: Maybe<Scalars['Boolean']>;
+  readonly minHeight: Maybe<Scalars['Int']>;
 };
 
 type DocumentationConfiguration = Node & {
@@ -371,62 +385,11 @@ type DocumentationBlock = Node & {
   readonly beginsTypeChain: Maybe<Scalars['Boolean']>;
   readonly endsTypeChain: Maybe<Scalars['Boolean']>;
   readonly configuration: Maybe<DocumentationBlockConfiguration>;
-  readonly groupId: Maybe<Scalars['String']>;
-  readonly showNestedGroup: Maybe<Scalars['Boolean']>;
-  readonly text: Maybe<DocumentationBlockText>;
-  readonly calloutType: Maybe<Scalars['String']>;
-  readonly headingType: Maybe<Scalars['Int']>;
-  readonly assets: Maybe<ReadonlyArray<Maybe<DocumentationBlockAssets>>>;
-  readonly properties: Maybe<DocumentationBlockProperties>;
-  readonly url: Maybe<Scalars['String']>;
-  readonly size: Maybe<DocumentationBlockSize>;
-  readonly caption: Maybe<Scalars['String']>;
-  readonly codeLanguage: Maybe<Scalars['String']>;
-  readonly alignment: Maybe<Scalars['String']>;
-  readonly key: Maybe<Scalars['String']>;
-  readonly backgroundColor: Maybe<Scalars['String']>;
-  readonly showCode: Maybe<Scalars['Boolean']>;
-  readonly code: Maybe<Scalars['String']>;
-  readonly packageJSON: Maybe<Scalars['String']>;
-  readonly height: Maybe<Scalars['Int']>;
-  readonly sandboxData: Maybe<Scalars['String']>;
-  readonly sandboxType: Maybe<Scalars['String']>;
-  readonly tokenIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly blockType: Maybe<Scalars['String']>;
 };
 
 type DocumentationBlockConfiguration = {
   readonly showSidebar: Maybe<Scalars['Boolean']>;
-};
-
-type DocumentationBlockText = {
-  readonly spans: Maybe<ReadonlyArray<Maybe<DocumentationBlockTextSpans>>>;
-};
-
-type DocumentationBlockTextSpans = {
-  readonly text: Maybe<Scalars['String']>;
-  readonly attributes: Maybe<ReadonlyArray<Maybe<DocumentationBlockTextSpansAttributes>>>;
-};
-
-type DocumentationBlockTextSpansAttributes = {
-  readonly link: Maybe<Scalars['String']>;
-  readonly type: Maybe<Scalars['String']>;
-};
-
-type DocumentationBlockAssets = {
-  readonly assetId: Maybe<Scalars['String']>;
-  readonly backgroundColor: Maybe<Scalars['String']>;
-};
-
-type DocumentationBlockProperties = {
-  readonly color: Maybe<Scalars['String']>;
-  readonly alignment: Maybe<Scalars['String']>;
-  readonly layout: Maybe<Scalars['String']>;
-  readonly markdownUrl: Maybe<Scalars['String']>;
-};
-
-type DocumentationBlockSize = {
-  readonly width: Maybe<Scalars['Int']>;
-  readonly height: Maybe<Scalars['Int']>;
 };
 
 type Query = {
@@ -674,6 +637,7 @@ type Query_documentationItemArgs = {
   subgroupIds: Maybe<StringQueryOperatorInput>;
   subitemIds: Maybe<StringQueryOperatorInput>;
   isRoot: Maybe<BooleanQueryOperatorInput>;
+  groupBehavior: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -711,27 +675,7 @@ type Query_documentationBlockArgs = {
   beginsTypeChain: Maybe<BooleanQueryOperatorInput>;
   endsTypeChain: Maybe<BooleanQueryOperatorInput>;
   configuration: Maybe<DocumentationBlockConfigurationFilterInput>;
-  groupId: Maybe<StringQueryOperatorInput>;
-  showNestedGroup: Maybe<BooleanQueryOperatorInput>;
-  text: Maybe<DocumentationBlockTextFilterInput>;
-  calloutType: Maybe<StringQueryOperatorInput>;
-  headingType: Maybe<IntQueryOperatorInput>;
-  assets: Maybe<DocumentationBlockAssetsFilterListInput>;
-  properties: Maybe<DocumentationBlockPropertiesFilterInput>;
-  url: Maybe<StringQueryOperatorInput>;
-  size: Maybe<DocumentationBlockSizeFilterInput>;
-  caption: Maybe<StringQueryOperatorInput>;
-  codeLanguage: Maybe<StringQueryOperatorInput>;
-  alignment: Maybe<StringQueryOperatorInput>;
-  key: Maybe<StringQueryOperatorInput>;
-  backgroundColor: Maybe<StringQueryOperatorInput>;
-  showCode: Maybe<BooleanQueryOperatorInput>;
-  code: Maybe<StringQueryOperatorInput>;
-  packageJSON: Maybe<StringQueryOperatorInput>;
-  height: Maybe<IntQueryOperatorInput>;
-  sandboxData: Maybe<StringQueryOperatorInput>;
-  sandboxType: Maybe<StringQueryOperatorInput>;
-  tokenIds: Maybe<StringQueryOperatorInput>;
+  blockType: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -2376,6 +2320,19 @@ type SiteBuildMetadataSortInput = {
 
 type DocumentationItemConfigurationFilterInput = {
   readonly showSidebar: Maybe<BooleanQueryOperatorInput>;
+  readonly header: Maybe<DocumentationItemConfigurationHeaderFilterInput>;
+};
+
+type DocumentationItemConfigurationHeaderFilterInput = {
+  readonly backgroundImageAssetUrl: Maybe<StringQueryOperatorInput>;
+  readonly backgroundImageAssetId: Maybe<StringQueryOperatorInput>;
+  readonly backgroundImageScaleType: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly alignment: Maybe<StringQueryOperatorInput>;
+  readonly foregroundColor: Maybe<StringQueryOperatorInput>;
+  readonly showBackgroundOverlay: Maybe<BooleanQueryOperatorInput>;
+  readonly showCoverText: Maybe<BooleanQueryOperatorInput>;
+  readonly minHeight: Maybe<IntQueryOperatorInput>;
 };
 
 type DocumentationItemConnection = {
@@ -2518,10 +2475,20 @@ type DocumentationItemFieldsEnum =
   | 'title'
   | 'blockIds'
   | 'configuration.showSidebar'
+  | 'configuration.header.backgroundImageAssetUrl'
+  | 'configuration.header.backgroundImageAssetId'
+  | 'configuration.header.backgroundImageScaleType'
+  | 'configuration.header.description'
+  | 'configuration.header.alignment'
+  | 'configuration.header.foregroundColor'
+  | 'configuration.header.showBackgroundOverlay'
+  | 'configuration.header.showCoverText'
+  | 'configuration.header.minHeight'
   | 'subpageIds'
   | 'subgroupIds'
   | 'subitemIds'
-  | 'isRoot';
+  | 'isRoot'
+  | 'groupBehavior';
 
 type DocumentationItemGroupConnection = {
   readonly totalCount: Scalars['Int'];
@@ -2581,6 +2548,7 @@ type DocumentationItemFilterInput = {
   readonly subgroupIds: Maybe<StringQueryOperatorInput>;
   readonly subitemIds: Maybe<StringQueryOperatorInput>;
   readonly isRoot: Maybe<BooleanQueryOperatorInput>;
+  readonly groupBehavior: Maybe<StringQueryOperatorInput>;
 };
 
 type DocumentationItemSortInput = {
@@ -2782,49 +2750,6 @@ type DocumentationBlockConfigurationFilterInput = {
   readonly showSidebar: Maybe<BooleanQueryOperatorInput>;
 };
 
-type DocumentationBlockTextFilterInput = {
-  readonly spans: Maybe<DocumentationBlockTextSpansFilterListInput>;
-};
-
-type DocumentationBlockTextSpansFilterListInput = {
-  readonly elemMatch: Maybe<DocumentationBlockTextSpansFilterInput>;
-};
-
-type DocumentationBlockTextSpansFilterInput = {
-  readonly text: Maybe<StringQueryOperatorInput>;
-  readonly attributes: Maybe<DocumentationBlockTextSpansAttributesFilterListInput>;
-};
-
-type DocumentationBlockTextSpansAttributesFilterListInput = {
-  readonly elemMatch: Maybe<DocumentationBlockTextSpansAttributesFilterInput>;
-};
-
-type DocumentationBlockTextSpansAttributesFilterInput = {
-  readonly link: Maybe<StringQueryOperatorInput>;
-  readonly type: Maybe<StringQueryOperatorInput>;
-};
-
-type DocumentationBlockAssetsFilterListInput = {
-  readonly elemMatch: Maybe<DocumentationBlockAssetsFilterInput>;
-};
-
-type DocumentationBlockAssetsFilterInput = {
-  readonly assetId: Maybe<StringQueryOperatorInput>;
-  readonly backgroundColor: Maybe<StringQueryOperatorInput>;
-};
-
-type DocumentationBlockPropertiesFilterInput = {
-  readonly color: Maybe<StringQueryOperatorInput>;
-  readonly alignment: Maybe<StringQueryOperatorInput>;
-  readonly layout: Maybe<StringQueryOperatorInput>;
-  readonly markdownUrl: Maybe<StringQueryOperatorInput>;
-};
-
-type DocumentationBlockSizeFilterInput = {
-  readonly width: Maybe<IntQueryOperatorInput>;
-  readonly height: Maybe<IntQueryOperatorInput>;
-};
-
 type DocumentationBlockConnection = {
   readonly totalCount: Scalars['Int'];
   readonly edges: ReadonlyArray<DocumentationBlockEdge>;
@@ -2960,37 +2885,7 @@ type DocumentationBlockFieldsEnum =
   | 'beginsTypeChain'
   | 'endsTypeChain'
   | 'configuration.showSidebar'
-  | 'groupId'
-  | 'showNestedGroup'
-  | 'text.spans'
-  | 'text.spans.text'
-  | 'text.spans.attributes'
-  | 'text.spans.attributes.link'
-  | 'text.spans.attributes.type'
-  | 'calloutType'
-  | 'headingType'
-  | 'assets'
-  | 'assets.assetId'
-  | 'assets.backgroundColor'
-  | 'properties.color'
-  | 'properties.alignment'
-  | 'properties.layout'
-  | 'properties.markdownUrl'
-  | 'url'
-  | 'size.width'
-  | 'size.height'
-  | 'caption'
-  | 'codeLanguage'
-  | 'alignment'
-  | 'key'
-  | 'backgroundColor'
-  | 'showCode'
-  | 'code'
-  | 'packageJSON'
-  | 'height'
-  | 'sandboxData'
-  | 'sandboxType'
-  | 'tokenIds';
+  | 'blockType';
 
 type DocumentationBlockGroupConnection = {
   readonly totalCount: Scalars['Int'];
@@ -3041,27 +2936,7 @@ type DocumentationBlockFilterInput = {
   readonly beginsTypeChain: Maybe<BooleanQueryOperatorInput>;
   readonly endsTypeChain: Maybe<BooleanQueryOperatorInput>;
   readonly configuration: Maybe<DocumentationBlockConfigurationFilterInput>;
-  readonly groupId: Maybe<StringQueryOperatorInput>;
-  readonly showNestedGroup: Maybe<BooleanQueryOperatorInput>;
-  readonly text: Maybe<DocumentationBlockTextFilterInput>;
-  readonly calloutType: Maybe<StringQueryOperatorInput>;
-  readonly headingType: Maybe<IntQueryOperatorInput>;
-  readonly assets: Maybe<DocumentationBlockAssetsFilterListInput>;
-  readonly properties: Maybe<DocumentationBlockPropertiesFilterInput>;
-  readonly url: Maybe<StringQueryOperatorInput>;
-  readonly size: Maybe<DocumentationBlockSizeFilterInput>;
-  readonly caption: Maybe<StringQueryOperatorInput>;
-  readonly codeLanguage: Maybe<StringQueryOperatorInput>;
-  readonly alignment: Maybe<StringQueryOperatorInput>;
-  readonly key: Maybe<StringQueryOperatorInput>;
-  readonly backgroundColor: Maybe<StringQueryOperatorInput>;
-  readonly showCode: Maybe<BooleanQueryOperatorInput>;
-  readonly code: Maybe<StringQueryOperatorInput>;
-  readonly packageJSON: Maybe<StringQueryOperatorInput>;
-  readonly height: Maybe<IntQueryOperatorInput>;
-  readonly sandboxData: Maybe<StringQueryOperatorInput>;
-  readonly sandboxType: Maybe<StringQueryOperatorInput>;
-  readonly tokenIds: Maybe<StringQueryOperatorInput>;
+  readonly blockType: Maybe<StringQueryOperatorInput>;
 };
 
 type DocumentationBlockSortInput = {
@@ -3089,11 +2964,6 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation'>> };
-
 type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3103,6 +2973,11 @@ type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType' | 'parentGroupId' | 'parentGroupChain' | 'firstPageSlug'>> } };
+
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation'>> };
 
 type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 

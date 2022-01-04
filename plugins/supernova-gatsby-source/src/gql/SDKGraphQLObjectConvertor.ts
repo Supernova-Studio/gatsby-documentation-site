@@ -9,13 +9,14 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import { DocumentationItemHeader } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/configuration/SDKDocumentationItemHeader"
 import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationConfiguration"
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 
 import crypto from 'crypto'
 import { UtilsUrls } from "./convenience/UtilsUrls"
-import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
+
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Definitions
@@ -35,10 +36,11 @@ export class SDKGraphQLObjectConvertor {
 
   // --- Documentation objects
 
-  documentationPages(sdkGroups: Array<DocumentationGroup>, sdkPages: Array<DocumentationPage>): Array<any> {
+  documentationPages(sdkGroups: Array<DocumentationGroup>, sdkPages: Array<DocumentationPage>): Array<SupernovaTypes.DocumentationPage> {
 
-    let graphQLNodes: Array<any> = []
+    let graphQLNodes: Array<SupernovaTypes.DocumentationPage> = []
     for (let page of sdkPages) {
+      let header = page.configuration.header
       const pageNode = {
         id: page.persistentId,
         parent: PARENT_SOURCE,
@@ -53,8 +55,9 @@ export class SDKGraphQLObjectConvertor {
 
         title: page.title,
         blockIds: page.blocks.map(b => b.id),
-        configuration: { // TODO
-          showSidebar: true 
+        configuration: {
+          showSidebar: page.configuration.showSidebar,
+          header: this.documentationItemHeader(header)
         }
       }
       pageNode.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(pageNode)
@@ -64,23 +67,18 @@ export class SDKGraphQLObjectConvertor {
     return graphQLNodes
   }
 
-  documentationBlocksOfPage(page: DocumentationPage): Array<any> {
+  documentationGroups(sdkGroups: Array<DocumentationGroup>): Array<SupernovaTypes.DocumentationGroup> {
 
-    let convertor = new SDKGraphQLDocBlockConvertor()
-    return convertor.documentationPageBlocks(page)
-  }
-
-  documentationGroups(sdkGroups: Array<DocumentationGroup>): Array<any> {
-
-    let graphQLNodes: Array<any> = []
+    let graphQLNodes: Array<SupernovaTypes.DocumentationGroup> = []
     for (let group of sdkGroups) {
-      const pageNode = {
+      let header = group.configuration.header
+      const groupNode = {
         id: group.persistentId,
         parent: PARENT_SOURCE,
         internal: SDKGraphQLObjectConvertor.nodeInternals("DocumentationItem"),
         children: [],
         itemType: group.type,
-      
+
         slug: UtilsUrls.documentationObjectSlug(group),
         firstPageSlug: UtilsUrls.firstPageObjectSlug(group),
         parentGroupId: group.parent?.id ?? null,
@@ -91,16 +89,37 @@ export class SDKGraphQLObjectConvertor {
         subitemIds: group.childrenIds,
 
         title: group.title,
-        isRoot: group.isRoot
+        isRoot: group.isRoot,
+        groupBehavior: group.groupBehavior,
+        configuration: {
+          showSidebar: group.configuration.showSidebar,
+          header: this.documentationItemHeader(header)
+        }
       }
-      pageNode.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(pageNode)
-      graphQLNodes.push(pageNode)
+      groupNode.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(groupNode)
+      graphQLNodes.push(groupNode)
     }
 
     return graphQLNodes
   }
 
-  documentationConfiguration(sdkConfiguration: DocumentationConfiguration): any {
+  documentationItemHeader(header: DocumentationItemHeader): SupernovaTypes.DocumentationItemHeader {
+
+    return {
+      backgroundImageAssetUrl: header.backgroundImageAssetUrl,
+      backgroundImageAssetId: header.backgroundImageAssetId,
+      backgroundImageScaleType: header.backgroundImageScaleType,
+      description: header.description,
+      alignment: header.alignment,
+      foregroundColor: header.foregroundColor?.value ?? null,
+      backgroundColor: header.backgroundColor?.value ?? null,
+      showBackgroundOverlay: header.showBackgroundOverlay,
+      showCoverText: header.showCoverText,
+      minHeight: header.minHeight,
+    }
+  }
+
+  documentationConfiguration(sdkConfiguration: DocumentationConfiguration): SupernovaTypes.DocumentationConfiguration {
 
     let configurationNode = {
       id: "configuration",

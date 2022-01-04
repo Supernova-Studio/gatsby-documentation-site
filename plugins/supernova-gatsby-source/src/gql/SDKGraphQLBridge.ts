@@ -15,7 +15,6 @@ import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/buil
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 import { DocumentationPageBlock } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPageBlock"
-import { SNDocumentationPage } from "../gql_types/SDKDataTypesDocumentation"
 import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
 
@@ -46,7 +45,7 @@ export class SDKGraphQLBridge {
   /** Build and convert SDK documentation pages */
   async documentationPages(groups: Array<DocumentationGroup>): Promise<{
     sdkObjects: Array<DocumentationPage>
-    graphQLNodes: Array<SNDocumentationPage>
+    graphQLNodes: Array<SupernovaTypes.DocumentationPage>
   }> {
 
     let pages = await this.documentation.pages()
@@ -59,11 +58,11 @@ export class SDKGraphQLBridge {
   /** Build and convert SDK documentation blocks */
   async documentationBlocks(pages: Array<DocumentationPage>): Promise<{
     sdkObjects: Array<DocumentationPageBlock>
-    graphQLNodes: Array<any>
+    graphQLNodes: Array<SupernovaTypes.DocumentationPageBlock>
   }> {
 
     let blocks: Array<DocumentationPageBlock> = []
-    let graphQLNodes: Array<any> = []
+    let graphQLNodes: Array<SupernovaTypes.DocumentationPageBlock> = []
 
     for (let page of pages) {
       let pageBlocks = this.docBlockConvertor.flattenedBlocksOfPage(page)
@@ -80,7 +79,7 @@ export class SDKGraphQLBridge {
   /** Build and convert SDK documentation groups */
   async documentationGroups(): Promise<{
     sdkObjects: Array<DocumentationGroup>
-    graphQLNodes: Array<any>
+    graphQLNodes: Array<SupernovaTypes.DocumentationGroup>
   }> {
 
     let groups = await this.documentation.groups()
@@ -93,7 +92,7 @@ export class SDKGraphQLBridge {
   /** Build and convert SDK documentation configuration */
   async documentationConfiguration(): Promise<{
     sdkObject: DocumentationConfiguration
-    graphQLNode: any
+    graphQLNode: SupernovaTypes.DocumentationConfiguration
   }> {
     let configuration = this.documentation.settings
     return {

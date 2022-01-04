@@ -20,7 +20,7 @@ import { SDKGraphQLBridge } from './gql/SDKGraphQLBridge'
 exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: SupernovaPluginOptions) => {
 
   // Create Supernova instance, connect it and create data bridge
-  let instance = new Supernova(pluginOptions.apiToken)
+  let instance = new Supernova(pluginOptions.apiToken, null, null)
   let designSystem = await instance.designSystem(pluginOptions.designSystemId)
   console.log(designSystem)
   let version = await instance.designSystemVersion(pluginOptions.designSystemId, pluginOptions.designSystemVersionId)

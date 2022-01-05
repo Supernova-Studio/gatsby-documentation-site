@@ -12,15 +12,15 @@
 import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryAllGroups from "./query_allGroups"
 
-const QueryGroupById = (groupId: string): SupernovaTypes.DocumentationGroup | null => {
+const QueryGroupById = (groupId: string): SupernovaTypes.DocumentationGroup => {
   let groups = QueryAllGroups()
   for (let group of groups) {
-    if (group.id === groupId) {
+    if (group.id === groupId || group.persistentId === groupId) {
       return group
     }
   }
 
-  return null
+  throw new Error(`Unable to query group id ${groupId}`)
 };
 
 export default QueryGroupById;

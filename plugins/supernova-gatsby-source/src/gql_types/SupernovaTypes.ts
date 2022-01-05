@@ -177,12 +177,15 @@ export declare namespace SupernovaTypes {
 
   export type GraphQLNode = {
     id: string
+    /* Internal properties that are not exposed
     parent: any
     internal: any
     children: Array<any>
+    */ 
   }
 
   export type DocumentationItem = GraphQLNode & {
+    persistentId: string
     title: string
     configuration: {
       header: DocumentationItemHeader
@@ -218,17 +221,6 @@ export declare namespace SupernovaTypes {
 
   export type DocumentationPage = DocumentationItem & {
     blockIds: Array<string>
-  }
-
-  export type DocumentationPageStyle = {
-    title: string
-    textAlignment: HeaderAlignment
-    description: string | null
-    backgroundColor: string | null
-    backgroundImage: string | null
-    headerHeight: number | null
-    hideSidebar: boolean
-    invertHeader: boolean
   }
 
   export type DocumentationConfiguration = {

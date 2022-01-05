@@ -16,6 +16,7 @@ import Sidebar from './components/structure/Sidebar'
 import Topbar from './components/structure/Topbar'
 import Head from './components/structure/Head'
 import useScript from '../model/hooks/hook_useScript'
+import Title from './components/structure/Title'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -32,9 +33,7 @@ function TemplatePageContent(props: any) {
         <Topbar pageId={page.id} />
         {page.configuration!.showSidebar ? <Sidebar pageId={page.id} /> : null}
         <div className={`docs-content ${!page.configuration!.showSidebar ? "fullscreen" : ""}`}>
-
-          {/* page_body_structure_title */}
-
+          <Title pageId={page.id} />
           <div className="container">
             <section id="section-content-page">
               <div className="tab-content" id="page-tab-content">

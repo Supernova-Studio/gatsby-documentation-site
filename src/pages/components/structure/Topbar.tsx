@@ -10,6 +10,7 @@
 // MARK: - Imports
 
 import React from "react"
+import { SupernovaTypes } from "../../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryConfiguration from "../../../model/queries/query_configuration"
 import QueryFirstPageOfGroup from "../../../model/queries/query_firstPageOfGroup"
 import QueryItemsByIds from "../../../model/queries/query_itemsByIds"
@@ -23,7 +24,7 @@ export default function Topbar(props: { pageId: string }) {
 
   const configuration = QueryConfiguration()
   const rootGroup = QueryRootGroup()
-  let rootChildren: GatsbyTypes.DocumentationItem[] = []
+  let rootChildren: SupernovaTypes.DocumentationItem[] = []
   if (rootGroup?.subitemIds) {
     rootChildren = QueryItemsByIds(rootGroup.subitemIds as string[])
   }
@@ -31,7 +32,7 @@ export default function Topbar(props: { pageId: string }) {
   const currentPage = QueryPageById(props.pageId)
   const topPage = QueryFirstPageOfGroup(rootGroup!.id)
   const logoSlug = topPage?.slug ?? null
-  let activeChild: GatsbyTypes.DocumentationItem | null = null
+  let activeChild: SupernovaTypes.DocumentationItem | null = null
   for (let child of rootChildren) {
     if (currentPage?.parentGroupChain?.indexOf(child.id) !== -1 || currentPage.id === child.id) {
       activeChild = child

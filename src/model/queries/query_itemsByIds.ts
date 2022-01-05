@@ -17,10 +17,11 @@ const QueryItemsByIds = (ids: Array<string>): Array<SupernovaTypes.Documentation
   const docItems = QueryAllItems()
   let items: Array<SupernovaTypes.DocumentationItem> = []
   for (let id of ids) {
-    let index = docItems.findIndex(i => i.id === id)
-    if (index) {
-      items.push(docItems[index])
+    let index = docItems.findIndex(i => i.id === id || i.persistentId === id)
+    if (!index) {
+      throw new Error(`Unable to bulk-fetch item id ${id}`)
     }
+    items.push(docItems[index])
   }
   return items
 };

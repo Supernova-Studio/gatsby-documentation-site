@@ -17,7 +17,13 @@
     },
     "author": "Jiri Trecak <jiri@supernova.io>, Supernova.io",
     "devDependencies": {
+        "tsc": "^2.0.3",
         "typescript": "^4.5.2",
-        "tsc": "^2.0.3"
+        "tsconfig-paths": "^3.9.0",
+        "tsconfig-paths-webpack-plugin": "^3.3.0",
+        "webpack": "^5.24.2",
+        "webpack-cli": "^4.5.0",
+        "webpack-node-externals": "^2.5.2",
+        "ts-loader": "^8.0.17"
     }
 }

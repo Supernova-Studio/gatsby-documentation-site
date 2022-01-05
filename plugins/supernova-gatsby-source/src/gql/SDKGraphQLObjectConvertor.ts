@@ -43,7 +43,8 @@ export class SDKGraphQLObjectConvertor {
     for (let page of sdkPages) {
       let header = page.configuration.header
       const pageNode = {
-        id: page.persistentId,
+        id: page.id,
+        persistentId: page.persistentId,
         parent: PARENT_SOURCE,
         internal: SDKGraphQLObjectConvertor.nodeInternals("DocumentationItem"),
         children: [],
@@ -74,7 +75,8 @@ export class SDKGraphQLObjectConvertor {
     for (let group of sdkGroups) {
       let header = group.configuration.header
       const groupNode = {
-        id: group.persistentId,
+        id: group.id,
+        persistentId: group.persistentId,
         parent: PARENT_SOURCE,
         internal: SDKGraphQLObjectConvertor.nodeInternals("DocumentationItem"),
         children: [],

@@ -12,10 +12,10 @@
 import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 import QueryAllPages from "./query_allPages"
 
-const QueryPageById = (pageId: string): SupernovaTypes.DocumentationItem => {
+const QueryPageById = (pageId: string): SupernovaTypes.DocumentationPage => {
   let pages = QueryAllPages()
   for (let page of pages) {
-    if (page.id === pageId) {
+    if (page.id === pageId || page.persistentId === pageId) {
       return page
     }
   }

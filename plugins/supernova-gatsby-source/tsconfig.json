@@ -5,6 +5,7 @@
         "dom",
         "es6"
       ],
+      "baseUrl": "src",
       "sourceMap": true,
       "jsx": "react",
       "noUnusedLocals": false,

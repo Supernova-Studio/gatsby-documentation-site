@@ -12,39 +12,39 @@
 import { useStaticQuery, graphql } from "gatsby";
 import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
 
-const QueryAllItems = (): Array<SupernovaTypes.DocumentationItem> => {
+const QueryAllDocumentationItems = (): Array<SupernovaTypes.DocumentationItem> => {
   const data = useStaticQuery<GatsbyTypes.QueryAllItemsQuery>(graphql`
-    query QueryAllItems {
-      allDocumentationItem {
-        nodes {
-            parent {
-              id
-            }
-            internal {
-              contentDigest
-            }
-            children {
-              id
-            }
-            id
-            slug
-            title
-            itemType
-            firstPageSlug
-            blockIds
-            isRoot
-            parentGroupChain
-            parentGroupId
-            subgroupIds
-            subitemIds
-            subpageIds
-
+  query QueryAllItems {
+    allDocumentationItem {
+      nodes {
+        id
+        persistentId
+        itemType
+        slug
+        firstPageSlug
+        parentGroupId
+        parentGroupChain
+        title
+        configuration {
+          header {
+            backgroundImageAssetId
+            backgroundImageAssetUrl
+            backgroundImageScaleType
+            alignment
+            foregroundColor
+            description
+            minHeight
+            showBackgroundOverlay
+            showCoverText
+          }
+          showSidebar
         }
       }
     }
+  }
   `);
 
   return data.allDocumentationItem.nodes as any
 };
 
-export default QueryAllItems;
+export default QueryAllDocumentationItems;

@@ -14,36 +14,39 @@ import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/g
 
 const QueryAllGroups = (): Array<SupernovaTypes.DocumentationGroup> => {
   const data = useStaticQuery<GatsbyTypes.QueryAllGroupsQuery>(graphql`
-  query QueryAllGroups {
-    allDocumentationItem(filter: {
-      itemType: {
-        eq:"Group"
-      }
-    }) {
-      nodes  {
-        parent {
+    query QueryAllGroups {
+      allDocumentationItem(filter: {itemType: {eq: "Group"}}) {
+        nodes {
           id
+          persistentId
+          itemType
+          slug
+          firstPageSlug
+          parentGroupId
+          parentGroupChain
+          title
+          isRoot
+          subpageIds
+          subitemIds
+          subgroupIds
+          groupBehavior
+          configuration {
+            header {
+              backgroundImageAssetId
+              backgroundImageAssetUrl
+              backgroundImageScaleType
+              alignment
+              foregroundColor
+              description
+              minHeight
+              showBackgroundOverlay
+              showCoverText
+            }
+            showSidebar
+          }
         }
-        internal {
-          contentDigest
-        }
-        children {
-          id
-        }
-        id
-        title
-        itemType
-        isRoot
-        subitemIds
-        subpageIds
-        subgroupIds
-        slug
-        firstPageSlug
-        parentGroupId
-        parentGroupChain
       }
     }
-  }
   `);
 
   let groups: Array<SupernovaTypes.DocumentationGroup> = []

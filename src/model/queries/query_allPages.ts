@@ -15,28 +15,31 @@ import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/g
 const QueryAllPages = (): Array<SupernovaTypes.DocumentationPage> => {
   const data = useStaticQuery<GatsbyTypes.QueryAllPagesQuery>(graphql`
     query QueryAllPages {
-      allDocumentationItem(filter: {
-        itemType: {
-          eq:"Page"
-        }
-      }) {
-        nodes  {
-          parent {
-            id
-          }
-          internal {
-            contentDigest
-          }
-          children {
-            id
-          }
+      allDocumentationItem(filter: {itemType: {eq: "Page"}}) {
+        nodes {
           id
-          title
+          persistentId
           itemType
           slug
           firstPageSlug
           parentGroupId
           parentGroupChain
+          title
+          blockIds
+          configuration {
+            header {
+              backgroundImageAssetId
+              backgroundImageAssetUrl
+              backgroundImageScaleType
+              alignment
+              foregroundColor
+              description
+              minHeight
+              showBackgroundOverlay
+              showCoverText
+            }
+            showSidebar
+          }
         }
       }
     }

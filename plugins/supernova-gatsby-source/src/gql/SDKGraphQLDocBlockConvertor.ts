@@ -80,7 +80,7 @@ export class SDKGraphQLDocBlockConvertor {
         showSidebar: true
       },
       blockType: block.type
-    } as SupernovaTypes.DocumentationPageBlock
+    } 
 
     // Checksum
     blockDescription.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(blockDescription)

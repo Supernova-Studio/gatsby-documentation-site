@@ -18,7 +18,7 @@ const QueryFirstPageOfGroup = (groupId: string): SupernovaTypes.DocumentationPag
 
   // Find the group we are looking for
   for (let group of groups) {
-    if (group.id === groupId) {
+    if (group.id === groupId || group.persistentId === groupId) {
         // We have the group, we need to find the page by the slug
         if (group.firstPageSlug) {
             return QueryPageBySlug(group.firstPageSlug)

@@ -34,7 +34,7 @@ export default function Topbar(props: { pageId: string }) {
   const logoSlug = topPage?.slug ?? null
   let activeChild: SupernovaTypes.DocumentationItem | null = null
   for (let child of rootChildren) {
-    if (currentPage?.parentGroupChain?.indexOf(child.id) !== -1 || currentPage.id === child.id) {
+    if (currentPage?.parentGroupChain?.indexOf(child.id) !== -1 || currentPage?.parentGroupChain?.indexOf(child.persistentId) !== -1 || currentPage.id === child.id || currentPage.id === child.persistentId) {
       activeChild = child
     }
   }
@@ -61,7 +61,7 @@ export default function Topbar(props: { pageId: string }) {
           <ul className="navbar-nav">
             {configuration.tabbedNavigation! ?
               rootChildren.map(c => {
-                const visualClasses = `typographyDocsViewNavigation ${(activeChild?.id === c.id) ? "active" : ""}`
+                const visualClasses = `typographyDocsViewNavigation ${(activeChild?.id === c.id || activeChild?.id === c.persistentId) ? "active" : ""}`
                 const href = c.firstPageSlug ? c.firstPageSlug : undefined
                 return <li key={`link-${c.id}`}><a className={visualClasses} href={href}>{c.title}</a></li>
               })
@@ -77,7 +77,7 @@ export default function Topbar(props: { pageId: string }) {
                 <div className="dropdown-menu pull-right" aria-labelledby="mobile-menu-selector">
 
                   {rootChildren.map(c => {
-                    const visualClasses = `dropdown-item ${(activeChild?.id === c.id) ? "active" : ""}`
+                    const visualClasses = `dropdown-item ${(activeChild?.id === c.id || activeChild?.id === c.persistentId) ? "active" : ""}`
                     const href = c.firstPageSlug ? c.firstPageSlug : undefined
                     return <a className={visualClasses} href={href} key={`link-${c.id}-mobile`}>{c.title}</a>
                   })}
@@ -85,9 +85,11 @@ export default function Topbar(props: { pageId: string }) {
               </div>
               : null}
             <div id="version-container" className="dropdown">
+              {/*
               <button className="btn btn-secondary btn-outlined" type="button" id="version-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Loading
               </button>
+              */}
               <div className="dropdown-menu pull-right" aria-labelledby="version-selector">
               </div>
             </div>

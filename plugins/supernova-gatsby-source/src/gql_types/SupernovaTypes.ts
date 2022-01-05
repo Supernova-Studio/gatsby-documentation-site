@@ -233,7 +233,7 @@ export declare namespace SupernovaTypes {
 
   export type DocumentationPageBlock = GraphQLNode & {
     id: string
-    children: Array<DocumentationPageBlock>
+    blockIds: Array<string>
     blockType: DocumentationPageBlockType
   }
 

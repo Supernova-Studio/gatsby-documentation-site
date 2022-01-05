@@ -10,6 +10,7 @@
 // MARK: - Imports
 
 import React, { ReactElement } from "react";
+import { SupernovaTypes } from "../../../../plugins/supernova-gatsby-source/build/exports"
 import QueryFirstPageOfGroup from "../../../model/queries/query_firstPageOfGroup";
 import QueryGroupById from "../../../model/queries/query_groupById";
 import QueryItemsByIds from "../../../model/queries/query_itemsByIds";
@@ -25,8 +26,8 @@ export default function SidebarTabbed(props: {
   pageId: string;
   groupId: string | null;
 }): ReactElement<any, any> {
-  let rootGroup: GatsbyTypes.DocumentationItem | null = null;
-  let groupChildren: Array<GatsbyTypes.DocumentationItem> = [];
+  let rootGroup: SupernovaTypes.DocumentationGroup | null = null;
+  let groupChildren: Array<SupernovaTypes.DocumentationItem> = [];
   let page = QueryPageById(props.pageId);
   let isGeneratingRootElement = false;
 
@@ -59,7 +60,7 @@ export default function SidebarTabbed(props: {
       <ul className="nav flex-column ">
         {groupChildren.map((c) => {
           let isActive =
-            page.parentGroupChain?.indexOf(c.id) !== -1 || page.id === c.id;
+            (page.parentGroupChain?.indexOf(c.id) !== -1) || (page.parentGroupChain?.indexOf(c.persistentId) !== -1) || page.id === c.id || page.id === c.persistentId;
           let activeClass = isActive ? "active" : "";
           if (c.itemType === "Page") {
             return (
@@ -98,7 +99,7 @@ export default function SidebarTabbed(props: {
   );
 }
 
-function SidebarHeader(props: { item: GatsbyTypes.DocumentationItem }) {
+function SidebarHeader(props: { item: SupernovaTypes.DocumentationItem }) {
   return (
     <div className="nav-name">
       <span className="typographyDocsViewLabelCaps">

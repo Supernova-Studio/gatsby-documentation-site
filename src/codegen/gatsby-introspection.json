@@ -3788,18 +3788,6 @@
             "deprecationReason": null
           },
           {
-            "name": "configuration",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "DocumentationBlockConfiguration",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "blockType",
             "description": null,
             "args": [],
@@ -3820,30 +3808,6 @@
             "ofType": null
           }
         ],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "DocumentationBlockConfiguration",
-        "description": null,
-        "specifiedByUrl": null,
-        "fields": [
-          {
-            "name": "showSidebar",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -6353,18 +6317,6 @@
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "BooleanQueryOperatorInput",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "configuration",
-                "description": null,
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "DocumentationBlockConfigurationFilterInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -21410,30 +21362,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "INPUT_OBJECT",
-        "name": "DocumentationBlockConfigurationFilterInput",
-        "description": null,
-        "specifiedByUrl": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "showSidebar",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "BooleanQueryOperatorInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "DocumentationBlockConnection",
         "description": null,
@@ -22308,12 +22236,6 @@
             "deprecationReason": null
           },
           {
-            "name": "configuration___showSidebar",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "blockType",
             "description": null,
             "isDeprecated": false,
@@ -22708,18 +22630,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "BooleanQueryOperatorInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "configuration",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "DocumentationBlockConfigurationFilterInput",
               "ofType": null
             },
             "defaultValue": null,

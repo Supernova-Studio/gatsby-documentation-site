@@ -17,6 +17,7 @@ import Topbar from './components/structure/Topbar'
 import Head from './components/structure/Head'
 import useScript from '../model/hooks/hook_useScript'
 import Title from './components/structure/Title'
+import { SupernovaTypes } from '../../plugins/supernova-gatsby-source/build/exports'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -24,8 +25,8 @@ import Title from './components/structure/Title'
 
 function TemplatePageContent(props: any) {
 
-  const page = props.data.documentationItem as GatsbyTypes.DocumentationItem
-
+  const page = props.data.documentationItem as SupernovaTypes.DocumentationPage
+console.log(page.configuration)
   return [
     <Head key="head" />,
     <div id="main-wrapper" key="content">
@@ -65,11 +66,26 @@ export const query: any = graphql`
     ) {
     documentationItem(slug: { eq: $slug }, itemType: { eq: "Page" }) {
       id
-      slug
-      title
-      parentGroupId
+      persistentId
       itemType
+      slug
+      firstPageSlug
+      parentGroupId
+      parentGroupChain
+      title
+      blockIds
       configuration {
+        header {
+          backgroundImageAssetId
+          backgroundImageAssetUrl
+          backgroundImageScaleType
+          alignment
+          foregroundColor
+          description
+          minHeight
+          showBackgroundOverlay
+          showCoverText
+        }
         showSidebar
       }
     }

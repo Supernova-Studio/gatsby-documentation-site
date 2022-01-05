@@ -24,43 +24,49 @@ export default function Title(props: { pageId: string }) {
   // Get containing group. If the group represents tab, then use that group configuration to build header, 
   // and use its title as well. For non-tabbed pages, configuration is taken from the page object
   const group = QueryGroupById(page.parentGroupId!) // Page is always part of the group
-  const groupIsTabContainer = group?.groupBehavior === SupernovaTypes.DocumentationGroupBehavior.tabs
+  const groupIsTabContainer = group?.groupBehavior === "Tabs"
   const configuration = groupIsTabContainer ? group.configuration : page.configuration
   const header = configuration.header
 
   // Class / configuration for styling
   const title = groupIsTabContainer ? group.title : page.title
-  const centeredClass = header.alignment === SupernovaTypes.Alignment.center ? "centered" : ""
+  const centeredClass = header.alignment === "Center" ? "centered" : ""
   const flexedClass = header.minHeight ? "flexed" : ""
   
   // Render header depending on configuration
   if (header.backgroundImageAssetUrl) {
     // Background image overrides everything if provided
-    return <div className={`container-title ${centeredClass} ${flexedClass}`} style={{
-        height: header.minHeight ? header.minHeight : "auto",
-        background: `url(${header.backgroundImageAssetUrl}) no-repeat center center`,
-        backgroundSize: header.backgroundImageScaleType === SupernovaTypes.AssetScaleType.aspectFill ? "cover" : "contain"
-    }}>
-        <TitleContent page={page} title={title} header={configuration.header} />
+    return <>
+        <div className={`container-title ${centeredClass} ${flexedClass}`} style={{
+            height: header.minHeight ? header.minHeight : "auto",
+            background: `url(${header.backgroundImageAssetUrl}) no-repeat center center`,
+            backgroundSize: header.backgroundImageScaleType === "AspectFill" ? "cover" : "contain"
+        }}>
+            <TitleContent page={page} title={title} header={configuration.header} />
+        </div>
         <Tabs page={page} isTabContainer={groupIsTabContainer} group={group} />
-    </div>
+    </>
   } else if (header.backgroundColor) {
     // Background color overrides transparent default is provided
-    return <div className={`container-title ${centeredClass} ${flexedClass}`} style={{
-        height: header.minHeight ? header.minHeight : "auto",
-        backgroundColor: header.backgroundColor
-    }}>
-        <TitleContent page={page} title={title} header={configuration.header} />
+    return <>
+        <div className={`container-title ${centeredClass} ${flexedClass}`} style={{
+            height: header.minHeight ? header.minHeight : "auto",
+            backgroundColor: header.backgroundColor
+        }}>
+            <TitleContent page={page} title={title} header={configuration.header} />
+        </div>
         <Tabs page={page} isTabContainer={groupIsTabContainer} group={group} />
-    </div>
+    </>
   } else {
       // Default without any background configuration
-    return <div className={`container-title ${centeredClass} ${flexedClass}`} style={{
-        height: header.minHeight ? header.minHeight : "auto"
-    }}>
-        <TitleContent page={page} title={title} header={configuration.header} />
+    return <>
+        <div className={`container-title ${centeredClass} ${flexedClass}`} style={{
+            height: header.minHeight ? header.minHeight : "auto"
+        }}>
+            <TitleContent page={page} title={title} header={configuration.header} />
+        </div>
         <Tabs page={page} isTabContainer={groupIsTabContainer} group={group} />
-    </div>
+    </>
   }
 }
 

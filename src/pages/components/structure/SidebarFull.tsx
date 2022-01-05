@@ -10,6 +10,7 @@
 // MARK: - Imports
 
 import React, { ReactElement } from "react";
+import { SupernovaTypes } from "../../../../plugins/supernova-gatsby-source/build/exports"
 import QueryFirstPageOfGroup from "../../../model/queries/query_firstPageOfGroup";
 import QueryGroupById from "../../../model/queries/query_groupById";
 import QueryItemsByIds from "../../../model/queries/query_itemsByIds";
@@ -25,8 +26,8 @@ export default function SidebarFull(props: {
   pageId: string;
   groupId: string | null;
 }): ReactElement<any, any> {
-  let rootGroup: GatsbyTypes.DocumentationItem | null = null;
-  let groupChildren: Array<GatsbyTypes.DocumentationItem> = [];
+  let rootGroup: SupernovaTypes.DocumentationGroup | null = null;
+  let groupChildren: Array<SupernovaTypes.DocumentationItem> = [];
   let page = QueryPageById(props.pageId);
 
   if (props.groupId) {

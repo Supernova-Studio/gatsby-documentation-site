@@ -76,9 +76,6 @@ export class SDKGraphQLDocBlockConvertor {
       beginsTypeChain: block.beginsTypeChain,
       endsTypeChain: block.endsTypeChain,
       blockIds: block.children.map(b => b.id),
-      configuration: { // TODO
-        showSidebar: true
-      },
       blockType: block.type
     } 
 

@@ -9,7 +9,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/exports"
 import QueryGroupById from "./query_groupById"
 
 const QueryTopmostGroupOfPage = (page: SupernovaTypes.DocumentationPage): SupernovaTypes.DocumentationGroup | null => {

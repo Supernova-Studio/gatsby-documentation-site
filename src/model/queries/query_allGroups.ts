@@ -10,7 +10,7 @@
 // MARK: - Imports
 
 import { useStaticQuery, graphql } from "gatsby";
-import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/gql_types/SupernovaTypes"
+import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/exports"
 
 const QueryAllGroups = (): Array<SupernovaTypes.DocumentationGroup> => {
   const data = useStaticQuery<GatsbyTypes.QueryAllGroupsQuery>(graphql`

@@ -13,6 +13,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/exports"
 
 const QueryAllBlocks = (): Array<SupernovaTypes.DocumentationPageBlock> => {
+
   const data = useStaticQuery<GatsbyTypes.QueryAllBlocksQuery>(graphql`
     query QueryAllBlocks {
         allDocumentationBlock {

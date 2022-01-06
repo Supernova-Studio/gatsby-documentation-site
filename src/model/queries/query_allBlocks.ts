@@ -22,6 +22,9 @@ const QueryAllBlocks = (): Array<SupernovaTypes.DocumentationPageBlock> => {
                 assets {
                     assetId
                     backgroundColor
+                    title
+                    description
+                    previewUrl
                 }
                 backgroundColor
                 beginsTypeChain

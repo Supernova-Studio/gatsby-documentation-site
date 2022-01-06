@@ -19,10 +19,9 @@ import { SDKGraphQLBridge } from './gql/SDKGraphQLBridge'
 
 exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: SupernovaPluginOptions) => {
 
-  console.log(`sourcing nodes`)
   // Create Supernova instance, connect it and create data bridge
   let instance = new Supernova(pluginOptions.apiToken, null, null)
-  let designSystem = await instance.designSystem(pluginOptions.designSystemId)
+  // let designSystem = await instance.designSystem(pluginOptions.designSystemId)
   
   let version = await instance.designSystemVersion(pluginOptions.designSystemId, pluginOptions.designSystemVersionId)
   if (!version) {
@@ -42,6 +41,10 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
   let blockResult = await bridge.documentationBlocks(pageResult.sdkObjects)
   blockResult.graphQLNodes.forEach(n => actions.createNode(n))
 
+  let assetResult = await bridge.assets()
+  console.log(assetResult.graphQLNodes)
+  assetResult.graphQLNodes.forEach(n => actions.createNode(n))
+
   let configurationResult = await bridge.documentationConfiguration()
   actions.createNode(configurationResult.graphQLNode)
 
@@ -50,7 +53,6 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
 
 exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
 
-  console.log("creating schema")
   const { createTypes } = actions
   const typeDefs = `
     type DocumentationBlock implements Node @dontInfer {
@@ -98,7 +100,10 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
 
     type DocumentationBlockAsset @dontInfer {
       assetId: String!
+      title: String
+      description: String
       backgroundColor: String
+      previewUrl: String
     }
 
     type DocumentationBlockProperties @dontInfer {
@@ -128,8 +133,16 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
       type: String
       default: String
     }
+
+    type Asset implements Node @dontInfer {
+      brandId: String!
+      thumbnailUrl: String
+      name: String
+      description: String
+      componentId: String
+      previouslyDuplicatedNames: Int
+    }
   `
 
-  console.log("creating schema")
   createTypes(typeDefs)
 }

@@ -27,7 +27,7 @@ import ContentBlock from './components/blocks/ContentBlock'
 function TemplatePageContent(props: any) {
 
   const page = props.data.documentationItem as SupernovaTypes.DocumentationPage
-console.log(page.configuration)
+
   return [
     <Head key="head" />,
     <div id="main-wrapper" key="content">

@@ -11,11 +11,13 @@
 
 import { DesignSystemVersion } from "@supernova-studio/supernova-sdk/build/main/sdk/src/core/SDKDesignSystemVersion"
 import { Documentation } from "@supernova-studio/supernova-sdk/build/main/sdk/src/core/SDKDocumentation"
+import { Asset } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/assets/SDKAsset"
 import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationConfiguration"
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 import { DocumentationPageBlock } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPageBlock"
 import { SupernovaTypes } from "../gql_types/SupernovaTypes"
+import { SDKGraphQLAssetConvertor } from "./SDKGraphQLAssetConvertor"
 import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
 
@@ -30,6 +32,7 @@ export class SDKGraphQLBridge {
   version: DesignSystemVersion
   documentation: Documentation
   itemConvertor: SDKGraphQLObjectConvertor
+  assetConvertor: SDKGraphQLAssetConvertor
   docBlockConvertor: SDKGraphQLDocBlockConvertor
 
   // --- Constructor
@@ -38,6 +41,7 @@ export class SDKGraphQLBridge {
     this.version = version
     this.documentation = documentation
     this.itemConvertor = new SDKGraphQLObjectConvertor()
+    this.assetConvertor = new SDKGraphQLAssetConvertor()
     this.docBlockConvertor = new SDKGraphQLDocBlockConvertor()
   }
 
@@ -99,6 +103,19 @@ export class SDKGraphQLBridge {
     return {
       sdkObject: configuration,
       graphQLNode: this.itemConvertor.documentationConfiguration(configuration)
+    }
+  }
+
+  /** Build and convert SDK assets */
+  async assets(): Promise<{
+    sdkObjects: Array<Asset>
+    graphQLNodes: Array<SupernovaTypes.Asset>
+  }> {
+
+    let assets = await this.version.assets()
+    return {
+      sdkObjects: assets,
+      graphQLNodes: this.assetConvertor.assets(assets)
     }
   }
 }

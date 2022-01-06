@@ -603,4 +603,13 @@ export namespace SupernovaTypes {
     text: string
     referencedToken: TextToken
   }
+
+  export type Asset = GraphQLNode & {
+    brandId: string;
+    thumbnailUrl: string | null;
+    name: string;
+    description: string;
+    componentId: string | null;
+    previouslyDuplicatedNames: number;
+  }
 }

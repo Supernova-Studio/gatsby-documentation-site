@@ -370,6 +370,7 @@ export class SDKGraphQLDocBlockConvertor {
   }
 
   convertBlockAssetDetailsToGraphQL(block: DocumentationPageBlockAsset): SupernovaTypes.DocumentationPageBlockAsset {
+    
     return {
       assetId: block.assetId,
       title: block.title ?? null,

@@ -17,5 +17,5 @@ import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/b
 
 export default function ContentBlockDivider(props: { block: SupernovaTypes.DocumentationPageBlockDivider }) {
 
-    return <p>Divider block</p>
+    return <hr className="divider" />
 }

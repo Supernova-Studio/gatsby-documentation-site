@@ -11,11 +11,12 @@
 
 import React from "react";
 import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
+import ContentEmbedFrame from "./partials/ContentEmbedFrame"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function ContentBlockYoutubeEmbed(props: { block: SupernovaTypes.DocumentationPageBlockEmbedYoutube }) {
 
-    return <p>Youtube embed block</p>
+    return <ContentEmbedFrame block={props.block} />
 }

@@ -17,5 +17,5 @@ import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/b
 
 export default function ContentBlockCustom(props: { block: SupernovaTypes.DocumentationPageBlockCustom }) {
 
-    return <p>Custom block</p>
+    return <p>TODO: Custom blocks</p>
 }

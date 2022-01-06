@@ -11,11 +11,27 @@
 
 import React from "react";
 import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
+import ContentComponentAsset from "./partials/ContentComponentAsset"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function ContentBlockComponentAssets(props: { block: SupernovaTypes.DocumentationPageBlockAssets }) {
 
-    return <p>Component Asset blocks</p>
+    let forceNaturalHeight = props.block.properties.alignment === SupernovaTypes.FrameAlignment.frameHeight || 
+                             props.block.properties.layout == SupernovaTypes.FrameLayout.c1 || 
+                             props.block.properties.layout == SupernovaTypes.FrameLayout.c175
+                             
+    return <div className={`tile-container ${ forceNaturalHeight ? "natural" : ""}`}>
+        <div className={`grid ${props.block.properties.layout.toLowerCase()}`}>
+            {props.block.assets.map(a => <ContentComponentAsset asset={a} />)}
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+        </div>
+    </div>
 }

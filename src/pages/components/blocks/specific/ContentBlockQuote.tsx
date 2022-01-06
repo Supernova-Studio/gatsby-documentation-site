@@ -11,11 +11,11 @@
 
 import React from "react";
 import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
+import ContentRichText from "./partials/ContentRichText"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function ContentBlockQuote(props: { block: SupernovaTypes.DocumentationPageBlockQuote }) {
-
-    return <p>Quote block</p>
+    return <p className="lead"><ContentRichText text={props.block.text} /></p>
 }

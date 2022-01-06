@@ -75,13 +75,16 @@ export class SDKGraphQLDocBlockConvertor {
       children: [],
       beginsTypeChain: block.beginsTypeChain,
       endsTypeChain: block.endsTypeChain,
-      blockIds: block.children.map(b => b.id),
+      blockIds: block.children.map(c => c.id),
       blockType: block.type
     } 
 
+    // Convert all details
+    let detailedBlockObject = this.convertBlockDetailsToGraphQL(block, blockDescription)
+
     // Checksum
-    blockDescription.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(blockDescription)
-    return blockDescription
+    detailedBlockObject.internal.contentDigest = SDKGraphQLObjectConvertor.nodeDigest(detailedBlockObject)
+    return detailedBlockObject
   }
 
   // --- Block specifics

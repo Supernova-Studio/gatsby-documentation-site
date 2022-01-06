@@ -18,6 +18,7 @@ import Head from './components/structure/Head'
 import useScript from '../model/hooks/hook_useScript'
 import Title from './components/structure/Title'
 import { SupernovaTypes } from '../../plugins/supernova-gatsby-source/build/exports'
+import ContentBlock from './components/blocks/ContentBlock'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -31,19 +32,19 @@ console.log(page.configuration)
     <Head key="head" />,
     <div id="main-wrapper" key="content">
       <div id="content" role="main">
+        {/* Page top bar */}
         <Topbar pageId={page.id} />
         {page.configuration!.showSidebar ? <Sidebar pageId={page.id} /> : null}
         <div className={`docs-content ${!page.configuration!.showSidebar ? "fullscreen" : ""}`}>
+          {/* Page title section, including tabs */}
           <Title pageId={page.id} />
+          {/* Page Content */}
           <div className="container">
             <section id="section-content-page">
               <div className="tab-content" id="page-tab-content">
-
-                {/* inject page blocks here @ page_body_structure_block for each block */}
+                {page.blockIds.map(b => <ContentBlock blockId={b}/>)}
               </div>
             </section>
-
-            {/* page_body_structure_content */}
           </div>
         </div>
       </div>

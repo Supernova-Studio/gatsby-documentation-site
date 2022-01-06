@@ -19,6 +19,7 @@ import { SDKGraphQLBridge } from './gql/SDKGraphQLBridge'
 
 exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: SupernovaPluginOptions) => {
 
+  console.log(`sourcing nodes`)
   // Create Supernova instance, connect it and create data bridge
   let instance = new Supernova(pluginOptions.apiToken, null, null)
   let designSystem = await instance.designSystem(pluginOptions.designSystemId)
@@ -45,4 +46,90 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
   actions.createNode(configurationResult.graphQLNode)
 
   return
+}
+
+exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
+
+  console.log("creating schema")
+  const { createTypes } = actions
+  const typeDefs = `
+    type DocumentationBlock implements Node @dontInfer {
+      beginsTypeChain: Boolean!
+      endsTypeChain: Boolean!
+      blockIds: [String]!
+      blockType: String!
+      groupId: String
+      showNestedGroups: Boolean
+      text: DocumentationBlockText
+      calloutType: String
+      headingType: Int
+      assets: [DocumentationBlockAsset]
+      properties: DocumentationBlockProperties
+      url: String
+      size: Size
+      caption: String
+      codeLanguage: String
+      alignment: String
+      key: String
+      block: DocumentationCustomBlock
+      backgroundColor: String
+      showCode: Boolean
+      code: String
+      packageJSON: String
+      height: Int
+      sandboxData: String
+      sandboxType: String
+      tokenIds: [String]
+    }
+
+    type DocumentationBlockText @dontInfer {
+      spans: [DocumentationBlockTextSpan]
+    }
+
+    type DocumentationBlockTextSpan @dontInfer {
+      text: String
+      attributes: [DocumentationBlockTextSpansAttribute]
+    }
+
+    type DocumentationBlockTextSpansAttribute @dontInfer {
+      link: String
+      type: String
+    }
+
+    type DocumentationBlockAsset @dontInfer {
+      assetId: String!
+      backgroundColor: String
+    }
+
+    type DocumentationBlockProperties @dontInfer {
+      color: String
+      alignment: String
+      layout: String
+      markdownUrl: String
+    }
+
+    type Size @dontInfer {
+      width: Int
+      height: Int
+    }
+
+    type DocumentationCustomBlock @dontInfer {
+      key: String!
+      title: String!
+      category: String
+      description: String
+      iconUrl: String
+      properties: [DocumentationCustomBlockProperty]
+    }
+
+    type DocumentationCustomBlockProperty @dontInfer {
+      label: String
+      key: String
+      type: String
+      default: String
+    }
+  `
+
+  console.log("creating schema")
+  createTypes(typeDefs)
 }

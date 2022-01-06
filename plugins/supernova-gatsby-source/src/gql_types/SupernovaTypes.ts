@@ -1,4 +1,4 @@
-export declare namespace SupernovaTypes {
+export namespace SupernovaTypes {
   export enum TokenType {
     Color = "Color",
     Typography = "Typography",
@@ -177,6 +177,7 @@ export declare namespace SupernovaTypes {
 
   export type GraphQLNode = {
     id: string
+    internal: any
     /* Internal properties that are not exposed
     parent: any
     internal: any

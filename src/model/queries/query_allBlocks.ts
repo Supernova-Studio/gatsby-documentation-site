@@ -88,6 +88,9 @@ const QueryAllBlocks = (): Array<SupernovaTypes.DocumentationPageBlock> => {
                 }
                 tokenIds
                 url
+                title
+                description
+                thumbnailUrl
             }
         }
     }

@@ -82,6 +82,9 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
       sandboxData: String
       sandboxType: String
       tokenIds: [String]
+      title: String
+      description: String
+      thumbnailUrl: String
     }
 
     type DocumentationBlockText @dontInfer {

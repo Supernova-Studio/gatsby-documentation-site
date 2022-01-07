@@ -359,6 +359,9 @@ type DocumentationBlock = Node & {
   readonly sandboxData: Maybe<Scalars['String']>;
   readonly sandboxType: Maybe<Scalars['String']>;
   readonly tokenIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly description: Maybe<Scalars['String']>;
+  readonly thumbnailUrl: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
   readonly children: ReadonlyArray<Node>;
@@ -744,6 +747,9 @@ type Query_documentationBlockArgs = {
   sandboxData: Maybe<StringQueryOperatorInput>;
   sandboxType: Maybe<StringQueryOperatorInput>;
   tokenIds: Maybe<StringQueryOperatorInput>;
+  title: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  thumbnailUrl: Maybe<StringQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
   children: Maybe<NodeFilterListInput>;
@@ -2643,6 +2649,9 @@ type DocumentationBlockFieldsEnum =
   | 'sandboxData'
   | 'sandboxType'
   | 'tokenIds'
+  | 'title'
+  | 'description'
+  | 'thumbnailUrl'
   | 'id'
   | 'parent.id'
   | 'parent.parent.id'
@@ -2799,6 +2808,9 @@ type DocumentationBlockFilterInput = {
   readonly sandboxData: Maybe<StringQueryOperatorInput>;
   readonly sandboxType: Maybe<StringQueryOperatorInput>;
   readonly tokenIds: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly thumbnailUrl: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
@@ -3463,22 +3475,32 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
-      )> }
-    )> } };
+type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
+
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
 
 type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
       Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
+    )> } };
+
+type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
       & { readonly configuration: Maybe<(
         Pick<DocumentationItemConfiguration, 'showSidebar'>
         & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
@@ -3496,21 +3518,11 @@ type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: Rea
       )> }
     )> } };
 
-type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
-
-type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
-
 type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url'>
+      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url' | 'title' | 'description' | 'thumbnailUrl'>
       & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly block: Maybe<(
         Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>
         & { readonly properties: Maybe<ReadonlyArray<Maybe<Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>>>> }

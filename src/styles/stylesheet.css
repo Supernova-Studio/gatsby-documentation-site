@@ -4129,6 +4129,13 @@ ol>.block-children {
     font-size: 12px;
     line-height: 16px;
     color: rgba(0, 0, 0, 0.8);
+    /* Limit to max of 3 lines. Remove entire section for no limiting of the embedded text */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
 }
 
 .embed-url.row {

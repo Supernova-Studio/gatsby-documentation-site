@@ -30,7 +30,7 @@ import { Token } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/
 import { TokenProperty } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/tokens/SDKTokenProperty"
 import { GradientStopValue } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/tokens/SDKTokenValue"
 import { TypographyToken } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/tokens/SDKTypographyToken"
-import { SupernovaTypes } from "exports"
+import { SupernovaTypes } from "../gql_types/SupernovaTypes"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
 
   

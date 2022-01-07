@@ -343,6 +343,7 @@ type DocumentationBlock = Node & {
   readonly headingType: Maybe<Scalars['Int']>;
   readonly assets: Maybe<ReadonlyArray<Maybe<DocumentationBlockAsset>>>;
   readonly frames: Maybe<ReadonlyArray<Maybe<DocumentationBlockFigmaFrame>>>;
+  readonly shortcuts: Maybe<ReadonlyArray<Maybe<DocumentationBlockShortcut>>>;
   readonly properties: Maybe<DocumentationBlockProperties>;
   readonly url: Maybe<Scalars['String']>;
   readonly size: Maybe<Size>;
@@ -398,6 +399,15 @@ type DocumentationBlockFigmaFrame = {
   readonly description: Maybe<Scalars['String']>;
   readonly previewUrl: Maybe<Scalars['String']>;
   readonly backgroundColor: Maybe<Scalars['String']>;
+};
+
+type DocumentationBlockShortcut = {
+  readonly title: Maybe<Scalars['String']>;
+  readonly description: Maybe<Scalars['String']>;
+  readonly previewUrl: Maybe<Scalars['String']>;
+  readonly externalUrl: Maybe<Scalars['String']>;
+  readonly internalId: Maybe<Scalars['String']>;
+  readonly shortcutType: Maybe<Scalars['String']>;
 };
 
 type DocumentationBlockProperties = {
@@ -731,6 +741,7 @@ type Query_documentationBlockArgs = {
   headingType: Maybe<IntQueryOperatorInput>;
   assets: Maybe<DocumentationBlockAssetFilterListInput>;
   frames: Maybe<DocumentationBlockFigmaFrameFilterListInput>;
+  shortcuts: Maybe<DocumentationBlockShortcutFilterListInput>;
   properties: Maybe<DocumentationBlockPropertiesFilterInput>;
   url: Maybe<StringQueryOperatorInput>;
   size: Maybe<SizeFilterInput>;
@@ -2515,6 +2526,19 @@ type DocumentationBlockFigmaFrameFilterInput = {
   readonly backgroundColor: Maybe<StringQueryOperatorInput>;
 };
 
+type DocumentationBlockShortcutFilterListInput = {
+  readonly elemMatch: Maybe<DocumentationBlockShortcutFilterInput>;
+};
+
+type DocumentationBlockShortcutFilterInput = {
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly previewUrl: Maybe<StringQueryOperatorInput>;
+  readonly externalUrl: Maybe<StringQueryOperatorInput>;
+  readonly internalId: Maybe<StringQueryOperatorInput>;
+  readonly shortcutType: Maybe<StringQueryOperatorInput>;
+};
+
 type DocumentationBlockPropertiesFilterInput = {
   readonly color: Maybe<StringQueryOperatorInput>;
   readonly alignment: Maybe<StringQueryOperatorInput>;
@@ -2620,6 +2644,13 @@ type DocumentationBlockFieldsEnum =
   | 'frames.description'
   | 'frames.previewUrl'
   | 'frames.backgroundColor'
+  | 'shortcuts'
+  | 'shortcuts.title'
+  | 'shortcuts.description'
+  | 'shortcuts.previewUrl'
+  | 'shortcuts.externalUrl'
+  | 'shortcuts.internalId'
+  | 'shortcuts.shortcutType'
   | 'properties.color'
   | 'properties.alignment'
   | 'properties.layout'
@@ -2792,6 +2823,7 @@ type DocumentationBlockFilterInput = {
   readonly headingType: Maybe<IntQueryOperatorInput>;
   readonly assets: Maybe<DocumentationBlockAssetFilterListInput>;
   readonly frames: Maybe<DocumentationBlockFigmaFrameFilterListInput>;
+  readonly shortcuts: Maybe<DocumentationBlockShortcutFilterListInput>;
   readonly properties: Maybe<DocumentationBlockPropertiesFilterInput>;
   readonly url: Maybe<StringQueryOperatorInput>;
   readonly size: Maybe<SizeFilterInput>;
@@ -3475,25 +3507,18 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
-
-type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
-
-type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
-      )> }
+type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url' | 'title' | 'description' | 'thumbnailUrl'>
+      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly shortcuts: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockShortcut, 'title' | 'description' | 'previewUrl' | 'externalUrl' | 'internalId' | 'shortcutType'>>>>, readonly block: Maybe<(
+        Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>
+        & { readonly properties: Maybe<ReadonlyArray<Maybe<Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>>>> }
+      )>, readonly properties: Maybe<Pick<DocumentationBlockProperties, 'alignment' | 'color' | 'layout' | 'markdownUrl'>>, readonly size: Maybe<Pick<Size, 'height' | 'width'>>, readonly text: Maybe<{ readonly spans: Maybe<ReadonlyArray<Maybe<(
+          Pick<DocumentationBlockTextSpan, 'text'>
+          & { readonly attributes: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockTextSpansAttribute, 'link' | 'type'>>>> }
+        )>>> }> }
     )> } };
 
 type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3507,6 +3532,27 @@ type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: Rea
       )> }
     )> } };
 
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
+    )> } };
+
+type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
+
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
+
 type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3516,20 +3562,6 @@ type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: Rea
         Pick<DocumentationItemConfiguration, 'showSidebar'>
         & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
       )> }
-    )> } };
-
-type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url' | 'title' | 'description' | 'thumbnailUrl'>
-      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly block: Maybe<(
-        Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>
-        & { readonly properties: Maybe<ReadonlyArray<Maybe<Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>>>> }
-      )>, readonly properties: Maybe<Pick<DocumentationBlockProperties, 'alignment' | 'color' | 'layout' | 'markdownUrl'>>, readonly size: Maybe<Pick<Size, 'height' | 'width'>>, readonly text: Maybe<{ readonly spans: Maybe<ReadonlyArray<Maybe<(
-          Pick<DocumentationBlockTextSpan, 'text'>
-          & { readonly attributes: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockTextSpansAttribute, 'link' | 'type'>>>> }
-        )>>> }> }
     )> } };
 
 }

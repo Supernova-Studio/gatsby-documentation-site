@@ -35,6 +35,14 @@ const QueryAllBlocks = (): Array<SupernovaTypes.DocumentationPageBlock> => {
                     previewUrl
                     backgroundColor
                 }
+                shortcuts {
+                    title
+                    description
+                    previewUrl
+                    externalUrl
+                    internalId
+                    shortcutType
+                }
                 backgroundColor
                 beginsTypeChain
                 blockIds

@@ -66,6 +66,7 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
       headingType: Int
       assets: [DocumentationBlockAsset]
       frames: [DocumentationBlockFigmaFrame]
+      shortcuts: [DocumentationBlockShortcut]
       properties: DocumentationBlockProperties
       url: String
       size: Size
@@ -117,6 +118,15 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
       description: String
       previewUrl: String
       backgroundColor: String
+    }
+
+    type DocumentationBlockShortcut @dontInfer {
+      title: String
+      description: String
+      previewUrl: String
+      externalUrl: String
+      internalId: String
+      shortcutType: String
     }
 
     type DocumentationBlockProperties @dontInfer {

@@ -64,7 +64,7 @@ export default function SidebarTabbed(props: {
           let activeClass = isActive ? "active" : "";
           if (c.itemType === "Page") {
             return (
-              <li className="nav-item">
+              <li className="nav-item" id={c.id}>
                 <a
                   className={`nav-link typographyDocsViewNavigation ${activeClass} `}
                   href={c.slug}
@@ -77,7 +77,7 @@ export default function SidebarTabbed(props: {
           } else {
             const firstPageFromTop = QueryFirstPageOfGroup(c.id);
             return (
-              <li className="nav-item">
+              <li className="nav-item" id={c.id}>
                 <a
                   className={`nav-link typographyDocsViewNavigation group ${activeClass}`}
                   href={`${

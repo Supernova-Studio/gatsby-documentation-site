@@ -19,6 +19,8 @@ import useScript from '../model/hooks/hook_useScript'
 import Title from './components/structure/Title'
 import { SupernovaTypes } from '../../plugins/supernova-gatsby-source/build/exports'
 import ContentBlock from './components/blocks/ContentBlock'
+import ContentMenu from './components/structure/ContentMenu'
+import ContentBlockLevel from './components/blocks/ContentBlockLevel'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -41,10 +43,9 @@ function TemplatePageContent(props: any) {
           {/* Page Content */}
           <div className="container">
             <section id="section-content-page">
-              <div className="tab-content" id="page-tab-content">
-                {page.blockIds.map(b => <ContentBlock blockId={b}/>)}
-              </div>
+              <ContentBlockLevel blockIds={page.blockIds} />
             </section>
+            <ContentMenu pageId={page.id} />
           </div>
         </div>
       </div>

@@ -33,16 +33,17 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
 
   // Create all documentation nodes
   let groupResult = await bridge.documentationGroups()
+  console.log(groupResult.graphQLNodes)
   groupResult.graphQLNodes.forEach(n => actions.createNode(n))
 
   let pageResult = await bridge.documentationPages(groupResult.sdkObjects)
+  console.log(pageResult.graphQLNodes)
   pageResult.graphQLNodes.forEach(n => actions.createNode(n))
 
   let blockResult = await bridge.documentationBlocks(pageResult.sdkObjects)
   blockResult.graphQLNodes.forEach(n => actions.createNode(n))
 
   let assetResult = await bridge.assets()
-  console.log(assetResult.graphQLNodes)
   assetResult.graphQLNodes.forEach(n => actions.createNode(n))
 
   let configurationResult = await bridge.documentationConfiguration()

@@ -11,11 +11,12 @@
 
 import React from "react";
 import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
+import ContentRichText from "./partials/ContentRichText"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function ContentBlockUnorderedList(props: { block: SupernovaTypes.DocumentationPageBlockUnorderedList }) {
 
-    return <p>Unordered list block</p>
+    return <li><p><ContentRichText text={props.block.text} /></p></li>
 }

@@ -33,14 +33,17 @@ $(window).on("load", function() {
 
     // Track all headers that have an `id` applied
     document.querySelectorAll("h1[id]").forEach((section) => {
+        console.log("X")
         observer.observe(section)
         sections.push(section)
     })
     document.querySelectorAll("h2[id]").forEach((section) => {
+        console.log("X")
         observer.observe(section)
         sections.push(section)
     })
     document.querySelectorAll("h3[id]").forEach((section) => {
+        console.log("X")
         observer.observe(section)
         sections.push(section)
     })

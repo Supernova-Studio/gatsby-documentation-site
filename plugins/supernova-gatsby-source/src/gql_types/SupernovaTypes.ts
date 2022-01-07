@@ -236,6 +236,8 @@ export namespace SupernovaTypes {
     id: string
     blockIds: Array<string>
     blockType: DocumentationPageBlockType
+    beginsTypeChain: boolean
+    endsTypeChain: boolean
   }
 
   export type DocumentationPageBlockCallout = DocumentationPageBlockText & {

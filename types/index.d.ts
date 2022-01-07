@@ -3507,6 +3507,11 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
+
 type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3521,17 +3526,6 @@ type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: R
         )>>> }> }
     )> } };
 
-type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
-      )> }
-    )> } };
-
 type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3543,11 +3537,6 @@ type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: Re
       )> }
     )> } };
 
-type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
-
 type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3558,6 +3547,17 @@ type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
       Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
+    )> } };
+
+type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
       & { readonly configuration: Maybe<(
         Pick<DocumentationItemConfiguration, 'showSidebar'>
         & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }

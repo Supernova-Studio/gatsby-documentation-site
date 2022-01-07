@@ -8,6 +8,8 @@ export namespace SupernovaTypes {
     Shadow = "Shadow",
     Border = "Border",
     Gradient = "Gradient",
+    Generic = "Generic",
+    Blur = "Blur",
     Text = "Text",
   }
 
@@ -31,7 +33,7 @@ export namespace SupernovaTypes {
   }
 
   export enum TextDecoration {
-    None = "None",
+    Original = "Original",
     Underline = "Underline",
     Strikethrough = "Strikethrough",
   }
@@ -136,8 +138,8 @@ export namespace SupernovaTypes {
     External = "External",
   }
   export enum ShadowType {
+    Drop = "Drop",
     Inner = "Inner",
-    Outer = "Outer",
   }
 
   export enum SandboxType {
@@ -173,6 +175,11 @@ export namespace SupernovaTypes {
   export enum DocumentationGroupBehavior {
     group = "Group",
     tabs = "Tabs",
+  }
+  
+  export enum BlurType {
+    layer = "Layer",
+    background = "Background"
   }
 
   export type GraphQLNode = {
@@ -431,12 +438,12 @@ export namespace SupernovaTypes {
     name: string
     description: string
     path: Array<string>
-    subgroups: Array<TokenGroup>
     tokenType: TokenType
     isRoot: boolean
     childrenIds: Array<string>
+    subgroupIds: Array<string>
     tokenIds: Array<string>
-    parent: TokenGroup | null
+    parentId: string | null
   }
 
   export type Workspace = GraphQLNode & {
@@ -508,8 +515,17 @@ export namespace SupernovaTypes {
     value: FontTokenValue
   }
 
+  export type BlurToken = Token & {
+    value: BlurTokenValue
+  }
+
+  export type GenericToken = Token & {
+    value: GenericTokenValue
+  }
+
   export type TokenValue = {
     id: string
+    brandId: string
     name: string
     description: string
     tokenType: TokenType
@@ -521,7 +537,7 @@ export namespace SupernovaTypes {
     name: string
     codeName: string
     type: TokenPropertyType
-    value: string | number | boolean
+    value: any
   }
 
   export type ColorTokenValue = {
@@ -530,7 +546,7 @@ export namespace SupernovaTypes {
     g: number
     b: number
     a: number
-    referencedToken: ColorToken | null
+    referencedTokenId: string | null
   }
 
   export type TypographyTokenValue = {
@@ -541,7 +557,7 @@ export namespace SupernovaTypes {
     letterSpacing: MeasureTokenValue
     lineHeight: MeasureTokenValue | null
     paragraphIndent: MeasureTokenValue
-    referencedToken: TypographyToken | null
+    referencedTokenId: string | null
   }
 
   export type RadiusTokenValue = {
@@ -550,7 +566,7 @@ export namespace SupernovaTypes {
     topRight: MeasureTokenValue | null
     bottomLeft: MeasureTokenValue | null
     bottomRight: MeasureTokenValue | null
-    referencedToken: RadiusToken | null
+    referencedTokenId: string | null
   }
 
   export type ShadowTokenValue = {
@@ -561,26 +577,26 @@ export namespace SupernovaTypes {
     spread: MeasureTokenValue
     opacity: number
     type: ShadowType
-    referencedToken: ShadowToken | null
+    referencedTokenId: string | null
   }
 
   export type MeasureTokenValue = {
     unit: Unit
     measure: number
-    referencedToken: MeasureToken | null
+    referencedTokenId: string | null
   }
 
   export type FontTokenValue = {
     family: string
     subfamily: string
-    referencedToken: FontToken | null
+    referencedTokenId: string | null
   }
 
   export type BorderTokenValue = {
     color: ColorTokenValue
     width: MeasureTokenValue
     position: BorderPosition
-    referencedToken: BorderToken | null
+    referencedTokenId: string | null
   }
 
   export type GradientTokenValue = {
@@ -595,7 +611,7 @@ export namespace SupernovaTypes {
     type: GradientType
     aspectRatio: number
     stops: Array<GradientStopValue>
-    referencedToken: GradientToken | null
+    referencedTokenId: string | null
   }
 
   export type GradientStopValue = {
@@ -605,7 +621,18 @@ export namespace SupernovaTypes {
 
   export type TextTokenValue = {
     text: string
-    referencedToken: TextToken
+    referencedTokenId: string | null
+  }
+
+  export type GenericTokenValue = {
+    text: string
+    referencedTokenId: string | null
+  }
+
+  export type BlurTokenValue = {
+    type: BlurType
+    radius: MeasureTokenValue
+    referencedTokenId: string | null
   }
 
   export type Asset = GraphQLNode & {

@@ -4440,7 +4440,7 @@ div.storybook-state-wrapper+p.caption {
 }
 
 .tile-container .grid>div p.description {
-    margin: 0px 12px 12px 8px;
+    margin: 0px 12px 4px 8px;
     padding: 0;
     font-size: 12px;
     line-height: 16px;

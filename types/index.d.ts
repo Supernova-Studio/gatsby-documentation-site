@@ -342,6 +342,7 @@ type DocumentationBlock = Node & {
   readonly calloutType: Maybe<Scalars['String']>;
   readonly headingType: Maybe<Scalars['Int']>;
   readonly assets: Maybe<ReadonlyArray<Maybe<DocumentationBlockAsset>>>;
+  readonly frames: Maybe<ReadonlyArray<Maybe<DocumentationBlockFigmaFrame>>>;
   readonly properties: Maybe<DocumentationBlockProperties>;
   readonly url: Maybe<Scalars['String']>;
   readonly size: Maybe<Size>;
@@ -384,6 +385,16 @@ type DocumentationBlockAsset = {
   readonly description: Maybe<Scalars['String']>;
   readonly backgroundColor: Maybe<Scalars['String']>;
   readonly previewUrl: Maybe<Scalars['String']>;
+};
+
+type DocumentationBlockFigmaFrame = {
+  readonly sourceFileId: Maybe<Scalars['String']>;
+  readonly sourceFrameId: Maybe<Scalars['String']>;
+  readonly sourceFileName: Maybe<Scalars['String']>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly description: Maybe<Scalars['String']>;
+  readonly previewUrl: Maybe<Scalars['String']>;
+  readonly backgroundColor: Maybe<Scalars['String']>;
 };
 
 type DocumentationBlockProperties = {
@@ -716,6 +727,7 @@ type Query_documentationBlockArgs = {
   calloutType: Maybe<StringQueryOperatorInput>;
   headingType: Maybe<IntQueryOperatorInput>;
   assets: Maybe<DocumentationBlockAssetFilterListInput>;
+  frames: Maybe<DocumentationBlockFigmaFrameFilterListInput>;
   properties: Maybe<DocumentationBlockPropertiesFilterInput>;
   url: Maybe<StringQueryOperatorInput>;
   size: Maybe<SizeFilterInput>;
@@ -2483,6 +2495,20 @@ type DocumentationBlockAssetFilterInput = {
   readonly previewUrl: Maybe<StringQueryOperatorInput>;
 };
 
+type DocumentationBlockFigmaFrameFilterListInput = {
+  readonly elemMatch: Maybe<DocumentationBlockFigmaFrameFilterInput>;
+};
+
+type DocumentationBlockFigmaFrameFilterInput = {
+  readonly sourceFileId: Maybe<StringQueryOperatorInput>;
+  readonly sourceFrameId: Maybe<StringQueryOperatorInput>;
+  readonly sourceFileName: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly previewUrl: Maybe<StringQueryOperatorInput>;
+  readonly backgroundColor: Maybe<StringQueryOperatorInput>;
+};
+
 type DocumentationBlockPropertiesFilterInput = {
   readonly color: Maybe<StringQueryOperatorInput>;
   readonly alignment: Maybe<StringQueryOperatorInput>;
@@ -2580,6 +2606,14 @@ type DocumentationBlockFieldsEnum =
   | 'assets.description'
   | 'assets.backgroundColor'
   | 'assets.previewUrl'
+  | 'frames'
+  | 'frames.sourceFileId'
+  | 'frames.sourceFrameId'
+  | 'frames.sourceFileName'
+  | 'frames.title'
+  | 'frames.description'
+  | 'frames.previewUrl'
+  | 'frames.backgroundColor'
   | 'properties.color'
   | 'properties.alignment'
   | 'properties.layout'
@@ -2748,6 +2782,7 @@ type DocumentationBlockFilterInput = {
   readonly calloutType: Maybe<StringQueryOperatorInput>;
   readonly headingType: Maybe<IntQueryOperatorInput>;
   readonly assets: Maybe<DocumentationBlockAssetFilterListInput>;
+  readonly frames: Maybe<DocumentationBlockFigmaFrameFilterListInput>;
   readonly properties: Maybe<DocumentationBlockPropertiesFilterInput>;
   readonly url: Maybe<StringQueryOperatorInput>;
   readonly size: Maybe<SizeFilterInput>;
@@ -3439,17 +3474,6 @@ type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: Rea
       )> }
     )> } };
 
-type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
-      )> }
-    )> } };
-
 type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3461,6 +3485,22 @@ type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: Re
       )> }
     )> } };
 
+type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
+    )> } };
+
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
+
 type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3471,7 +3511,7 @@ type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: ReadonlyArray<(
       Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url'>
-      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly block: Maybe<(
+      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly block: Maybe<(
         Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>
         & { readonly properties: Maybe<ReadonlyArray<Maybe<Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>>>> }
       )>, readonly properties: Maybe<Pick<DocumentationBlockProperties, 'alignment' | 'color' | 'layout' | 'markdownUrl'>>, readonly size: Maybe<Pick<Size, 'height' | 'width'>>, readonly text: Maybe<{ readonly spans: Maybe<ReadonlyArray<Maybe<(
@@ -3479,10 +3519,5 @@ type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: R
           & { readonly attributes: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockTextSpansAttribute, 'link' | 'type'>>>> }
         )>>> }> }
     )> } };
-
-type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
 
 }

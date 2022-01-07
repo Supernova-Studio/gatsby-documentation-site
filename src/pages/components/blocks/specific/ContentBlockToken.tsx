@@ -17,5 +17,5 @@ import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/b
 
 export default function ContentBlockToken(props: { block: SupernovaTypes.DocumentationPageBlockToken }) {
 
-    return <p>Token Detail block</p>
+    return <p>TODO: Token Detail block</p>
 }

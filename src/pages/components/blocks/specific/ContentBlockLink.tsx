@@ -17,5 +17,5 @@ import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/b
 
 export default function ContentBlockLink(props: { block: SupernovaTypes.DocumentationPageBlockLink }) {
 
-    return <p>Link block</p>
+    return <p>TODO: Link block</p>
 }

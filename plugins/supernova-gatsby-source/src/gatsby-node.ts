@@ -65,6 +65,7 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
       calloutType: String
       headingType: Int
       assets: [DocumentationBlockAsset]
+      frames: [DocumentationBlockFigmaFrame]
       properties: DocumentationBlockProperties
       url: String
       size: Size
@@ -103,6 +104,16 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
       description: String
       backgroundColor: String
       previewUrl: String
+    }
+
+    type DocumentationBlockFigmaFrame @dontInfer {
+      sourceFileId: String
+      sourceFrameId: String
+      sourceFileName: String
+      title: String
+      description: String
+      previewUrl: String
+      backgroundColor: String
     }
 
     type DocumentationBlockProperties @dontInfer {

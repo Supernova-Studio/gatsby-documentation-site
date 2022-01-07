@@ -26,6 +26,15 @@ const QueryAllBlocks = (): Array<SupernovaTypes.DocumentationPageBlock> => {
                     description
                     previewUrl
                 }
+                frames {
+                    sourceFileId
+                    sourceFrameId
+                    sourceFileName
+                    title
+                    description
+                    previewUrl
+                    backgroundColor
+                }
                 backgroundColor
                 beginsTypeChain
                 blockIds

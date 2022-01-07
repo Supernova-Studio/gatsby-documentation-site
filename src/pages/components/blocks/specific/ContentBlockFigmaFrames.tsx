@@ -11,11 +11,27 @@
 
 import React from "react";
 import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
+import ContentFigmaFrame from "./partials/ContentFigmaFrame"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function ContentBlockFigmaFrames(props: { block: SupernovaTypes.DocumentationPageBlockFrames }) {
 
-    return <p>Figma Frames block</p>
+    let forceNaturalHeight = props.block.properties.alignment === SupernovaTypes.FrameAlignment.frameHeight || 
+                             props.block.properties.layout == SupernovaTypes.FrameLayout.c1 || 
+                             props.block.properties.layout == SupernovaTypes.FrameLayout.c175
+                             
+    return <div className={`tile-container ${ forceNaturalHeight ? "natural" : ""}`}>
+        <div className={`grid ${props.block.properties.layout.toLowerCase()}`}>
+            {props.block.frames.map(f => <ContentFigmaFrame frame={f} />)}
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+            <div className="spacer"></div>
+        </div>
+    </div>
 }

@@ -20,6 +20,7 @@ import { UtilsUrls } from "../../../../helpers/UtilUrls"
 
 export default function ContentBlockCode(props: { block: SupernovaTypes.DocumentationPageBlockCode }) {
 
+    // Use prism to highlight code block
     useEffect(() => {
         highlightAll();
     }, []);

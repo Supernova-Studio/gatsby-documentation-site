@@ -17,5 +17,5 @@ import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/b
 
 export default function ContentBlockShortcuts(props: { block: SupernovaTypes.DocumentationPageBlockShortcuts }) {
 
-    return <p>Shortcuts block</p>
+    return <p>TODO: Shortcuts block</p>
 }

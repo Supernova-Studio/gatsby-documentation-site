@@ -17,5 +17,5 @@ import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/b
 
 export default function ContentBlockRenderCode(props: { block: SupernovaTypes.DocumentationPageBlockRenderCode }) {
 
-    return <p>Render code block</p>
+    return <p>TODO: Render code block</p>
 }

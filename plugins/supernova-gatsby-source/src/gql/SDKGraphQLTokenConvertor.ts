@@ -34,7 +34,7 @@ import { SupernovaTypes } from "exports"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
 
   
-export const PARENT_SOURCE: string = "__SOURCE__"
+const PARENT_SOURCE: string = "__SOURCE__"
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

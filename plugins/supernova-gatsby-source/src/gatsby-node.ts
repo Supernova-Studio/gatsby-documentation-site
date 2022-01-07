@@ -44,6 +44,12 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
   let assetResult = await bridge.assets()
   assetResult.graphQLNodes.forEach(n => actions.createNode(n))
 
+  let tokenResult = await bridge.tokens()
+  tokenResult.graphQLNodes.forEach(n => actions.createNode(n))
+
+  let tokenGroupResult = await bridge.tokenGroups()
+  tokenGroupResult.graphQLNodes.forEach(n => actions.createNode(n))
+
   let configurationResult = await bridge.documentationConfiguration()
   actions.createNode(configurationResult.graphQLNode)
 

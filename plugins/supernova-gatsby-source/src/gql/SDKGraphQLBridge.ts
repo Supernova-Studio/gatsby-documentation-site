@@ -16,10 +16,13 @@ import { DocumentationConfiguration } from "@supernova-studio/supernova-sdk/buil
 import { DocumentationGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationGroup"
 import { DocumentationPage } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPage"
 import { DocumentationPageBlock } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/documentation/SDKDocumentationPageBlock"
+import { TokenGroup } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/groups/SDKTokenGroup"
+import { Token } from "@supernova-studio/supernova-sdk/build/main/sdk/src/model/tokens/SDKToken"
 import { SupernovaTypes } from "../gql_types/SupernovaTypes"
 import { SDKGraphQLAssetConvertor } from "./SDKGraphQLAssetConvertor"
 import { SDKGraphQLDocBlockConvertor } from "./SDKGraphQLDocBlockConvertor"
 import { SDKGraphQLObjectConvertor } from "./SDKGraphQLObjectConvertor"
+import { SDKGraphQLTokenConvertor } from "./SDKGraphQLTokenConvertor"
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -33,6 +36,7 @@ export class SDKGraphQLBridge {
   documentation: Documentation
   itemConvertor: SDKGraphQLObjectConvertor
   assetConvertor: SDKGraphQLAssetConvertor
+  tokenConvertor: SDKGraphQLTokenConvertor
   docBlockConvertor: SDKGraphQLDocBlockConvertor
 
   // --- Constructor
@@ -42,6 +46,7 @@ export class SDKGraphQLBridge {
     this.documentation = documentation
     this.itemConvertor = new SDKGraphQLObjectConvertor()
     this.assetConvertor = new SDKGraphQLAssetConvertor()
+    this.tokenConvertor = new SDKGraphQLTokenConvertor()
     this.docBlockConvertor = new SDKGraphQLDocBlockConvertor()
   }
 
@@ -116,6 +121,32 @@ export class SDKGraphQLBridge {
     return {
       sdkObjects: assets,
       graphQLNodes: this.assetConvertor.assets(assets)
+    }
+  }
+
+  /** Build and convert SDK tokens */
+  async tokens(): Promise<{
+    sdkObjects: Array<Token>
+    graphQLNodes: Array<SupernovaTypes.Token>
+  }> {
+
+    let tokens = await this.version.tokens()
+    return {
+      sdkObjects: tokens,
+      graphQLNodes: this.tokenConvertor.tokens(tokens)
+    }
+  }
+
+  /** Build and convert SDK token groups */
+  async tokenGroups(): Promise<{
+    sdkObjects: Array<TokenGroup>
+    graphQLNodes: Array<SupernovaTypes.TokenGroup>
+  }> {
+
+    let tokenGroups = await this.version.tokenGroups()
+    return {
+      sdkObjects: tokenGroups,
+      graphQLNodes: this.tokenConvertor.tokenGroups(tokenGroups)
     }
   }
 }

@@ -226,6 +226,8 @@ export namespace SupernovaTypes {
 
   export type DocumentationConfiguration = {
     tabbedNavigation: boolean
+    storybookError: string | null
+    packageJson: string | null
   }
 
   //

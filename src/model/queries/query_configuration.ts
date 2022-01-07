@@ -20,6 +20,8 @@ const QueryConfiguration = (): SupernovaTypes.DocumentationConfiguration => {
     query Configuration {
         documentationConfiguration {
             tabbedNavigation
+            storybookError
+            packageJson
         }
     }
   `);

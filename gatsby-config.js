@@ -54,27 +54,6 @@ module.exports = {
         {
             resolve: "gatsby-plugin-load-script",
             options: {
-                src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js",
-                async: false,
-            }
-        },
-        {
-            resolve: "gatsby-plugin-load-script",
-            options: {
-                src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js",
-                async: false,
-            }
-        },
-        {
-            resolve: "gatsby-plugin-load-script",
-            options: {
-                src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/normalize-whitespace/prism-normalize-whitespace.min.js",
-                async: false,
-            }
-        },
-        {
-            resolve: "gatsby-plugin-load-script",
-            options: {
                 src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/normalize-whitespace/prism-normalize-whitespace.min.js",
                 async: false,
             }

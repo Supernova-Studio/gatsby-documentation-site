@@ -33,11 +33,9 @@ exports.sourceNodes = async ({ actions }: { actions: any }, pluginOptions: Super
 
   // Create all documentation nodes
   let groupResult = await bridge.documentationGroups()
-  console.log(groupResult.graphQLNodes)
   groupResult.graphQLNodes.forEach(n => actions.createNode(n))
 
   let pageResult = await bridge.documentationPages(groupResult.sdkObjects)
-  console.log(pageResult.graphQLNodes)
   pageResult.graphQLNodes.forEach(n => actions.createNode(n))
 
   let blockResult = await bridge.documentationBlocks(pageResult.sdkObjects)
@@ -142,6 +140,12 @@ exports.createSchemaCustomization = ({ actions }: { actions: any }) => {
       description: String
       componentId: String
       previouslyDuplicatedNames: Int
+    }
+
+    type DocumentationConfiguration implements Node @dontInfer {
+      tabbedNavigation: Boolean
+      storybookError: String
+      packageJson: String
     }
   `
 

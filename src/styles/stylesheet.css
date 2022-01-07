@@ -4348,7 +4348,7 @@ iframe {
 
 .storybook-state-wrapper {
     display: grid;
-    margin: 30px 0px;
+    margin: 0px 0px;
 }
 
 .storybook-error,
@@ -5254,8 +5254,8 @@ body.dark .fa-moon:before {
     padding: 10px 0px;
 }
 
-#page-tab-content> :first-child {
-    margin: 0px !important;
+#section-content-page> :first-child {
+    margin-top: 0px !important;
 }
 
 .no-container-tabs {

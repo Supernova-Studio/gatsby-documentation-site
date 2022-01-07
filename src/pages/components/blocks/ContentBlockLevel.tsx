@@ -21,9 +21,8 @@ export default function ContentBlockLevel(props: { blockIds: Array<string> }) {
 
     let blocks = props.blockIds.map(blockId => QueryBlockById(blockId))
     let resultingElements: Array<JSX.Element> = []
-    console.log("c")
+
     while (blocks.length > 0) {
-        console.log(`starting blocks: ${blocks.length}`)
         let subblocks = seekAllBlocksOfUniqueType(blocks)
         // Handle special situations where blocks need to be contained
         if (subblocks[0].blockType === SupernovaTypes.DocumentationPageBlockType.unorderedList) {
@@ -43,7 +42,6 @@ export default function ContentBlockLevel(props: { blockIds: Array<string> }) {
             </>)
         }
         blocks.splice(0, subblocks.length)
-        console.log(`ending blocks: ${blocks.length}`)
     }
 
     return <>
@@ -56,8 +54,6 @@ function seekAllBlocksOfUniqueType(blocks: Array<SupernovaTypes.DocumentationPag
     for (let block of blocks) {
         resultingBlocks.push(block)
         if (block.endsTypeChain) {
-            console.log(`block batch`)
-            console.log(resultingBlocks)
             return resultingBlocks
         }
     }

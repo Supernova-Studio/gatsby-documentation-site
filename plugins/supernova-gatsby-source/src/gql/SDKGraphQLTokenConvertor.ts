@@ -448,7 +448,9 @@ export class SDKGraphQLTokenConvertor {
         name: property.name,
         codeName: property.codeName,
         type: this.convertTokenPropertyType(property.type),
-        value: property.value
+        booleanValue: property.type === CustomTokenPropertyType.boolean ? (property.value as boolean) ?? null : null,
+        stringValue: property.type === CustomTokenPropertyType.string || property.type === CustomTokenPropertyType.generic ? (property.value as string) ?? null : null,
+        numericValue: property.type === CustomTokenPropertyType.number ? (property.value as number) ?? null : null,
     }
   }
 }

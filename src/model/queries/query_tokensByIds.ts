@@ -1,5 +1,5 @@
 //
-//  query_itemsByIds.ts
+//  query_tokensByIds.ts
 //  Design System Documentation Site
 //
 //  Created by Jiri Trecak <jiri@supernova.io> 
@@ -10,10 +10,10 @@
 // MARK: - Imports
 
 import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/exports"
-import QueryAllItems from "./query_allItems"
+import QueryAllTokens from "./query_allTokens"
 
-const QueryItemsByIds = (ids: Array<string>): Array<SupernovaTypes.DocumentationItem> => {
-  return QueryAllItems().filter(i => ids.includes(i.id) || ids.includes(i.persistentId))
+const QueryTokensByIds = (ids: Array<string>): Array<SupernovaTypes.Token> => {
+  return QueryAllTokens().filter(t => ids.includes(t.id))
 };
 
-export default QueryItemsByIds;
+export default QueryTokensByIds;

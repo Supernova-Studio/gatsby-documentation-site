@@ -537,7 +537,9 @@ export namespace SupernovaTypes {
     name: string
     codeName: string
     type: TokenPropertyType
-    value: any
+    booleanValue: boolean | null
+    stringValue: string | null
+    numericValue: number | null
   }
 
   export type ColorTokenValue = {

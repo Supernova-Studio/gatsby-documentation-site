@@ -358,7 +358,7 @@ export class SDKGraphQLTokenConvertor {
     const tokenGroupDescription = {
       id: group.id,
       parent: PARENT_SOURCE,
-      internal: SDKGraphQLObjectConvertor.nodeInternals("TokenGroup"),
+      internal: SDKGraphQLObjectConvertor.nodeInternals("GroupToken"),
       children: [],
       brandId: group.brandId,
       name: group.name,

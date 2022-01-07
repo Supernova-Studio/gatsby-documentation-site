@@ -461,7 +461,123 @@ type DocumentationConfiguration = Node & {
   readonly internal: Internal;
 };
 
-type TokenGroup = Node & {
+type Token = Node & {
+  readonly id: Scalars['ID'];
+  readonly brandId: Scalars['String'];
+  readonly name: Maybe<Scalars['String']>;
+  readonly description: Maybe<Scalars['String']>;
+  readonly tokenType: Scalars['String'];
+  readonly origin: Maybe<SourceOrigin>;
+  readonly properties: ReadonlyArray<Maybe<TokenProperty>>;
+  readonly value: Maybe<TokenValue>;
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+};
+
+type TokenValue = {
+  readonly hex: Maybe<Scalars['String']>;
+  readonly r: Maybe<Scalars['Int']>;
+  readonly g: Maybe<Scalars['Int']>;
+  readonly b: Maybe<Scalars['Int']>;
+  readonly a: Maybe<Scalars['Int']>;
+  readonly font: Maybe<FontTokenValue>;
+  readonly fontSize: Maybe<MeasureTokenValue>;
+  readonly textDecoration: Maybe<Scalars['String']>;
+  readonly textCase: Maybe<Scalars['String']>;
+  readonly letterSpacing: Maybe<MeasureTokenValue>;
+  readonly lineHeight: Maybe<MeasureTokenValue>;
+  readonly paragraphIndent: Maybe<MeasureTokenValue>;
+  readonly radius: Maybe<MeasureTokenValue>;
+  readonly topLeft: Maybe<MeasureTokenValue>;
+  readonly topRight: Maybe<MeasureTokenValue>;
+  readonly bottomLeft: Maybe<MeasureTokenValue>;
+  readonly bottomRight: Maybe<MeasureTokenValue>;
+  readonly color: Maybe<ColorTokenValue>;
+  readonly x: Maybe<MeasureTokenValue>;
+  readonly y: Maybe<MeasureTokenValue>;
+  readonly spread: Maybe<MeasureTokenValue>;
+  readonly opacity: Maybe<Scalars['Float']>;
+  readonly type: Maybe<Scalars['String']>;
+  readonly unit: Maybe<Scalars['String']>;
+  readonly measure: Maybe<Scalars['Float']>;
+  readonly family: Maybe<Scalars['String']>;
+  readonly subfamily: Maybe<Scalars['String']>;
+  readonly width: Maybe<MeasureTokenValue>;
+  readonly position: Maybe<Scalars['String']>;
+  readonly to: Maybe<GradientPosition>;
+  readonly from: Maybe<GradientPosition>;
+  readonly aspectRatio: Maybe<Scalars['Float']>;
+  readonly stops: Maybe<ReadonlyArray<Maybe<GradientStopValue>>>;
+  readonly text: Maybe<Scalars['String']>;
+  readonly referencedTokenId: Maybe<Scalars['String']>;
+};
+
+type ColorTokenValue = {
+  readonly hex: Maybe<Scalars['String']>;
+  readonly r: Maybe<Scalars['Int']>;
+  readonly g: Maybe<Scalars['Int']>;
+  readonly b: Maybe<Scalars['Int']>;
+  readonly a: Maybe<Scalars['Int']>;
+  readonly referencedTokenId: Maybe<Scalars['String']>;
+};
+
+type FontTokenValue = {
+  readonly family: Maybe<Scalars['String']>;
+  readonly subfamily: Maybe<Scalars['String']>;
+  readonly referencedTokenId: Maybe<Scalars['String']>;
+};
+
+type MeasureTokenValue = {
+  readonly unit: Maybe<Scalars['String']>;
+  readonly measure: Maybe<Scalars['Float']>;
+  readonly referencedTokenId: Maybe<Scalars['String']>;
+};
+
+type GradientStopValue = {
+  readonly position: Maybe<Scalars['Int']>;
+  readonly color: Maybe<ColorTokenValue>;
+  readonly referencedTokenId: Maybe<Scalars['String']>;
+};
+
+type GradientPosition = {
+  readonly x: Maybe<Scalars['Float']>;
+  readonly y: Maybe<Scalars['Float']>;
+};
+
+type TokenProperty = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly codeName: Maybe<Scalars['String']>;
+  readonly type: Maybe<Scalars['String']>;
+  readonly stringValue: Maybe<Scalars['String']>;
+  readonly booleanValue: Maybe<Scalars['String']>;
+  readonly numericValue: Maybe<Scalars['String']>;
+};
+
+type SourceOrigin = {
+  readonly source: Maybe<Scalars['String']>;
+  readonly id: Maybe<Scalars['String']>;
+  readonly name: Maybe<Scalars['String']>;
+};
+
+type GroupToken = Node & {
+  readonly brandId: Maybe<Scalars['String']>;
+  readonly name: Maybe<Scalars['String']>;
+  readonly description: Scalars['String'];
+  readonly tokenType: Maybe<Scalars['String']>;
+  readonly isRoot: Maybe<Scalars['Boolean']>;
+  readonly childrenIds: ReadonlyArray<Maybe<Scalars['String']>>;
+  readonly subgroupIds: ReadonlyArray<Maybe<Scalars['String']>>;
+  readonly tokenIds: ReadonlyArray<Maybe<Scalars['String']>>;
+  readonly parentId: Maybe<Scalars['String']>;
+  readonly path: ReadonlyArray<Maybe<Scalars['String']>>;
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+};
+
+type Grouping = Node & {
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
   readonly children: ReadonlyArray<Node>;
@@ -476,93 +592,6 @@ type TokenGroup = Node & {
   readonly tokenIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly parentId: Maybe<Scalars['String']>;
   readonly path: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-};
-
-type Token = Node & {
-  readonly id: Scalars['ID'];
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
-  readonly brandId: Maybe<Scalars['String']>;
-  readonly name: Maybe<Scalars['String']>;
-  readonly description: Maybe<Scalars['String']>;
-  readonly tokenType: Maybe<Scalars['String']>;
-  readonly origin: Maybe<TokenOrigin>;
-  readonly properties: Maybe<ReadonlyArray<Maybe<TokenProperties>>>;
-  readonly value: Maybe<TokenValue>;
-};
-
-type TokenOrigin = {
-  readonly id: Maybe<Scalars['String']>;
-  readonly source: Maybe<Scalars['String']>;
-  readonly name: Maybe<Scalars['String']>;
-};
-
-type TokenProperties = {
-  readonly name: Maybe<Scalars['String']>;
-  readonly codeName: Maybe<Scalars['String']>;
-  readonly type: Maybe<Scalars['String']>;
-  readonly value: Maybe<Scalars['String']>;
-};
-
-type TokenValue = {
-  readonly hex: Maybe<Scalars['String']>;
-  readonly r: Maybe<Scalars['Int']>;
-  readonly g: Maybe<Scalars['Int']>;
-  readonly b: Maybe<Scalars['Int']>;
-  readonly a: Maybe<Scalars['Int']>;
-  readonly font: Maybe<TokenValueFont>;
-  readonly fontSize: Maybe<TokenValueFontSize>;
-  readonly textDecoration: Maybe<Scalars['String']>;
-  readonly textCase: Maybe<Scalars['String']>;
-  readonly letterSpacing: Maybe<TokenValueLetterSpacing>;
-  readonly lineHeight: Maybe<TokenValueLineHeight>;
-  readonly paragraphIndent: Maybe<TokenValueParagraphIndent>;
-  readonly unit: Maybe<Scalars['String']>;
-  readonly measure: Maybe<Scalars['Int']>;
-  readonly color: Maybe<TokenValueColor>;
-  readonly width: Maybe<TokenValueWidth>;
-  readonly position: Maybe<Scalars['String']>;
-};
-
-type TokenValueFont = {
-  readonly family: Maybe<Scalars['String']>;
-  readonly subfamily: Maybe<Scalars['String']>;
-};
-
-type TokenValueFontSize = {
-  readonly measure: Maybe<Scalars['Int']>;
-  readonly unit: Maybe<Scalars['String']>;
-};
-
-type TokenValueLetterSpacing = {
-  readonly measure: Maybe<Scalars['Int']>;
-  readonly unit: Maybe<Scalars['String']>;
-};
-
-type TokenValueLineHeight = {
-  readonly measure: Maybe<Scalars['Int']>;
-  readonly unit: Maybe<Scalars['String']>;
-};
-
-type TokenValueParagraphIndent = {
-  readonly measure: Maybe<Scalars['Int']>;
-  readonly unit: Maybe<Scalars['String']>;
-};
-
-type TokenValueColor = {
-  readonly r: Maybe<Scalars['Int']>;
-  readonly g: Maybe<Scalars['Int']>;
-  readonly b: Maybe<Scalars['Int']>;
-  readonly a: Maybe<Scalars['Int']>;
-  readonly hex: Maybe<Scalars['String']>;
-  readonly referencedTokenId: Maybe<Scalars['String']>;
-};
-
-type TokenValueWidth = {
-  readonly measure: Maybe<Scalars['Int']>;
-  readonly unit: Maybe<Scalars['String']>;
-  readonly referencedTokenId: Maybe<Scalars['String']>;
 };
 
 type DocumentationItem = Node & {
@@ -624,10 +653,12 @@ type Query = {
   readonly allAsset: AssetConnection;
   readonly documentationConfiguration: Maybe<DocumentationConfiguration>;
   readonly allDocumentationConfiguration: DocumentationConfigurationConnection;
-  readonly tokenGroup: Maybe<TokenGroup>;
-  readonly allTokenGroup: TokenGroupConnection;
   readonly token: Maybe<Token>;
   readonly allToken: TokenConnection;
+  readonly groupToken: Maybe<GroupToken>;
+  readonly allGroupToken: GroupTokenConnection;
+  readonly grouping: Maybe<Grouping>;
+  readonly allGrouping: GroupingConnection;
   readonly documentationItem: Maybe<DocumentationItem>;
   readonly allDocumentationItem: DocumentationItemConnection;
 };
@@ -925,7 +956,56 @@ type Query_allDocumentationConfigurationArgs = {
 };
 
 
-type Query_tokenGroupArgs = {
+type Query_tokenArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  brandId: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  tokenType: Maybe<StringQueryOperatorInput>;
+  origin: Maybe<SourceOriginFilterInput>;
+  properties: Maybe<TokenPropertyFilterListInput>;
+  value: Maybe<TokenValueFilterInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+type Query_allTokenArgs = {
+  filter: Maybe<TokenFilterInput>;
+  sort: Maybe<TokenSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_groupTokenArgs = {
+  brandId: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  tokenType: Maybe<StringQueryOperatorInput>;
+  isRoot: Maybe<BooleanQueryOperatorInput>;
+  childrenIds: Maybe<StringQueryOperatorInput>;
+  subgroupIds: Maybe<StringQueryOperatorInput>;
+  tokenIds: Maybe<StringQueryOperatorInput>;
+  parentId: Maybe<StringQueryOperatorInput>;
+  path: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+type Query_allGroupTokenArgs = {
+  filter: Maybe<GroupTokenFilterInput>;
+  sort: Maybe<GroupTokenSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_groupingArgs = {
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
   children: Maybe<NodeFilterListInput>;
@@ -943,32 +1023,9 @@ type Query_tokenGroupArgs = {
 };
 
 
-type Query_allTokenGroupArgs = {
-  filter: Maybe<TokenGroupFilterInput>;
-  sort: Maybe<TokenGroupSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-type Query_tokenArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  brandId: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  description: Maybe<StringQueryOperatorInput>;
-  tokenType: Maybe<StringQueryOperatorInput>;
-  origin: Maybe<TokenOriginFilterInput>;
-  properties: Maybe<TokenPropertiesFilterListInput>;
-  value: Maybe<TokenValueFilterInput>;
-};
-
-
-type Query_allTokenArgs = {
-  filter: Maybe<TokenFilterInput>;
-  sort: Maybe<TokenSortInput>;
+type Query_allGroupingArgs = {
+  filter: Maybe<GroupingFilterInput>;
+  sort: Maybe<GroupingSortInput>;
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
 };
@@ -3401,52 +3458,636 @@ type DocumentationConfigurationSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type TokenGroupConnection = {
+type SourceOriginFilterInput = {
+  readonly source: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+};
+
+type TokenPropertyFilterListInput = {
+  readonly elemMatch: Maybe<TokenPropertyFilterInput>;
+};
+
+type TokenPropertyFilterInput = {
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly codeName: Maybe<StringQueryOperatorInput>;
+  readonly type: Maybe<StringQueryOperatorInput>;
+  readonly stringValue: Maybe<StringQueryOperatorInput>;
+  readonly booleanValue: Maybe<StringQueryOperatorInput>;
+  readonly numericValue: Maybe<StringQueryOperatorInput>;
+};
+
+type TokenValueFilterInput = {
+  readonly hex: Maybe<StringQueryOperatorInput>;
+  readonly r: Maybe<IntQueryOperatorInput>;
+  readonly g: Maybe<IntQueryOperatorInput>;
+  readonly b: Maybe<IntQueryOperatorInput>;
+  readonly a: Maybe<IntQueryOperatorInput>;
+  readonly font: Maybe<FontTokenValueFilterInput>;
+  readonly fontSize: Maybe<MeasureTokenValueFilterInput>;
+  readonly textDecoration: Maybe<StringQueryOperatorInput>;
+  readonly textCase: Maybe<StringQueryOperatorInput>;
+  readonly letterSpacing: Maybe<MeasureTokenValueFilterInput>;
+  readonly lineHeight: Maybe<MeasureTokenValueFilterInput>;
+  readonly paragraphIndent: Maybe<MeasureTokenValueFilterInput>;
+  readonly radius: Maybe<MeasureTokenValueFilterInput>;
+  readonly topLeft: Maybe<MeasureTokenValueFilterInput>;
+  readonly topRight: Maybe<MeasureTokenValueFilterInput>;
+  readonly bottomLeft: Maybe<MeasureTokenValueFilterInput>;
+  readonly bottomRight: Maybe<MeasureTokenValueFilterInput>;
+  readonly color: Maybe<ColorTokenValueFilterInput>;
+  readonly x: Maybe<MeasureTokenValueFilterInput>;
+  readonly y: Maybe<MeasureTokenValueFilterInput>;
+  readonly spread: Maybe<MeasureTokenValueFilterInput>;
+  readonly opacity: Maybe<FloatQueryOperatorInput>;
+  readonly type: Maybe<StringQueryOperatorInput>;
+  readonly unit: Maybe<StringQueryOperatorInput>;
+  readonly measure: Maybe<FloatQueryOperatorInput>;
+  readonly family: Maybe<StringQueryOperatorInput>;
+  readonly subfamily: Maybe<StringQueryOperatorInput>;
+  readonly width: Maybe<MeasureTokenValueFilterInput>;
+  readonly position: Maybe<StringQueryOperatorInput>;
+  readonly to: Maybe<GradientPositionFilterInput>;
+  readonly from: Maybe<GradientPositionFilterInput>;
+  readonly aspectRatio: Maybe<FloatQueryOperatorInput>;
+  readonly stops: Maybe<GradientStopValueFilterListInput>;
+  readonly text: Maybe<StringQueryOperatorInput>;
+  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
+};
+
+type FontTokenValueFilterInput = {
+  readonly family: Maybe<StringQueryOperatorInput>;
+  readonly subfamily: Maybe<StringQueryOperatorInput>;
+  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
+};
+
+type MeasureTokenValueFilterInput = {
+  readonly unit: Maybe<StringQueryOperatorInput>;
+  readonly measure: Maybe<FloatQueryOperatorInput>;
+  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
+};
+
+type ColorTokenValueFilterInput = {
+  readonly hex: Maybe<StringQueryOperatorInput>;
+  readonly r: Maybe<IntQueryOperatorInput>;
+  readonly g: Maybe<IntQueryOperatorInput>;
+  readonly b: Maybe<IntQueryOperatorInput>;
+  readonly a: Maybe<IntQueryOperatorInput>;
+  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
+};
+
+type GradientPositionFilterInput = {
+  readonly x: Maybe<FloatQueryOperatorInput>;
+  readonly y: Maybe<FloatQueryOperatorInput>;
+};
+
+type GradientStopValueFilterListInput = {
+  readonly elemMatch: Maybe<GradientStopValueFilterInput>;
+};
+
+type GradientStopValueFilterInput = {
+  readonly position: Maybe<IntQueryOperatorInput>;
+  readonly color: Maybe<ColorTokenValueFilterInput>;
+  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
+};
+
+type TokenConnection = {
   readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<TokenGroupEdge>;
-  readonly nodes: ReadonlyArray<TokenGroup>;
+  readonly edges: ReadonlyArray<TokenEdge>;
+  readonly nodes: ReadonlyArray<Token>;
   readonly pageInfo: PageInfo;
   readonly distinct: ReadonlyArray<Scalars['String']>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
   readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<TokenGroupGroupConnection>;
+  readonly group: ReadonlyArray<TokenGroupConnection>;
+};
+
+
+type TokenConnection_distinctArgs = {
+  field: TokenFieldsEnum;
+};
+
+
+type TokenConnection_maxArgs = {
+  field: TokenFieldsEnum;
+};
+
+
+type TokenConnection_minArgs = {
+  field: TokenFieldsEnum;
+};
+
+
+type TokenConnection_sumArgs = {
+  field: TokenFieldsEnum;
+};
+
+
+type TokenConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: TokenFieldsEnum;
+};
+
+type TokenEdge = {
+  readonly next: Maybe<Token>;
+  readonly node: Token;
+  readonly previous: Maybe<Token>;
+};
+
+type TokenFieldsEnum =
+  | 'id'
+  | 'brandId'
+  | 'name'
+  | 'description'
+  | 'tokenType'
+  | 'origin.source'
+  | 'origin.id'
+  | 'origin.name'
+  | 'properties'
+  | 'properties.name'
+  | 'properties.codeName'
+  | 'properties.type'
+  | 'properties.stringValue'
+  | 'properties.booleanValue'
+  | 'properties.numericValue'
+  | 'value.hex'
+  | 'value.r'
+  | 'value.g'
+  | 'value.b'
+  | 'value.a'
+  | 'value.font.family'
+  | 'value.font.subfamily'
+  | 'value.font.referencedTokenId'
+  | 'value.fontSize.unit'
+  | 'value.fontSize.measure'
+  | 'value.fontSize.referencedTokenId'
+  | 'value.textDecoration'
+  | 'value.textCase'
+  | 'value.letterSpacing.unit'
+  | 'value.letterSpacing.measure'
+  | 'value.letterSpacing.referencedTokenId'
+  | 'value.lineHeight.unit'
+  | 'value.lineHeight.measure'
+  | 'value.lineHeight.referencedTokenId'
+  | 'value.paragraphIndent.unit'
+  | 'value.paragraphIndent.measure'
+  | 'value.paragraphIndent.referencedTokenId'
+  | 'value.radius.unit'
+  | 'value.radius.measure'
+  | 'value.radius.referencedTokenId'
+  | 'value.topLeft.unit'
+  | 'value.topLeft.measure'
+  | 'value.topLeft.referencedTokenId'
+  | 'value.topRight.unit'
+  | 'value.topRight.measure'
+  | 'value.topRight.referencedTokenId'
+  | 'value.bottomLeft.unit'
+  | 'value.bottomLeft.measure'
+  | 'value.bottomLeft.referencedTokenId'
+  | 'value.bottomRight.unit'
+  | 'value.bottomRight.measure'
+  | 'value.bottomRight.referencedTokenId'
+  | 'value.color.hex'
+  | 'value.color.r'
+  | 'value.color.g'
+  | 'value.color.b'
+  | 'value.color.a'
+  | 'value.color.referencedTokenId'
+  | 'value.x.unit'
+  | 'value.x.measure'
+  | 'value.x.referencedTokenId'
+  | 'value.y.unit'
+  | 'value.y.measure'
+  | 'value.y.referencedTokenId'
+  | 'value.spread.unit'
+  | 'value.spread.measure'
+  | 'value.spread.referencedTokenId'
+  | 'value.opacity'
+  | 'value.type'
+  | 'value.unit'
+  | 'value.measure'
+  | 'value.family'
+  | 'value.subfamily'
+  | 'value.width.unit'
+  | 'value.width.measure'
+  | 'value.width.referencedTokenId'
+  | 'value.position'
+  | 'value.to.x'
+  | 'value.to.y'
+  | 'value.from.x'
+  | 'value.from.y'
+  | 'value.aspectRatio'
+  | 'value.stops'
+  | 'value.stops.position'
+  | 'value.stops.color.hex'
+  | 'value.stops.color.r'
+  | 'value.stops.color.g'
+  | 'value.stops.color.b'
+  | 'value.stops.color.a'
+  | 'value.stops.color.referencedTokenId'
+  | 'value.stops.referencedTokenId'
+  | 'value.text'
+  | 'value.referencedTokenId'
+  | 'parent.id'
+  | 'parent.parent.id'
+  | 'parent.parent.parent.id'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.children.children'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.children'
+  | 'parent.children.id'
+  | 'parent.children.parent.id'
+  | 'parent.children.parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.children.children'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'children'
+  | 'children.id'
+  | 'children.parent.id'
+  | 'children.parent.parent.id'
+  | 'children.parent.parent.children'
+  | 'children.parent.children'
+  | 'children.parent.children.id'
+  | 'children.parent.children.children'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.children'
+  | 'children.children.id'
+  | 'children.children.parent.id'
+  | 'children.children.parent.children'
+  | 'children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.children.children'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type';
+
+type TokenGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<TokenEdge>;
+  readonly nodes: ReadonlyArray<Token>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<TokenGroupConnection>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
 };
 
 
 type TokenGroupConnection_distinctArgs = {
-  field: TokenGroupFieldsEnum;
+  field: TokenFieldsEnum;
 };
 
 
 type TokenGroupConnection_maxArgs = {
-  field: TokenGroupFieldsEnum;
+  field: TokenFieldsEnum;
 };
 
 
 type TokenGroupConnection_minArgs = {
-  field: TokenGroupFieldsEnum;
+  field: TokenFieldsEnum;
 };
 
 
 type TokenGroupConnection_sumArgs = {
-  field: TokenGroupFieldsEnum;
+  field: TokenFieldsEnum;
 };
 
 
 type TokenGroupConnection_groupArgs = {
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
-  field: TokenGroupFieldsEnum;
+  field: TokenFieldsEnum;
 };
 
-type TokenGroupEdge = {
-  readonly next: Maybe<TokenGroup>;
-  readonly node: TokenGroup;
-  readonly previous: Maybe<TokenGroup>;
+type TokenFilterInput = {
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly brandId: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly tokenType: Maybe<StringQueryOperatorInput>;
+  readonly origin: Maybe<SourceOriginFilterInput>;
+  readonly properties: Maybe<TokenPropertyFilterListInput>;
+  readonly value: Maybe<TokenValueFilterInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
 };
 
-type TokenGroupFieldsEnum =
+type TokenSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<TokenFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
+type GroupTokenConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<GroupTokenEdge>;
+  readonly nodes: ReadonlyArray<GroupToken>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<GroupTokenGroupConnection>;
+};
+
+
+type GroupTokenConnection_distinctArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenConnection_maxArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenConnection_minArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenConnection_sumArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: GroupTokenFieldsEnum;
+};
+
+type GroupTokenEdge = {
+  readonly next: Maybe<GroupToken>;
+  readonly node: GroupToken;
+  readonly previous: Maybe<GroupToken>;
+};
+
+type GroupTokenFieldsEnum =
+  | 'brandId'
+  | 'name'
+  | 'description'
+  | 'tokenType'
+  | 'isRoot'
+  | 'childrenIds'
+  | 'subgroupIds'
+  | 'tokenIds'
+  | 'parentId'
+  | 'path'
+  | 'id'
+  | 'parent.id'
+  | 'parent.parent.id'
+  | 'parent.parent.parent.id'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.children.children'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.children'
+  | 'parent.children.id'
+  | 'parent.children.parent.id'
+  | 'parent.children.parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.children.children'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'children'
+  | 'children.id'
+  | 'children.parent.id'
+  | 'children.parent.parent.id'
+  | 'children.parent.parent.children'
+  | 'children.parent.children'
+  | 'children.parent.children.id'
+  | 'children.parent.children.children'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.children'
+  | 'children.children.id'
+  | 'children.children.parent.id'
+  | 'children.children.parent.children'
+  | 'children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.children.children'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type';
+
+type GroupTokenGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<GroupTokenEdge>;
+  readonly nodes: ReadonlyArray<GroupToken>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<GroupTokenGroupConnection>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+
+type GroupTokenGroupConnection_distinctArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenGroupConnection_maxArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenGroupConnection_minArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenGroupConnection_sumArgs = {
+  field: GroupTokenFieldsEnum;
+};
+
+
+type GroupTokenGroupConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: GroupTokenFieldsEnum;
+};
+
+type GroupTokenFilterInput = {
+  readonly brandId: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly tokenType: Maybe<StringQueryOperatorInput>;
+  readonly isRoot: Maybe<BooleanQueryOperatorInput>;
+  readonly childrenIds: Maybe<StringQueryOperatorInput>;
+  readonly subgroupIds: Maybe<StringQueryOperatorInput>;
+  readonly tokenIds: Maybe<StringQueryOperatorInput>;
+  readonly parentId: Maybe<StringQueryOperatorInput>;
+  readonly path: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type GroupTokenSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<GroupTokenFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
+type GroupingConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<GroupingEdge>;
+  readonly nodes: ReadonlyArray<Grouping>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<GroupingGroupConnection>;
+};
+
+
+type GroupingConnection_distinctArgs = {
+  field: GroupingFieldsEnum;
+};
+
+
+type GroupingConnection_maxArgs = {
+  field: GroupingFieldsEnum;
+};
+
+
+type GroupingConnection_minArgs = {
+  field: GroupingFieldsEnum;
+};
+
+
+type GroupingConnection_sumArgs = {
+  field: GroupingFieldsEnum;
+};
+
+
+type GroupingConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: GroupingFieldsEnum;
+};
+
+type GroupingEdge = {
+  readonly next: Maybe<Grouping>;
+  readonly node: Grouping;
+  readonly previous: Maybe<Grouping>;
+};
+
+type GroupingFieldsEnum =
   | 'id'
   | 'parent.id'
   | 'parent.parent.id'
@@ -3544,48 +4185,48 @@ type TokenGroupFieldsEnum =
   | 'parentId'
   | 'path';
 
-type TokenGroupGroupConnection = {
+type GroupingGroupConnection = {
   readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<TokenGroupEdge>;
-  readonly nodes: ReadonlyArray<TokenGroup>;
+  readonly edges: ReadonlyArray<GroupingEdge>;
+  readonly nodes: ReadonlyArray<Grouping>;
   readonly pageInfo: PageInfo;
   readonly distinct: ReadonlyArray<Scalars['String']>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
   readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<TokenGroupGroupConnection>;
+  readonly group: ReadonlyArray<GroupingGroupConnection>;
   readonly field: Scalars['String'];
   readonly fieldValue: Maybe<Scalars['String']>;
 };
 
 
-type TokenGroupGroupConnection_distinctArgs = {
-  field: TokenGroupFieldsEnum;
+type GroupingGroupConnection_distinctArgs = {
+  field: GroupingFieldsEnum;
 };
 
 
-type TokenGroupGroupConnection_maxArgs = {
-  field: TokenGroupFieldsEnum;
+type GroupingGroupConnection_maxArgs = {
+  field: GroupingFieldsEnum;
 };
 
 
-type TokenGroupGroupConnection_minArgs = {
-  field: TokenGroupFieldsEnum;
+type GroupingGroupConnection_minArgs = {
+  field: GroupingFieldsEnum;
 };
 
 
-type TokenGroupGroupConnection_sumArgs = {
-  field: TokenGroupFieldsEnum;
+type GroupingGroupConnection_sumArgs = {
+  field: GroupingFieldsEnum;
 };
 
 
-type TokenGroupGroupConnection_groupArgs = {
+type GroupingGroupConnection_groupArgs = {
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
-  field: TokenGroupFieldsEnum;
+  field: GroupingFieldsEnum;
 };
 
-type TokenGroupFilterInput = {
+type GroupingFilterInput = {
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
@@ -3602,278 +4243,8 @@ type TokenGroupFilterInput = {
   readonly path: Maybe<StringQueryOperatorInput>;
 };
 
-type TokenGroupSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<TokenGroupFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
-};
-
-type TokenOriginFilterInput = {
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly source: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenPropertiesFilterListInput = {
-  readonly elemMatch: Maybe<TokenPropertiesFilterInput>;
-};
-
-type TokenPropertiesFilterInput = {
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly codeName: Maybe<StringQueryOperatorInput>;
-  readonly type: Maybe<StringQueryOperatorInput>;
-  readonly value: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueFilterInput = {
-  readonly hex: Maybe<StringQueryOperatorInput>;
-  readonly r: Maybe<IntQueryOperatorInput>;
-  readonly g: Maybe<IntQueryOperatorInput>;
-  readonly b: Maybe<IntQueryOperatorInput>;
-  readonly a: Maybe<IntQueryOperatorInput>;
-  readonly font: Maybe<TokenValueFontFilterInput>;
-  readonly fontSize: Maybe<TokenValueFontSizeFilterInput>;
-  readonly textDecoration: Maybe<StringQueryOperatorInput>;
-  readonly textCase: Maybe<StringQueryOperatorInput>;
-  readonly letterSpacing: Maybe<TokenValueLetterSpacingFilterInput>;
-  readonly lineHeight: Maybe<TokenValueLineHeightFilterInput>;
-  readonly paragraphIndent: Maybe<TokenValueParagraphIndentFilterInput>;
-  readonly unit: Maybe<StringQueryOperatorInput>;
-  readonly measure: Maybe<IntQueryOperatorInput>;
-  readonly color: Maybe<TokenValueColorFilterInput>;
-  readonly width: Maybe<TokenValueWidthFilterInput>;
-  readonly position: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueFontFilterInput = {
-  readonly family: Maybe<StringQueryOperatorInput>;
-  readonly subfamily: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueFontSizeFilterInput = {
-  readonly measure: Maybe<IntQueryOperatorInput>;
-  readonly unit: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueLetterSpacingFilterInput = {
-  readonly measure: Maybe<IntQueryOperatorInput>;
-  readonly unit: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueLineHeightFilterInput = {
-  readonly measure: Maybe<IntQueryOperatorInput>;
-  readonly unit: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueParagraphIndentFilterInput = {
-  readonly measure: Maybe<IntQueryOperatorInput>;
-  readonly unit: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueColorFilterInput = {
-  readonly r: Maybe<IntQueryOperatorInput>;
-  readonly g: Maybe<IntQueryOperatorInput>;
-  readonly b: Maybe<IntQueryOperatorInput>;
-  readonly a: Maybe<IntQueryOperatorInput>;
-  readonly hex: Maybe<StringQueryOperatorInput>;
-  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenValueWidthFilterInput = {
-  readonly measure: Maybe<IntQueryOperatorInput>;
-  readonly unit: Maybe<StringQueryOperatorInput>;
-  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
-};
-
-type TokenConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<TokenEdge>;
-  readonly nodes: ReadonlyArray<Token>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<TokenGroupConnection>;
-};
-
-
-type TokenConnection_distinctArgs = {
-  field: TokenFieldsEnum;
-};
-
-
-type TokenConnection_maxArgs = {
-  field: TokenFieldsEnum;
-};
-
-
-type TokenConnection_minArgs = {
-  field: TokenFieldsEnum;
-};
-
-
-type TokenConnection_sumArgs = {
-  field: TokenFieldsEnum;
-};
-
-
-type TokenConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: TokenFieldsEnum;
-};
-
-type TokenEdge = {
-  readonly next: Maybe<Token>;
-  readonly node: Token;
-  readonly previous: Maybe<Token>;
-};
-
-type TokenFieldsEnum =
-  | 'id'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type'
-  | 'brandId'
-  | 'name'
-  | 'description'
-  | 'tokenType'
-  | 'origin.id'
-  | 'origin.source'
-  | 'origin.name'
-  | 'properties'
-  | 'properties.name'
-  | 'properties.codeName'
-  | 'properties.type'
-  | 'properties.value'
-  | 'value.hex'
-  | 'value.r'
-  | 'value.g'
-  | 'value.b'
-  | 'value.a'
-  | 'value.font.family'
-  | 'value.font.subfamily'
-  | 'value.fontSize.measure'
-  | 'value.fontSize.unit'
-  | 'value.textDecoration'
-  | 'value.textCase'
-  | 'value.letterSpacing.measure'
-  | 'value.letterSpacing.unit'
-  | 'value.lineHeight.measure'
-  | 'value.lineHeight.unit'
-  | 'value.paragraphIndent.measure'
-  | 'value.paragraphIndent.unit'
-  | 'value.unit'
-  | 'value.measure'
-  | 'value.color.r'
-  | 'value.color.g'
-  | 'value.color.b'
-  | 'value.color.a'
-  | 'value.color.hex'
-  | 'value.color.referencedTokenId'
-  | 'value.width.measure'
-  | 'value.width.unit'
-  | 'value.width.referencedTokenId'
-  | 'value.position';
-
-type TokenFilterInput = {
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-  readonly brandId: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly tokenType: Maybe<StringQueryOperatorInput>;
-  readonly origin: Maybe<TokenOriginFilterInput>;
-  readonly properties: Maybe<TokenPropertiesFilterListInput>;
-  readonly value: Maybe<TokenValueFilterInput>;
-};
-
-type TokenSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<TokenFieldsEnum>>>;
+type GroupingSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<GroupingFieldsEnum>>>;
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
@@ -4140,11 +4511,6 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
-
 type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4170,6 +4536,16 @@ type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: R
         )>>> }> }
     )> } };
 
+type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
+
+type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
+
 type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4189,6 +4565,20 @@ type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: Rea
       & { readonly configuration: Maybe<(
         Pick<DocumentationItemConfiguration, 'showSidebar'>
         & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
+    )> } };
+
+type QueryAllTokensQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllTokensQuery = { readonly allToken: { readonly nodes: ReadonlyArray<(
+      Pick<Token, 'brandId' | 'description' | 'id' | 'name' | 'tokenType'>
+      & { readonly origin: Maybe<Pick<SourceOrigin, 'id' | 'name' | 'source'>>, readonly properties: ReadonlyArray<Maybe<Pick<TokenProperty, 'booleanValue' | 'codeName' | 'name' | 'numericValue' | 'stringValue' | 'type'>>>, readonly value: Maybe<(
+        Pick<TokenValue, 'a' | 'aspectRatio' | 'b' | 'family' | 'g' | 'hex' | 'measure' | 'opacity' | 'position' | 'r' | 'referencedTokenId' | 'subfamily' | 'text' | 'textCase' | 'textDecoration' | 'type' | 'unit'>
+        & { readonly bottomLeft: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly bottomRight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly color: Maybe<Pick<ColorTokenValue, 'a' | 'b' | 'g' | 'hex' | 'r' | 'referencedTokenId'>>, readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly from: Maybe<Pick<GradientPosition, 'x' | 'y'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly radius: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly spread: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly stops: Maybe<ReadonlyArray<Maybe<(
+          Pick<GradientStopValue, 'position' | 'referencedTokenId'>
+          & { readonly color: Maybe<Pick<ColorTokenValue, 'a' | 'b' | 'g' | 'hex' | 'r' | 'referencedTokenId'>> }
+        )>>>, readonly to: Maybe<Pick<GradientPosition, 'x' | 'y'>>, readonly topLeft: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'measure' | 'unit'>>, readonly topRight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly width: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly x: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly y: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
       )> }
     )> } };
 

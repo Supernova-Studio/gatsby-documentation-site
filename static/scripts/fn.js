@@ -91,23 +91,6 @@ function loadVersions(url) {
     })
 }
 
-
-/*-----------------------------
-    Copy code
-------------------------------- */
-
-$(function() {
-    $('[data-toggle="copy-from-sandbox"]').click(function(event) {
-        // Get code of the sandbox
-        event.preventDefault()
-        const sandboxId = $(this).attr('data-target');
-        const code = window.sandboxEngine.getCodeForSandboxId(sandboxId)
-        const cb = navigator.clipboard;
-        cb.writeText(code)
-    });
-})
-
-
 /*-----------------------------
     Storybook handling
 ------------------------------- */

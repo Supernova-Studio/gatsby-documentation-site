@@ -75,6 +75,10 @@ pre[class*="language-"] {
     overflow: auto;
 }
 
+.sandbox-text pre[class*="language-"] {
+    margin: 0px;
+}
+
 
 /* Inline code */
 

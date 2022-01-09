@@ -11,16 +11,14 @@
 
 import React from 'react'
 import { graphql } from 'gatsby'
-import get from 'lodash/get'
 import Sidebar from './components/structure/Sidebar'
 import Topbar from './components/structure/Topbar'
 import Head from './components/structure/Head'
-import useScript from '../model/hooks/hook_useScript'
 import Title from './components/structure/Title'
 import { SupernovaTypes } from '../../plugins/supernova-gatsby-source/build/exports'
-import ContentBlock from './components/blocks/ContentBlock'
 import ContentMenu from './components/structure/ContentMenu'
 import ContentBlockLevel from './components/blocks/ContentBlockLevel'
+import Onload from './components/structure/Onload'
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -30,8 +28,8 @@ function TemplatePageContent(props: any) {
 
   const page = props.data.documentationItem as SupernovaTypes.DocumentationPage
 
-  return [
-    <Head key="head" />,
+  return <Onload tree={<>
+    <Head key="head" />
     <div id="main-wrapper" key="content">
       <div id="content" role="main">
         {/* Page top bar */}
@@ -49,10 +47,7 @@ function TemplatePageContent(props: any) {
           </div>
         </div>
       </div>
-    </div>,
-    useScript("/scripts/sandbox.js"),
-    useScript("/scripts/fn.js")
-  ]
+    </div></>}/>
 }
 
 

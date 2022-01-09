@@ -57,6 +57,13 @@ module.exports = {
                 src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/normalize-whitespace/prism-normalize-whitespace.min.js",
                 async: false,
             }
+        },
+        {
+            resolve: "gatsby-plugin-load-script",
+            options: {
+                src: "/scripts/sandbox.js",
+                async: false,
+            }
         }
     ],
 };

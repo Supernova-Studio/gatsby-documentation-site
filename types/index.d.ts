@@ -577,23 +577,6 @@ type GroupToken = Node & {
   readonly internal: Internal;
 };
 
-type Grouping = Node & {
-  readonly id: Scalars['ID'];
-  readonly parent: Maybe<Node>;
-  readonly children: ReadonlyArray<Node>;
-  readonly internal: Internal;
-  readonly brandId: Maybe<Scalars['String']>;
-  readonly name: Maybe<Scalars['String']>;
-  readonly description: Maybe<Scalars['String']>;
-  readonly tokenType: Maybe<Scalars['String']>;
-  readonly isRoot: Maybe<Scalars['Boolean']>;
-  readonly childrenIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly subgroupIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly tokenIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly parentId: Maybe<Scalars['String']>;
-  readonly path: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-};
-
 type DocumentationItem = Node & {
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
@@ -657,8 +640,6 @@ type Query = {
   readonly allToken: TokenConnection;
   readonly groupToken: Maybe<GroupToken>;
   readonly allGroupToken: GroupTokenConnection;
-  readonly grouping: Maybe<Grouping>;
-  readonly allGrouping: GroupingConnection;
   readonly documentationItem: Maybe<DocumentationItem>;
   readonly allDocumentationItem: DocumentationItemConnection;
 };
@@ -1000,32 +981,6 @@ type Query_groupTokenArgs = {
 type Query_allGroupTokenArgs = {
   filter: Maybe<GroupTokenFilterInput>;
   sort: Maybe<GroupTokenSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-type Query_groupingArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  brandId: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  description: Maybe<StringQueryOperatorInput>;
-  tokenType: Maybe<StringQueryOperatorInput>;
-  isRoot: Maybe<BooleanQueryOperatorInput>;
-  childrenIds: Maybe<StringQueryOperatorInput>;
-  subgroupIds: Maybe<StringQueryOperatorInput>;
-  tokenIds: Maybe<StringQueryOperatorInput>;
-  parentId: Maybe<StringQueryOperatorInput>;
-  path: Maybe<StringQueryOperatorInput>;
-};
-
-
-type Query_allGroupingArgs = {
-  filter: Maybe<GroupingFilterInput>;
-  sort: Maybe<GroupingSortInput>;
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
 };
@@ -4042,212 +3997,6 @@ type GroupTokenSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type GroupingConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<GroupingEdge>;
-  readonly nodes: ReadonlyArray<Grouping>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<GroupingGroupConnection>;
-};
-
-
-type GroupingConnection_distinctArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingConnection_maxArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingConnection_minArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingConnection_sumArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: GroupingFieldsEnum;
-};
-
-type GroupingEdge = {
-  readonly next: Maybe<Grouping>;
-  readonly node: Grouping;
-  readonly previous: Maybe<Grouping>;
-};
-
-type GroupingFieldsEnum =
-  | 'id'
-  | 'parent.id'
-  | 'parent.parent.id'
-  | 'parent.parent.parent.id'
-  | 'parent.parent.parent.children'
-  | 'parent.parent.children'
-  | 'parent.parent.children.id'
-  | 'parent.parent.children.children'
-  | 'parent.parent.internal.content'
-  | 'parent.parent.internal.contentDigest'
-  | 'parent.parent.internal.description'
-  | 'parent.parent.internal.fieldOwners'
-  | 'parent.parent.internal.ignoreType'
-  | 'parent.parent.internal.mediaType'
-  | 'parent.parent.internal.owner'
-  | 'parent.parent.internal.type'
-  | 'parent.children'
-  | 'parent.children.id'
-  | 'parent.children.parent.id'
-  | 'parent.children.parent.children'
-  | 'parent.children.children'
-  | 'parent.children.children.id'
-  | 'parent.children.children.children'
-  | 'parent.children.internal.content'
-  | 'parent.children.internal.contentDigest'
-  | 'parent.children.internal.description'
-  | 'parent.children.internal.fieldOwners'
-  | 'parent.children.internal.ignoreType'
-  | 'parent.children.internal.mediaType'
-  | 'parent.children.internal.owner'
-  | 'parent.children.internal.type'
-  | 'parent.internal.content'
-  | 'parent.internal.contentDigest'
-  | 'parent.internal.description'
-  | 'parent.internal.fieldOwners'
-  | 'parent.internal.ignoreType'
-  | 'parent.internal.mediaType'
-  | 'parent.internal.owner'
-  | 'parent.internal.type'
-  | 'children'
-  | 'children.id'
-  | 'children.parent.id'
-  | 'children.parent.parent.id'
-  | 'children.parent.parent.children'
-  | 'children.parent.children'
-  | 'children.parent.children.id'
-  | 'children.parent.children.children'
-  | 'children.parent.internal.content'
-  | 'children.parent.internal.contentDigest'
-  | 'children.parent.internal.description'
-  | 'children.parent.internal.fieldOwners'
-  | 'children.parent.internal.ignoreType'
-  | 'children.parent.internal.mediaType'
-  | 'children.parent.internal.owner'
-  | 'children.parent.internal.type'
-  | 'children.children'
-  | 'children.children.id'
-  | 'children.children.parent.id'
-  | 'children.children.parent.children'
-  | 'children.children.children'
-  | 'children.children.children.id'
-  | 'children.children.children.children'
-  | 'children.children.internal.content'
-  | 'children.children.internal.contentDigest'
-  | 'children.children.internal.description'
-  | 'children.children.internal.fieldOwners'
-  | 'children.children.internal.ignoreType'
-  | 'children.children.internal.mediaType'
-  | 'children.children.internal.owner'
-  | 'children.children.internal.type'
-  | 'children.internal.content'
-  | 'children.internal.contentDigest'
-  | 'children.internal.description'
-  | 'children.internal.fieldOwners'
-  | 'children.internal.ignoreType'
-  | 'children.internal.mediaType'
-  | 'children.internal.owner'
-  | 'children.internal.type'
-  | 'internal.content'
-  | 'internal.contentDigest'
-  | 'internal.description'
-  | 'internal.fieldOwners'
-  | 'internal.ignoreType'
-  | 'internal.mediaType'
-  | 'internal.owner'
-  | 'internal.type'
-  | 'brandId'
-  | 'name'
-  | 'description'
-  | 'tokenType'
-  | 'isRoot'
-  | 'childrenIds'
-  | 'subgroupIds'
-  | 'tokenIds'
-  | 'parentId'
-  | 'path';
-
-type GroupingGroupConnection = {
-  readonly totalCount: Scalars['Int'];
-  readonly edges: ReadonlyArray<GroupingEdge>;
-  readonly nodes: ReadonlyArray<Grouping>;
-  readonly pageInfo: PageInfo;
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly group: ReadonlyArray<GroupingGroupConnection>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-};
-
-
-type GroupingGroupConnection_distinctArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingGroupConnection_maxArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingGroupConnection_minArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingGroupConnection_sumArgs = {
-  field: GroupingFieldsEnum;
-};
-
-
-type GroupingGroupConnection_groupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: GroupingFieldsEnum;
-};
-
-type GroupingFilterInput = {
-  readonly id: Maybe<StringQueryOperatorInput>;
-  readonly parent: Maybe<NodeFilterInput>;
-  readonly children: Maybe<NodeFilterListInput>;
-  readonly internal: Maybe<InternalFilterInput>;
-  readonly brandId: Maybe<StringQueryOperatorInput>;
-  readonly name: Maybe<StringQueryOperatorInput>;
-  readonly description: Maybe<StringQueryOperatorInput>;
-  readonly tokenType: Maybe<StringQueryOperatorInput>;
-  readonly isRoot: Maybe<BooleanQueryOperatorInput>;
-  readonly childrenIds: Maybe<StringQueryOperatorInput>;
-  readonly subgroupIds: Maybe<StringQueryOperatorInput>;
-  readonly tokenIds: Maybe<StringQueryOperatorInput>;
-  readonly parentId: Maybe<StringQueryOperatorInput>;
-  readonly path: Maybe<StringQueryOperatorInput>;
-};
-
-type GroupingSortInput = {
-  readonly fields: Maybe<ReadonlyArray<Maybe<GroupingFieldsEnum>>>;
-  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
-};
-
 type DocumentationItemConfigurationFilterInput = {
   readonly showSidebar: Maybe<BooleanQueryOperatorInput>;
   readonly header: Maybe<DocumentationItemConfigurationHeaderFilterInput>;
@@ -4511,37 +4260,10 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
-      )> }
-    )> } };
-
 type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
-
-type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
-      )> }
-    )> } };
-
-type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
 
 type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4555,6 +4277,39 @@ type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: R
           Pick<DocumentationBlockTextSpan, 'text'>
           & { readonly attributes: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockTextSpansAttribute, 'link' | 'type'>>>> }
         )>>> }> }
+    )> } };
+
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
+    )> } };
+
+type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
+    )> } };
+
+type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
+      )> }
     )> } };
 
 type QueryAllTokensQueryVariables = Exact<{ [key: string]: never; }>;
@@ -4571,20 +4326,14 @@ type QueryAllTokensQuery = { readonly allToken: { readonly nodes: ReadonlyArray<
       )> }
     )> } };
 
+type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
+
 type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
-
-type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Maybe<Pick<DocumentationItemConfigurationHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'>> }
-      )> }
-    )> } };
 
 }

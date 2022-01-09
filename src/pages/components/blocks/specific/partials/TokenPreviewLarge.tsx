@@ -65,7 +65,7 @@ export default function TokenPreviewLarge(props: { token: SupernovaTypes.Token }
     }
     case SupernovaTypes.TokenType.Color: {
       let typedToken = props.token as SupernovaTypes.ColorToken
-      return <div className="preview" style={{ backgroundColor: typedToken.value.hex }}></div>
+      return <div className="preview" style={{ backgroundColor: `#${typedToken.value.hex }`}}></div>
     }
     case SupernovaTypes.TokenType.Font: {
       let typedToken = props.token as SupernovaTypes.FontToken

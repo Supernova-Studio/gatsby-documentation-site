@@ -9,7 +9,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React from "react";
+import React, { useEffect } from "react";
 import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
 import QueryConfiguration from "../../../../model/queries/query_configuration"
 

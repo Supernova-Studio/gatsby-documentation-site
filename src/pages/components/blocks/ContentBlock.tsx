@@ -10,7 +10,7 @@
 // MARK: - Imports
 
 import React from "react";
-import { SupernovaTypes } from "../../../../plugins/supernova-gatsby-source/build/exports"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import QueryBlockById from "../../../model/queries/query_blockById"
 import ContentBlockLevel from "./ContentBlockLevel"
 import ContentBlockCallout from "./specific/ContentBlockCallout"
@@ -55,7 +55,7 @@ export default function ContentBlock(props: { blockId: string }) {
       case SupernovaTypes.DocumentationPageBlockType.image: contentBlock = <ContentBlockImage block={block as SupernovaTypes.DocumentationPageBlockImage} />; break
       case SupernovaTypes.DocumentationPageBlockType.token: contentBlock = <ContentBlockToken block={block as SupernovaTypes.DocumentationPageBlockToken} />; break
       case SupernovaTypes.DocumentationPageBlockType.tokenList: contentBlock = <ContentBlockTokenList block={block as SupernovaTypes.DocumentationPageBlockTokenList} />; break
-      case SupernovaTypes.DocumentationPageBlockType.tokenGroup: contentBlock = <ContentBlockTokenGroup block={block as SupernovaTypes.DocumentationPageBlockTokenGroup} />; break
+      case SupernovaTypes.DocumentationPageBlockType.tokenGroup: contentBlock = <ContentBlockTokenGroup block={block as SupernovaTypes.DocumentationPageBlockTokenGroup} groupId={undefined} />; break
       case SupernovaTypes.DocumentationPageBlockType.shortcuts: contentBlock = <ContentBlockShortcuts block={block as SupernovaTypes.DocumentationPageBlockShortcuts} />; break
       case SupernovaTypes.DocumentationPageBlockType.link: contentBlock = <ContentBlockLink block={block as SupernovaTypes.DocumentationPageBlockLink} />; break
       case SupernovaTypes.DocumentationPageBlockType.figmaEmbed: contentBlock = <ContentBlockFigmaEmbed block={block as SupernovaTypes.DocumentationPageBlockEmbedFigma} />; break

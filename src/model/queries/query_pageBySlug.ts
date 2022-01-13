@@ -9,7 +9,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/exports"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import QueryAllPages from "./query_allPages"
 
 const QueryPageBySlug = (slug: string): SupernovaTypes.DocumentationPage | null => {

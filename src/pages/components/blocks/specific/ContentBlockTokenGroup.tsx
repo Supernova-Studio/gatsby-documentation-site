@@ -10,7 +10,7 @@
 // MARK: - Imports
 
 import React from "react";
-import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports";
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova";
 import QueryTokenGroupById from "../../../../model/queries/query_tokenGroupById";
 import QueryTokensByGroupId from "../../../../model/queries/query_tokensByGroupId";
 import TokenPreviewSmall from "./partials/TokenPreviewSmall";

@@ -10,7 +10,7 @@
 // MARK: - Imports
 
 import React from "react"
-import { SupernovaTypes } from "../../../../plugins/supernova-gatsby-source/build/exports"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import { UtilsUrls } from "../../../helpers/UtilUrls"
 import QueryBlockById from "../../../model/queries/query_blockById"
 import QueryPageById from "../../../model/queries/query_pageById"

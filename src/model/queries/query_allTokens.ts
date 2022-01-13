@@ -11,7 +11,7 @@
 // MARK: - Imports
 
 import { useStaticQuery, graphql } from "gatsby";
-import { SupernovaTypes } from "../../../plugins/supernova-gatsby-source/build/exports"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 
 const QueryAllTokens = (): Array<SupernovaTypes.Token> => {
 

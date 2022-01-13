@@ -2,29 +2,35 @@
     "name": "supernova-gatsby-starter",
     "description": "Supernova DS Documentation Starter",
     "private": true,
-    "version": "0.1.0",
+    "version": "0.5.0",
     "author": "Supernova.io",
     "bugs": {
         "url": "https://github.com/Supernova-Studio/gatsby-example/issues"
     },
     "dependencies": {
         "@graphql-codegen/cli": "^2.3.0",
-        "@supernova-studio/supernova-sdk": "^1.6.8",
+        "@supernovaio/gatsby-source-supernova": "^0.5.12",
+        "@supernovaio/supernova-sdk": "^1.6.14",
+        "crypto-browserify": "^3.12.0",
         "gatsby": "^4.0.0",
         "lodash": "^4.17.21",
         "prismjs": "^1.26.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "react-helmet": "^6.1.0"
+        "react-helmet": "^6.1.0",
+        "stream-browserify": "^3.0.0"
     },
     "engines": {
         "node": ">=14.0.0"
     },
     "homepage": "https://github.com/Supernova-Studio/gatsby-example#readme",
     "keywords": [
-        "gatsby",
-        "supernova",
-        "starter"
+        "Gatsby",
+        "Supernova",
+        "Starter",
+        "Documentation",
+        "Design System",
+        "Design Systems"
     ],
     "license": "MIT",
     "main": "n/a",
@@ -33,10 +39,7 @@
         "url": "git+https://github.com/Supernova-Studio/gatsby-example.git"
     },
     "scripts": {
-        "temp_build_source_plugin": "yarn --cwd ./plugins/supernova-gatsby-source/ build",
-        "devAll": "npm run temp_build_source_plugin && npm run dev",
         "dev": "gatsby develop",
-        "buildAll": "npm run temp_build_source_plugin && npm run build",
         "build": "gatsby build",
         "serve": "gatsby serve",
         "setup": "node ./scripts/run_config.js",

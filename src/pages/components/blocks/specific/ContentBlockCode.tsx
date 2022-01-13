@@ -11,7 +11,7 @@
 
 import React, { useEffect } from "react";
 import { highlightAll } from "prismjs"
-import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import { UtilStrings } from "../../../../helpers/UtilStrings"
 import { UtilsUrls } from "../../../../helpers/UtilUrls"
 

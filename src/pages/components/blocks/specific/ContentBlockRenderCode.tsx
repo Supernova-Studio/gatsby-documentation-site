@@ -11,7 +11,7 @@
 
 import { uniqueId } from "lodash"
 import React, { useEffect, useRef, useState } from "react"
-import { SupernovaTypes } from "../../../../../plugins/supernova-gatsby-source/build/exports"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation

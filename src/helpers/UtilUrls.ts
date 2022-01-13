@@ -6,10 +6,10 @@
 //  Supernova.io 
 //
 
-import { SupernovaTypes } from "../../plugins/supernova-gatsby-source/build/exports"
-
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
+
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

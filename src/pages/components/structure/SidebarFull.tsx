@@ -48,7 +48,7 @@ export default function SidebarFull(props: {
       <ul className="nav flex-column full">
         {groupChildren.map((c) => {
           let isActive =
-            page.parentGroupChain?.indexOf(c.id) !== -1 || page.id === c.id;
+          (page.parentGroupChain?.indexOf(c.id) !== -1) || (page.parentGroupChain?.indexOf(c.persistentId) !== -1) || page.id === c.id || page.id === c.persistentId;
           let activeClass = isActive ? "active" : "";
           if (c.itemType === "Page") {
             return (

@@ -15,7 +15,7 @@ import Sidebar from './components/structure/Sidebar'
 import Topbar from './components/structure/Topbar'
 import Head from './components/structure/Head'
 import Title from './components/structure/Title'
-import { SupernovaTypes } from '../../plugins/supernova-gatsby-source/build/exports'
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import ContentMenu from './components/structure/ContentMenu'
 import ContentBlockLevel from './components/blocks/ContentBlockLevel'
 import Onload from './components/structure/Onload'

@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "@graphql-codegen/cli": "^2.3.0",
-        "@supernovaio/gatsby-source-supernova": "^0.5.12",
+        "@supernovaio/gatsby-source-supernova": "^0.6.1",
         "@supernovaio/supernova-sdk": "^1.6.14",
         "crypto-browserify": "^3.12.0",
         "gatsby": "^4.0.0",

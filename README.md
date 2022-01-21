@@ -25,7 +25,7 @@ And of course, features that makes all developers happy!
 
 Here are some examples what you get out of the box:
 
-<img src="https://github.com/Supernova-Studio/gatsby-documentation-site/blob/main/readme-examples.png?raw=true" alt="Supernova Site Examples" style="max-width:100%; margin-bottom: 20px;" />
+<img src="https://github.com/Supernova-Studio/gatsby-documentation-site/blob/main/readme-example.png?raw=true" alt="Supernova Site Examples" style="max-width:100%; margin-bottom: 20px;" />
 
 ## Getting Started 
 

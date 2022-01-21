@@ -247,8 +247,6 @@ type Directory_ctimeArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
-  readonly port: Maybe<Scalars['Int']>;
-  readonly host: Maybe<Scalars['String']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly id: Scalars['ID'];
@@ -793,8 +791,6 @@ type Query_allDirectoryArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  port: Maybe<IntQueryOperatorInput>;
-  host: Maybe<StringQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
@@ -1779,8 +1775,6 @@ type SiteFieldsEnum =
   | 'buildTime'
   | 'siteMetadata.title'
   | 'siteMetadata.description'
-  | 'port'
-  | 'host'
   | 'pathPrefix'
   | 'polyfill'
   | 'id'
@@ -1914,8 +1908,6 @@ type SiteGroupConnection_groupArgs = {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  readonly port: Maybe<IntQueryOperatorInput>;
-  readonly host: Maybe<StringQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
@@ -5140,29 +5132,6 @@ type GroupTokenSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type TemplatePageIndexQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type TemplatePageIndexQueryQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType'>> } };
-
-type TemplatePageContentQueryVariables = Exact<{
-  slug: Scalars['String'];
-}>;
-
-
-type TemplatePageContentQuery = { readonly documentationItem: Maybe<(
-    Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
-    & { readonly configuration: Maybe<(
-      Pick<DocumentationItemConfiguration, 'showSidebar'>
-      & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
-    )> }
-  )> };
-
-type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
-
 type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5173,11 +5142,6 @@ type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: Rea
         & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
       )> }
     )> } };
-
-type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
 
 type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5193,26 +5157,16 @@ type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: R
         )>>> }> }
     )> } };
 
-type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
-
-type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
+type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
       & { readonly configuration: Maybe<(
         Pick<DocumentationItemConfiguration, 'showSidebar'>
         & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
       )> }
     )> } };
-
-type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
 
 type QueryAllTokensQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5228,15 +5182,48 @@ type QueryAllTokensQuery = { readonly allToken: { readonly nodes: ReadonlyArray<
       )> }
     )> } };
 
-type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
+type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
+
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
+
+type TemplatePageContentQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+type TemplatePageContentQuery = { readonly documentationItem: Maybe<(
+    Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
+    & { readonly configuration: Maybe<(
+      Pick<DocumentationItemConfiguration, 'showSidebar'>
+      & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
+    )> }
+  )> };
+
+type TemplatePageIndexQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type TemplatePageIndexQueryQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<Pick<DocumentationItem, 'id' | 'slug' | 'title' | 'itemType'>> } };
+
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
       & { readonly configuration: Maybe<(
         Pick<DocumentationItemConfiguration, 'showSidebar'>
         & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
       )> }
     )> } };
+
+type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
 
 }

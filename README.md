@@ -1,4 +1,4 @@
-<img src="https://github.com/Supernova-Studio/gatsby-documentation-site/readme-icon.png" alt="Supernova + Gatsby Starter Pack" style="max-width:100%; margin-bottom: 20px;" />
+<img src="https://github.com/Supernova-Studio/gatsby-documentation-site/blob/main/readme-icon.png?raw=true" alt="Supernova + Gatsby Starter Pack" style="max-width:100%; margin-bottom: 20px;" />
 
 # Supernova Gatsby starter design system docs
 
@@ -9,7 +9,7 @@ Create custom design system documentations powered by design system supereditor,
 This starter implements all functionality you might need for your design systems!
 
 - [x] Full support for all Supernova content blocks, including custom blocks and ability to code your own blocks
-- [x] This includes rendering of design tokens, assets, components, rich text, images, Figma, Storybook, compiling of live code, multimedia content... There is a lot!
+- [x] Rendering of design tokens, assets, components, rich text, images + all other elements
 - [x] All design is fully responsive
 - [x] Integration with editor configuration
 
@@ -25,7 +25,7 @@ And of course, features that makes all developers happy!
 
 Here are some examples what you get out of the box:
 
-<img src="https://github.com/Supernova-Studio/gatsby-documentation-site/readme-examples.png" alt="Supernova Site Examples" style="max-width:100%; margin-bottom: 20px;" />
+<img src="https://github.com/Supernova-Studio/gatsby-documentation-site/blob/main/readme-examples.png?raw=true" alt="Supernova Site Examples" style="max-width:100%; margin-bottom: 20px;" />
 
 ## Getting Started 
 
@@ -58,7 +58,7 @@ This interactive setup will ask for API key first. Click on your `Supernova prof
 .env.production
 ```
 
-We have added .gitignore to ignore those files - you should never commit them as they contain your API key.
+We have added `.gitignore` to ignore those generated files - you should never commit them as they contain your API key!
 
 ## Running the project
 
@@ -93,6 +93,7 @@ As this is still beta, we are working on improving it hard before first official
 - [ ] Better CSS structure, and cleaner styling, likely using SCSS or some other preprocessor
 - [ ] Seamless integration with Algolia
 - [ ] Several types of rendering modes for each DS elements like tokens or components
+- [ ] SEO improvements like dynamic titles, header, descriptions, tw and fb tags and more
 
 
 ## Contributions

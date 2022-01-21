@@ -41,7 +41,7 @@
     "scripts": {
         "dev": "gatsby develop",
         "build": "gatsby build",
-        "serve": "gatsby serve",
+        "serve": "NODE_ENV=production gatsby serve",
         "setup": "node ./scripts/run_config.js",
         "postinstall": "node ./scripts/run_welcome_message.js"
     },

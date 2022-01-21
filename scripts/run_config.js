@@ -13,7 +13,7 @@ const { writeFileSync } = require("fs");
 const chalk = require("chalk");
 const path = require("path");
 const inquirer = require("inquirer");
-const { Supernova } = require("@supernova-studio/supernova-sdk")
+const { Supernova } = require("@supernovaio/supernova-sdk")
 const { exit } = require("process")
 
 
@@ -22,89 +22,97 @@ const { exit } = require("process")
 
 async function configure() {
 
-    // Intro message
+    // ---- Intro message ---------------------------------------------------
     console.log(`
     
 ------ ${chalk.cyan("Supernova Interactive Setup")} ⭐
 
-This setup will automatically connect your documentation site with this gatsby instance. 
-You can use any documentation that you have created with Supernova.io editor. 
-To start, make sure you have created workspace and design system first 
-and then continue with this process.
+Welcome! This setup will configure everything you need to run this Gatsby site, nice and easy.
+You can use any design system you have created with Supernova.io editor. To start, make sure 
+you have created workspace and design system first and then proceed with configuration.
 
-To obtain the information you will be asked for:
+Let's start by providing your API key:
+    `)
 
+    // ---- API key section ---------------------------------------------------
+
+    console.log(`
 The ${chalk.green("API Key")}
-    | Go to ${chalk.white.yellow("Settings (left bar) > API Keys")} and generate one
+    | Go to ${chalk.white.yellow("Profile (top menu) > Settings > Authentication")} and generate one
+    `)
 
-The ${chalk.green("Workspace Handle")}
-    | Go to your workspace > copy handle after "ws" path piece
-    | For example: ${chalk.white.yellow("https://cloud.supernova.io/ws/rockets/...")} > your handle is ${chalk.white.yellow("ws")}
+    // Inquire for key
+    const p1questions = [{
+        name: "apiKey",
+        message: "Please provide your API Key"
+    }];
+    let p1data = await inquirer.prompt(p1questions)
+    let { apiKey } = p1data
 
-The ${chalk.green("Design System ID")}
-    | Go to your design system > copy id after "ds" path piece
-    | For example: ${chalk.white.yellow("https://cloud.supernova.io/ws/rockets/ds/1234-falcon...")} > your id is ${chalk.white.yellow("1234")}
-    
-Have all the info? Let's get you configured.
-    `);
-
-    // Prepare list of questions for the user
-    const questions = [{
-            name: "apiKey",
-            message: "Your API Key"
-        },
-        {
-            name: "workspaceHandle",
-            message: "Your Workspace Handle",
-        },
-        {
-            name: "designSystemId",
-            message: "Design System Id",
-        }
-    ];
-
-    // Fire of the question / answer sequence
-    let data = await inquirer.prompt(questions)
-    let error, workspace, designSystem, version = null
-    let { apiKey, workspaceHandle, designSystemId } = data
-
-    // Test from the user entry and retrieve proper data by fetching the workspace and design system
+    // Fetch workspaces available to user or throw
+    let instance = new Supernova(apiKey)
+    let workspaces = null
     try {
-        let instance = new Supernova(apiKey)
-        let workspaces = await instance.workspaces()
-        console.log(`\n${chalk.green("✓")} API Key valid`)
-
-        if (workspaces.length === 0) {
-            throw Error(`Your profile doesn't have any workspace associted with it. Create the workspace first at cloud.supernova.io or get invited into already existing one before retrying this setup`)
-        }
-        let filteredWorkspaces = workspaces.filter(w => w.handle === workspaceHandle)
-        if (filteredWorkspaces.length === 0) {
-            throw Error(`Your profile is not associated with workspace under handle '${workspaceHandle}'`)
-        }
-        workspace = filteredWorkspaces[0]
-        console.log(`${chalk.green("✓")} Workspace valid`)
-
-        let designSystems = await workspace.designSystems()
-        if (designSystems.length === 0) {
-            throw Error(`Workspace ${workspace.name} doesn't have any design systems created just yet. Create design system first and run setup again!`)
-        }
-        let filteredDesignSystems = designSystems.filter(d => d.id === designSystemId)
-        if (filteredDesignSystems.length === 0) {
-            throw Error(`There is no design system for id ${designSystemId} registered under workspace ${workspace.name}`)
-        }
-        designSystem = filteredDesignSystems[0]
-        console.log(`${chalk.green("✓")} Design System valid`)
-
-        version = await designSystem.activeVersion()
-        console.log(`${chalk.green("✓")} Design System version loaded and valid`)
-    } catch (e) {
-        // Error out for eny error encountered
-        console.error(`Error encountered, aborting setup`)
-        console.error(`${e}`)
+        workspaces = await instance.workspaces()
+    } catch (error) {
+        console.log(`Provided ${chalk.white.redBright("API key is invalid or you are not connected to internet")}. Please run \`npm run setup\` again.`)
         exit(1)
     }
-    // sn.ZTE3XrTgJ7mQQ67z6n4GO1dcT9QyZ8wG1zNU249ql47oFLj6xdz0T69xuVrt39o8DkR3ywSCb22DrsslQ2daWpYgOkLCF1ri
-    // Build configuration file for development and production envs
+    console.log(`${chalk.green("✓")} API Key valid`)
+
+    // ---- Workspace selection section ---------------------------------------------------
+
+    if (workspaces.length === 0) {
+        console.log(`You are not member of any workspace. Create one first and try \`npm run setup\` again.`)
+        exit(1)
+    }
+
+    // Inquire for workspace
+    const p2questions = [{
+        type: "list",
+        name: "workspaceName",
+        message: "Which workspace you would like to use?",
+        choices: workspaces.map(w => w.name)
+    }];
+    let p2data = await inquirer.prompt(p2questions)
+    let { workspaceName } = p2data
+
+    console.log(`${chalk.green("✓")} Selected ${workspaceName} as your target workspace`)
+
+    let selectedWorkspace = workspaces.filter(w => w.name === workspaceName)[0]
+
+    // ---- Design System selection section ------------------------------------------------
+
+    designSystems = await selectedWorkspace.designSystems()
+    if (designSystems.length === 0) {
+        console.log(`Selected workspace doesn't have any design systems. Create one first and try \`npm run setup\` again.`)
+        exit(1)
+    }
+
+    // Inquire for design system
+    const p3questions = [{
+        type: "list",
+        name: "designSystemName",
+        message: `Which design system from ${workspaceName} you would like to use?`,
+        choices: designSystems.map(d => d.name)
+    }];
+    let p3data = await inquirer.prompt(p3questions)
+    let { designSystemName } = p3data
+
+    console.log(`${chalk.green("✓")} Selected ${designSystemName} as your target design system`)
+
+    let selectedDesignSystem = designSystems.filter(d => d.name === designSystemName)[0]
+
+    // ---- Version section ----------------------------------------------------------------
+
+    // TODO: Interactive selection? For now, we default to latest version of the editor
+
+    activeVersion = await selectedDesignSystem.activeVersion()
+    console.log(`${chalk.green("✓")} Loaded active design system version`)
+
+
+    // ---- Write to file system -----------------------------------------------------------
+
     let filePaths = [
         path.join(__dirname, "..", ".env.development"),
         path.join(__dirname, "..", ".env.production")
@@ -116,9 +124,9 @@ Have all the info? Let's get you configured.
 
 # API Token used to access Supernova data
 SUPERNOVA_API_TOKEN='${apiKey}'
-SUPERNOVA_WORKSPACE_ID='${workspace.id}'
-SUPERNOVA_DESIGN_SYSTEM_ID='${designSystem.id}'
-SUPERNOVA_DESIGN_SYSTEM_VERSION_ID='${version.id}'
+SUPERNOVA_WORKSPACE_ID='${selectedWorkspace.id}'
+SUPERNOVA_DESIGN_SYSTEM_ID='${selectedDesignSystem.id}'
+SUPERNOVA_DESIGN_SYSTEM_VERSION_ID='${activeVersion.id}'
     `
 
     // Write each file
@@ -126,7 +134,7 @@ SUPERNOVA_DESIGN_SYSTEM_VERSION_ID='${version.id}'
         writeFileSync(file, fileContent, "utf8");
         console.log(`${chalk.green("✓")} Config file ${chalk.yellow(file)} written`);
     });
-    console.log(`\n${chalk.green("All set")}! Run or build your site with data from your connected design system 🚀`)
+    console.log(`\n${chalk.green("All set")}! ${chalk.greenBright("npm run dev")} to see your site in action 🚀`)
 }
 
 configure()

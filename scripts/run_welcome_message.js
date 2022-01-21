@@ -19,7 +19,6 @@ const chalk = require("chalk");
 console.log(`
 ${chalk.green("Welcome to Supernova.io + Gatsby starter")}! Let's set you up, 
 so you can customizing building your doc site right away. 
-
 `)
 
 // Show setup information
@@ -40,4 +39,6 @@ console.log(`
 # 4. To run production site
      - Run ${chalk.yellow.bold("npm run serve")}
      - Locate production version of the site at ${chalk.green("http://localhost:9000")}
+
+     
 `)

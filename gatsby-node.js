@@ -15,7 +15,7 @@ exports.createPages = async({ graphql, actions, reporter }) => {
     const { createPage } = actions
 
     // Generate index page
-    const indexPage = path.resolve('./src/pages/TemplatePageIndex.tsx')
+    const indexPage = path.resolve('./src/templates/TemplatePageIndex.tsx')
     createPage({
         path: `/`,
         component: indexPage,
@@ -23,7 +23,7 @@ exports.createPages = async({ graphql, actions, reporter }) => {
     })
 
     // Generate all other pages
-    const contentPage = path.resolve('./src/pages/TemplatePageContent.tsx')
+    const contentPage = path.resolve('./src/templates/TemplatePageContent.tsx')
     const result = await graphql(`
     query {
         allDocumentationItem {

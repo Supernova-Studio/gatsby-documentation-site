@@ -1,35 +1,37 @@
 <img src="https://github.com/Supernova-Studio/gatsby-documentation-site/blob/main/readme-icon.png?raw=true" alt="Supernova + Gatsby Starter Pack" style="max-width:100%; margin-bottom: 20px;" />
 
-# Supernova Gatsby starter design system docs
+# Supernova + Gatsby official documentation starter
 
-Create custom design system documentations powered by design system supereditor, [Supernova.io](https://supernova.io). This template provides fully coded, fully customizable, typescript-enabled Gatsby site you can just connect to [Supernova](https://supernova.io), run and start customizing it to your liking!
+Create custom design system documentation sites powered by the design system supereditor, [Supernova.io](https://supernova.io). This repository provides a fully coded, fully customizable, typescript-enabled Gatsby site you can just connect to [Supernova](https://supernova.io), run and start customizing it (or serving to your team) to your liking!
 
 ## Features
 
-This starter implements all functionality you might need for your design systems!
+This starter implements all functionality you might need for your design system docs:
 
 - [x] Full support for all Supernova content blocks, including custom blocks and ability to code your own blocks
-- [x] Rendering of design tokens, assets, components, rich text, images + all other elements
-- [x] All design is fully responsive
-- [x] Integration with editor configuration
+- [x] Rendering of design tokens, assets, components, rich text, images + all other necessary elements
+- [x] Responsive layout and 2 different ways how to structure your content
+- [x] Integration with Supernova editor configuration options
 
-And of course, features that makes all developers happy!
+And of course, features that make all developers happy!
 
 - [x] Excellent, extendable code structure
+- [x] Componentized design
 - [x] Fully Typescript-enabled code
 - [x] Fully Typescript-enabled Supernova GraphQL binding
-- [x] Componentized design
+- [x] Pre-defined set of useful GraphQL queries to get static data you need
+- [x] Interactive command-line setup
 - [x] `npm run dev` and all works out of the box
 
-## Examples
+## What to expect
 
-Here are some examples what you get out of the box:
+Right out of the box, your documentation site comes with a beautifully styled template and elements, which you can fully customize to your liking - or redo the site completely, should you want to.
 
 <img src="https://github.com/Supernova-Studio/gatsby-documentation-site/blob/main/readme-example.png?raw=true" alt="Supernova Site Examples" style="max-width:100%; margin-bottom: 20px;" />
 
 ## Getting Started 
 
-First, create a design system in Supernova. [here is our official starting guide](https://learn.supernova.io/introduction/getting-started.html) that you can follow.
+First, create a design system within Supernova. You can also optionally write a little bit of content for your documentation, use elements from Figma, connect Storybook or whatever you fancy. [Here is our official starting guide](https://learn.supernova.io/introduction/getting-started.html) that you can follow.
 
 ### Setting up source code
 ```
@@ -51,7 +53,7 @@ Your site needs to know to what design system to use. This starter provides a si
 npm run setup
 ```
 
-This interactive setup will ask for API key first. Click on your `Supernova profile picture > Profile settings > Authentication` and generate one. Then, select workspace / design system / version you want to use from the interactive shell. Once completed, it will write following files from which the site draws the configuration:
+This interactive setup will ask for an API key first. Click on your `Supernova profile picture > Profile settings > Authentication` and generate one. Then, select workspace / design system / version you want to use from the interactive shell. Once completed, it will write the following files from which the site draws the configuration:
 
 ```
 .env.development
@@ -88,17 +90,18 @@ Runs production server locally with your site hosted on it. Run `npm run build` 
 
 ## What's next
 
-As this is still beta, we are working on improving it hard before first official release. Following are areas we'd like to solve before general release:
+As this is still beta, we are working hard on improving it before the first official release. The following are areas we'd like to solve before general release:
 
 - [ ] Better CSS structure, and cleaner styling, likely using SCSS or some other preprocessor
 - [ ] Seamless integration with Algolia
 - [ ] Several types of rendering modes for each DS elements like tokens or components
 - [ ] SEO improvements like dynamic titles, header, descriptions, tw and fb tags and more
+- [ ] Fully customizable landing page with multiple options
 
 
 ## Contributions
 
-If you have additional ideas how to make this project better, let us know by opening an issue! You can also open pull requests if you worked on improving something yourself and would like to contribute back to the community. 
+If you have additional ideas about how to make this project better, let us know by opening an issue! You can also open pull requests if you've worked on improving something yourself and would like to contribute back to the community. 
 
 We will be reviewing feature-pull-requests on case-by-case basis, but in general, we are super open to your new ideas and we welcome them! And finally, thank you for your support! You are an amazing community.
 

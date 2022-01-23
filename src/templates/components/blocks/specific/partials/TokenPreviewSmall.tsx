@@ -63,11 +63,11 @@ export default function TokenPreviewSmall(props: { token: SupernovaTypes.Token }
       return <div className="token-preview-container" style={{ backgroundColor: `#${typedToken.value.hex}` }}></div>
     }
     case SupernovaTypes.TokenType.Font: {
-      let typedToken = props.token as SupernovaTypes.FontToken
+      // let typedToken = props.token as SupernovaTypes.FontToken
       return <div className="token-preview-container">Ag</div>
     }
     case SupernovaTypes.TokenType.Generic: {
-      let typedToken = props.token as SupernovaTypes.GenericToken
+      // let typedToken = props.token as SupernovaTypes.GenericToken
       return <div className="token-preview-container">X</div>
     }
     case SupernovaTypes.TokenType.Gradient: {
@@ -75,7 +75,7 @@ export default function TokenPreviewSmall(props: { token: SupernovaTypes.Token }
       return <div className="token-preview-container" style={{ background: UtilFormatting.cssGradient(typedToken) }}></div>
     }
     case SupernovaTypes.TokenType.Measure: {
-      let typedToken = props.token as SupernovaTypes.MeasureToken
+      // let typedToken = props.token as SupernovaTypes.MeasureToken
       return <div className="token-preview-container">px</div>
     }
     case SupernovaTypes.TokenType.Radius: {
@@ -91,11 +91,11 @@ export default function TokenPreviewSmall(props: { token: SupernovaTypes.Token }
       )
     }
     case SupernovaTypes.TokenType.Text: {
-      let typedToken = props.token as SupernovaTypes.TextToken
+      // let typedToken = props.token as SupernovaTypes.TextToken
       return <div className="token-preview-container">T</div>
     }
     case SupernovaTypes.TokenType.Typography: {
-      let typedToken = props.token as SupernovaTypes.TypographyToken
+      // let typedToken = props.token as SupernovaTypes.TypographyToken
       return <div className="token-preview-container">Ag</div>
     }
   }

@@ -14,39 +14,39 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 exports.createPages = async({ graphql, actions, reporter }) => {
     const { createPage } = actions
 
-    // Generate index page
-    const indexPage = path.resolve('./src/templates/TemplatePageIndex.tsx')
+    // Generate documentation landing page
+    const indexPage = path.resolve('./src/templates/LandingPageContent.tsx')
     createPage({
         path: `/`,
         component: indexPage,
         context: {},
     })
 
-    // Generate all other pages
+    // Fetch all documentation items which are of page type
+    // We are only interested in very basic structure
     const contentPage = path.resolve('./src/templates/TemplatePageContent.tsx')
     const result = await graphql(`
     query {
-        allDocumentationItem {
+        allDocumentationItem(filter: {itemType: {eq: "Page"}}) {
             nodes {
                 id
                 slug
                 itemType
             }
         }
-    }      
+    }
     `)
 
+    // Construct page out of each item
     let items = result.data.allDocumentationItem.nodes
     for (let item of items) {
-        if (item.itemType === "Page") {
-            createPage({
-                path: `${item.slug}`,
-                component: contentPage,
-                context: {
-                    slug: item.slug
-                },
-                key: item.id
-            })
-        }
+        createPage({
+            path: `${item.slug}`,
+            component: contentPage,
+            context: {
+                slug: item.slug
+            },
+            key: item.id
+        })
     }
 }

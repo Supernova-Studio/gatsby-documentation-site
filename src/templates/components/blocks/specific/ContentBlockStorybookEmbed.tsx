@@ -9,7 +9,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import QueryConfiguration from "../../../../model/queries/query_configuration"
 
@@ -17,23 +17,24 @@ import QueryConfiguration from "../../../../model/queries/query_configuration"
 // MARK: - Template implementation
 
 export default function ContentBlockStorybookEmbed(props: { block: SupernovaTypes.DocumentationPageBlockEmbedStorybook }) {
+  // Ignore empty embeds
+  if (!props.block.url) {
+    return null
+  }
 
-    // Ignore empty embeds
-    if (!props.block.url) {
-        return null
-    }
+  let storybookError = QueryConfiguration().storybookError
 
-    let storybookError = QueryConfiguration().storybookError
-
-    return <>
-    <div className="storybook-state-wrapper" style={{height: props.block.size.height ? props.block.size.height : 500}}>
+  return (
+    <>
+      <div className="storybook-state-wrapper" style={{ height: props.block.size.height ? props.block.size.height : 500 }}>
         <div className="storybook-container">
-            <iframe className="embed-responsive-item storybook" src={props.block.url} allowFullScreen loading="lazy"></iframe>
+          <iframe className="embed-responsive-item storybook" src={props.block.url} allowFullScreen loading="lazy"></iframe>
         </div>
         <div className="storybook-error">
-            <span>{ storybookError ? storybookError : "Storybook failed to load" }</span>
+          <span>{storybookError ? storybookError : "Storybook failed to load"}</span>
         </div>
-    </div>
-    { props.block.caption ? <p className="caption">{props.block.caption}</p> : null}
+      </div>
+      {props.block.caption ? <p className="caption">{props.block.caption}</p> : null}
     </>
+  )
 }

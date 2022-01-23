@@ -9,11 +9,11 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React from "react";
-import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova";
-import QueryTokenById from "../../../../model/queries/query_tokenById";
-import TokenPreviewLarge from "./partials/TokenPreviewLarge";
-import TokenValue from "./partials/TokenValue";
+import React from "react"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
+import QueryTokenById from "../../../../model/queries/query_tokenById"
+import TokenPreviewLarge from "./partials/TokenPreviewLarge"
+import TokenValue from "./partials/TokenValue"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
@@ -21,10 +21,10 @@ import TokenValue from "./partials/TokenValue";
 export default function ContentBlockToken(props: { block: SupernovaTypes.DocumentationPageBlockToken }) {
   // Ignore blocks where token id wasn't set yet
   if (!props.block.tokenId) {
-    return null;
+    return null
   }
 
-  let token = QueryTokenById(props.block.tokenId);
+  let token = QueryTokenById(props.block.tokenId)
   return (
     <div className="token-container">
       <div className="grid">
@@ -43,5 +43,5 @@ export default function ContentBlockToken(props: { block: SupernovaTypes.Documen
         <div className="spacer"></div>
       </div>
     </div>
-  );
+  )
 }

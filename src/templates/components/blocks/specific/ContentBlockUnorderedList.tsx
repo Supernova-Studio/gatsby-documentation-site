@@ -9,7 +9,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React from "react";
+import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import ContentRichText from "./partials/ContentRichText"
 
@@ -17,6 +17,11 @@ import ContentRichText from "./partials/ContentRichText"
 // MARK: - Template implementation
 
 export default function ContentBlockUnorderedList(props: { block: SupernovaTypes.DocumentationPageBlockUnorderedList }) {
-
-    return <li><p><ContentRichText text={props.block.text} /></p></li>
+  return (
+    <li>
+      <p>
+        <ContentRichText text={props.block.text} />
+      </p>
+    </li>
+  )
 }

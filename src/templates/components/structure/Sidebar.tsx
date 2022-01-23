@@ -9,18 +9,16 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import { graphql, useStaticQuery } from "gatsby";
-import { get } from "lodash";
-import React from "react";
-import QueryConfiguration from "../../../model/queries/query_configuration";
-import SidebarFull from "./SidebarFull";
-import SidebarTabbed from "./SidebarTabbed";
+import React from "react"
+import QueryConfiguration from "../../../model/queries/query_configuration"
+import SidebarFull from "./SidebarFull"
+import SidebarTabbed from "./SidebarTabbed"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function Sidebar(props: { pageId: string }) {
-  const configuration = QueryConfiguration();
+  const configuration = QueryConfiguration()
 
   return (
     <div className="docs-navigation bg-sidebar">
@@ -30,5 +28,5 @@ export default function Sidebar(props: { pageId: string }) {
         <SidebarFull pageId={props.pageId} groupId={null} />
       )}
     </div>
-  );
+  )
 }

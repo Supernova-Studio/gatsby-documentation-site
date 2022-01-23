@@ -9,7 +9,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React from "react";
+import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import { UtilFormatting } from "../../../../../helpers/UtilFormatting"
 
@@ -17,13 +17,18 @@ import { UtilFormatting } from "../../../../../helpers/UtilFormatting"
 // MARK: - Template implementation
 
 export default function TokenValue(props: { token: SupernovaTypes.Token }) {
+  const cssDefinitions = UtilFormatting.cssTokenValue(props.token)
+  const newlinedAttributes = cssDefinitions.map((definition, index) => {
+    const isLast = cssDefinitions.length === index + 1
+    return !isLast ? (
+      <>
+        {definition}
+        <br />
+      </>
+    ) : (
+      definition
+    )
+  })
 
-    const cssDefinitions = UtilFormatting.cssTokenValue(props.token)
-    const newlinedAttributes = cssDefinitions.map((definition, index) => {
-        const isLast = cssDefinitions.length === (index + 1);
-        return !isLast ? <>{definition}<br/></> : definition;
-    })
-    
-    return <span className="value">{newlinedAttributes}</span>
+  return <span className="value">{newlinedAttributes}</span>
 }
-

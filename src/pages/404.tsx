@@ -10,7 +10,6 @@
 // MARK: - Imports
 
 import React from 'react'
-import Topbar from '../templates/components/structure/Topbar'
 import Head from '../templates/components/structure/Head'
 
 

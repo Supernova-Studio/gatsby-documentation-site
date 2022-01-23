@@ -9,26 +9,28 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React from "react";
+import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import ContentShortcut from "./partials/ContentShortcut"
-
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function ContentBlockShortcuts(props: { block: SupernovaTypes.DocumentationPageBlockShortcuts }) {
-
-    return <div className={`tile-container`}>
-        <div className={`grid c4 shortcuts`}>
-            {props.block.shortcuts.map(s => <ContentShortcut shortcut={s} />)}
-            <div className="spacer"></div>
-            <div className="spacer"></div>
-            <div className="spacer"></div>
-            <div className="spacer"></div>
-            <div className="spacer"></div>
-            <div className="spacer"></div>
-            <div className="spacer"></div>
-        </div>
+  return (
+    <div className={`tile-container`}>
+      <div className={`grid c4 shortcuts`}>
+        {props.block.shortcuts.map((s) => (
+          <ContentShortcut shortcut={s} />
+        ))}
+        <div className="spacer"></div>
+        <div className="spacer"></div>
+        <div className="spacer"></div>
+        <div className="spacer"></div>
+        <div className="spacer"></div>
+        <div className="spacer"></div>
+        <div className="spacer"></div>
+      </div>
     </div>
+  )
 }

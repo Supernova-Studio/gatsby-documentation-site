@@ -9,31 +9,41 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React from "react";
+import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
 export default function ContentBlockImage(props: { block: SupernovaTypes.DocumentationPageBlockImage }) {
+  // Ignore images that don't have URL set in the editor
+  if (!props.block.url) {
+    return null
+  }
 
-    // Ignore images that don't have URL set in the editor
-    if (!props.block.url) {
-        return null
-    }
+  // Images can be aligned differently, so handle it
+  let imgClass = ""
+  let alignClass = ""
 
-    // Images can be aligned differently, so handle it
-    let imgClass = ""
-    let alignClass = ""
+  switch (props.block.alignment) {
+    case SupernovaTypes.Alignment.left:
+      imgClass = "img-fluid"
+      alignClass = "text-left"
+      break
+    case SupernovaTypes.Alignment.center:
+      imgClass = "img-fluid"
+      alignClass = "text-center"
+      break
+    case SupernovaTypes.Alignment.stretch:
+      imgClass = "img-fluid max"
+      alignClass = "text-center"
+      break
+  }
 
-    switch (props.block.alignment) {
-        case SupernovaTypes.Alignment.left: imgClass = "img-fluid"; alignClass = "text-left"; break
-        case SupernovaTypes.Alignment.center: imgClass = "img-fluid"; alignClass = "text-center"; break
-        case SupernovaTypes.Alignment.stretch: imgClass = "img-fluid max"; alignClass = "text-center"; break
-    }
-    
-    return <div className={`image-container ${alignClass}`}>
-        <img src={props.block.url} className={imgClass} alt="" />
-        { props.block.caption ? <p>{props.block.caption}</p> : null}
+  return (
+    <div className={`image-container ${alignClass}`}>
+      <img src={props.block.url} className={imgClass} alt="" />
+      {props.block.caption ? <p>{props.block.caption}</p> : null}
     </div>
+  )
 }

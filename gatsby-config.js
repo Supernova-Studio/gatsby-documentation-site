@@ -1,3 +1,5 @@
+// Read current environment. For `serve` and `build`, we are usign production config, 
+// for anything else we use development
 require("dotenv").config({
     path: `.env.${process.env.NODE_ENV}`,
 });

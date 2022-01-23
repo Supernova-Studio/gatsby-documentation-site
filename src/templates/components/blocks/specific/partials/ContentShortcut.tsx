@@ -9,26 +9,24 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React from "react";
-import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova";
-import QueryItemsByIds from "../../../../../model/queries/query_itemsByIds";
+import React from "react"
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
+import QueryItemsByIds from "../../../../../model/queries/query_itemsByIds"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
-export default function ContentShortcut(props: {
-  shortcut: SupernovaTypes.DocumentationPageBlockShortcut;
-}) {
-  let href: string | undefined = undefined;
-  let target: string | undefined = undefined;
+export default function ContentShortcut(props: { shortcut: SupernovaTypes.DocumentationPageBlockShortcut }) {
+  let href: string | undefined = undefined
+  let target: string | undefined = undefined
 
   if (props.shortcut.externalUrl) {
-    href = props.shortcut.externalUrl;
-    target = "_blank";
+    href = props.shortcut.externalUrl
+    target = "_blank"
   } else if (props.shortcut.internalId) {
-    let items = QueryItemsByIds([props.shortcut.internalId]);
+    let items = QueryItemsByIds([props.shortcut.internalId])
     if (items.length > 0) {
-      href = items[0].firstPageSlug ?? undefined; // Note: even if we have item, page slug can still be empty if user linked to a group that doesn't have any content
+      href = items[0].firstPageSlug ?? undefined // Note: even if we have item, page slug can still be empty if user linked to a group that doesn't have any content
     }
   }
 
@@ -48,13 +46,9 @@ export default function ContentShortcut(props: {
           <div className="preview empty" />
         )}
 
-        {props.shortcut.title ? (
-          <p className="title">{props.shortcut.title}</p>
-        ) : null}
-        {props.shortcut.description ? (
-          <p className="description">{props.shortcut.description}</p>
-        ) : null}
+        {props.shortcut.title ? <p className="title">{props.shortcut.title}</p> : null}
+        {props.shortcut.description ? <p className="description">{props.shortcut.description}</p> : null}
       </a>
     </div>
-  );
+  )
 }

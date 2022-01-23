@@ -5,7 +5,8 @@
     .container-title>.slider {
         max-width: 540px;
     }
-    .token-container .grid>div {
+    .token-container .grid>div,
+    .token-container .grid>a>div {
         flex: 0 1 49%;
         margin: 0 0 8px 0;
     }
@@ -28,6 +29,9 @@
     .tile-container .grid.c4>div,
     .tile-container .grid.c3>div,
     .tile-container .grid.c2>div {
+        flex: 0 1 49%;
+    }
+    .tile-container .grid.c2>a>div {
         flex: 0 1 49%;
     }
 }

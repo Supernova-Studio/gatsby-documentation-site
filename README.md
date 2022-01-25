@@ -104,6 +104,7 @@ Creates production build that you put on any static hosting service (AWS S3 Buck
 
 Runs production server locally with your site hosted on it. Run `npm run build` before you run the serve.
 
+
 ## What's next
 
 As this is still beta, we are working hard on improving it before the first official release. The following are areas we'd like to solve before general release:
@@ -114,6 +115,12 @@ As this is still beta, we are working hard on improving it before the first offi
 - [ ] SEO improvements like dynamic titles, header, descriptions, tw and fb tags and more
 - [ ] Fully customizable landing page with multiple options
 
+
+## Using data plugin separately
+
+This starter package is powered by [Supernova Gatsby source plugin](https://github.com/Supernova-Studio/gastby-source-supernova), which you can use as a standalone package if you want to create your site completely from scratch. 
+
+However, we strongly recommend that you use this project as a base (and remove all that you don't need), as it solves many additional issues you will otherwise be forced to solve yourself, like figuring out how to query data properly, how to properly make Gatsby + Typescript work and many, many other - annoying - issues.
 
 ## Contributions
 

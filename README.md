@@ -45,6 +45,22 @@ You can optionally use the Gatsby CLI to achieve the same thing.
 $ gatsby new my-design-system-docs https://github.com/Supernova-Studio/gatsby-documentation-site
 ```
 
+### Requirements
+
+This project uses on Gatsby version 4 so you can enjoy advanced new features like SSR, DSG, parallel querying and many more. However, this also means that you will need Node 14.15+ at minimum to run it. If you are still on previous versions, you can use [NVM](https://github.com/nvm-sh/nvm) to install the new one and freely switch between them.
+
+### Running Gatsby with Node 17
+
+If you are running Node 17 and above, you will likely encounter error when running any of `npm run` commands. The reason is [explained here](https://stackoverflow.com/questions/69665222/node-js-17-0-1-gatsby-error-digital-envelope-routinesunsupported-err-os) and is known "issue" for this version of Gatsby. From our testing, the best way to solve this issue is to replace commands in `package.json` with the following modification:
+
+```json
+    "scripts": {
+        "dev": "export NODE_OPTIONS=--openssl-legacy-provider; gatsby develop",
+        "build": "export NODE_OPTIONS=--openssl-legacy-provider; gatsby build",
+    },
+```
+
+
 ### Configuring SDK access
 
 Your site needs to know to what design system to use. This starter provides a simple way of configuring all neccessary information by running the following command:

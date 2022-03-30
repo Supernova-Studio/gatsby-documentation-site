@@ -11,11 +11,11 @@
 
 import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
-import QueryConfiguration from "../../../model/queries/query_configuration"
-import QueryFirstPageOfGroup from "../../../model/queries/query_firstPageOfGroup"
-import QueryItemsByIds from "../../../model/queries/query_itemsByIds"
-import QueryPageById from "../../../model/queries/query_pageById"
-import QueryRootGroup from "../../../model/queries/query_rootGroup"
+import QueryConfiguration from "../../../model/queries/configuration/query_configuration"
+import QueryItemsByIds from "../../../model/queries/structure/query_itemsByIds"
+import QueryPageById from "../../../model/queries/structure/query_pageById"
+import QueryRootGroup from "../../../model/queries/structure/query_rootGroup"
+
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation

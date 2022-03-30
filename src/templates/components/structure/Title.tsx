@@ -11,8 +11,8 @@
 
 import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
-import QueryGroupById from "../../../model/queries/query_groupById"
-import QueryPageById from "../../../model/queries/query_pageById"
+import QueryGroupById from "../../../model/queries/structure/query_groupById"
+import QueryPageById from "../../../model/queries/structure/query_pageById"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation

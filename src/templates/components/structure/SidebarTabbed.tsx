@@ -11,11 +11,11 @@
 
 import React, { ReactElement } from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
-import QueryFirstPageOfGroup from "../../../model/queries/query_firstPageOfGroup"
-import QueryGroupById from "../../../model/queries/query_groupById"
-import QueryItemsByIds from "../../../model/queries/query_itemsByIds"
-import QueryPageById from "../../../model/queries/query_pageById"
-import QueryTopmostGroupOfPage from "../../../model/queries/query_topmostGroupOfPage"
+import QueryFirstPageOfGroup from "../../../model/queries/structure/query_firstPageOfGroup"
+import QueryGroupById from "../../../model/queries/structure/query_groupById"
+import QueryItemsByIds from "../../../model/queries/structure/query_itemsByIds"
+import QueryPageById from "../../../model/queries/structure/query_pageById"
+import QueryTopmostGroupOfPage from "../../../model/queries/structure/query_topmostGroupOfPage"
 import SidebarLogo from "./SidebarLogo"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

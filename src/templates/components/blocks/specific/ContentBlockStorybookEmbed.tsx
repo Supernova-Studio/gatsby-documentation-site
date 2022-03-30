@@ -9,9 +9,9 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React, { useEffect } from "react"
+import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
-import QueryConfiguration from "../../../../model/queries/query_configuration"
+import QueryConfiguration from "../../../../model/queries/configuration/query_configuration"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation

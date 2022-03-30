@@ -11,7 +11,7 @@
 
 import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
-import QueryBlockById from "../../../model/queries/query_blockById"
+import QueryBlockById from "../../../model/queries/blocks/query_blockById"
 import ContentBlock from "./ContentBlock"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

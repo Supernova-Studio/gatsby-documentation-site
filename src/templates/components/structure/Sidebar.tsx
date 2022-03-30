@@ -10,7 +10,7 @@
 // MARK: - Imports
 
 import React from "react"
-import QueryConfiguration from "../../../model/queries/query_configuration"
+import QueryConfiguration from "../../../model/queries/configuration/query_configuration"
 import SidebarFull from "./SidebarFull"
 import SidebarTabbed from "./SidebarTabbed"
 

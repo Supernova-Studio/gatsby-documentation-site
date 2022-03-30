@@ -9,9 +9,8 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import { graphql } from "gatsby"
 import React from "react"
-import QueryRootGroup from "../model/queries/query_rootGroup"
+import QueryRootGroup from "../model/queries/structure/query_rootGroup"
 import Head from "./components/structure/Head"
 import Onload from "./components/structure/Onload"
 import Topbar from "./components/structure/Topbar"

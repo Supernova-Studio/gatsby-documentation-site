@@ -11,7 +11,7 @@
 
 import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
-import QueryTokensByIds from "../../../../model/queries/query_tokensByIds"
+import QueryTokensByIds from "../../../../model/queries/tokens/query_tokensByIds"
 import TokenPreviewLarge from "./partials/TokenPreviewLarge"
 import TokenValue from "./partials/TokenValue"
 

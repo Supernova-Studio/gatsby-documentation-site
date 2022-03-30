@@ -11,7 +11,7 @@
 
 import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
-import QueryAssetById from "../../../../../model/queries/query_assetById"
+import QueryAssetById from "../../../../../model/queries/assets/query_assetById"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation

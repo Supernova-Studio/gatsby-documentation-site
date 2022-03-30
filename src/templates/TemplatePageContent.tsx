@@ -19,6 +19,7 @@ import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import ContentMenu from "./components/structure/ContentMenu"
 import ContentBlockLevel from "./components/blocks/ContentBlockLevel"
 import Onload from "./components/structure/Onload"
+import Footer from "./components/structure/Footer"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
@@ -46,6 +47,7 @@ function TemplatePageContent(props: any) {
                   </section>
                   <ContentMenu pageId={page.id} />
                 </div>
+                <Footer />
               </div>
             </div>
           </div>

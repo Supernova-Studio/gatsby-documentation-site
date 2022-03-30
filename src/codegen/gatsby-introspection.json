@@ -4525,6 +4525,22 @@
             "deprecationReason": null
           },
           {
+            "name": "blockProperties",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DocumentationCustomBlockProperty",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "backgroundColor",
             "description": null,
             "args": [],
@@ -5374,22 +5390,6 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "properties",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "DocumentationCustomBlockProperty",
-                "ofType": null
-              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -11612,6 +11612,18 @@
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "DocumentationCustomBlockFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "blockProperties",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DocumentationCustomBlockPropertyFilterListInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -33310,18 +33322,6 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "properties",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "DocumentationCustomBlockPropertyFilterListInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -34557,49 +34557,79 @@
             "deprecationReason": null
           },
           {
-            "name": "block___properties",
+            "name": "blockProperties",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "block___properties___label",
+            "name": "blockProperties___label",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "block___properties___key",
+            "name": "blockProperties___key",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "block___properties___type",
+            "name": "blockProperties___type",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "block___properties___default",
+            "name": "blockProperties___default",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "block___properties___value___stringValue",
+            "name": "blockProperties___value___stringValue",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "block___properties___value___booleanValue",
+            "name": "blockProperties___value___booleanValue",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "block___properties___value___numericValue",
+            "name": "blockProperties___value___numericValue",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockProperties___value___imageValue___assetUrl",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockProperties___value___imageValue___assetId",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockProperties___value___colorValue___aliasTo",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockProperties___value___colorValue___value",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockProperties___value___typographyValue___aliasTo",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -35797,6 +35827,18 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "DocumentationCustomBlockFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockProperties",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DocumentationCustomBlockPropertyFilterListInput",
               "ofType": null
             },
             "defaultValue": null,

@@ -434,6 +434,7 @@ type DocumentationBlock = Node & {
   readonly alignment: Maybe<Scalars['String']>;
   readonly key: Maybe<Scalars['String']>;
   readonly block: Maybe<DocumentationCustomBlock>;
+  readonly blockProperties: Maybe<ReadonlyArray<Maybe<DocumentationCustomBlockProperty>>>;
   readonly backgroundColor: Maybe<Scalars['String']>;
   readonly showCode: Maybe<Scalars['Boolean']>;
   readonly code: Maybe<Scalars['String']>;
@@ -522,7 +523,6 @@ type DocumentationCustomBlock = {
   readonly category: Maybe<Scalars['String']>;
   readonly description: Maybe<Scalars['String']>;
   readonly iconUrl: Maybe<Scalars['String']>;
-  readonly properties: Maybe<ReadonlyArray<Maybe<DocumentationCustomBlockProperty>>>;
 };
 
 type DocumentationCustomBlockProperty = {
@@ -1172,6 +1172,7 @@ type Query_documentationBlockArgs = {
   alignment: Maybe<StringQueryOperatorInput>;
   key: Maybe<StringQueryOperatorInput>;
   block: Maybe<DocumentationCustomBlockFilterInput>;
+  blockProperties: Maybe<DocumentationCustomBlockPropertyFilterListInput>;
   backgroundColor: Maybe<StringQueryOperatorInput>;
   showCode: Maybe<BooleanQueryOperatorInput>;
   code: Maybe<StringQueryOperatorInput>;
@@ -4114,7 +4115,6 @@ type DocumentationCustomBlockFilterInput = {
   readonly category: Maybe<StringQueryOperatorInput>;
   readonly description: Maybe<StringQueryOperatorInput>;
   readonly iconUrl: Maybe<StringQueryOperatorInput>;
-  readonly properties: Maybe<DocumentationCustomBlockPropertyFilterListInput>;
 };
 
 type DocumentationCustomBlockPropertyFilterListInput = {
@@ -4286,14 +4286,19 @@ type DocumentationBlockFieldsEnum =
   | 'block.category'
   | 'block.description'
   | 'block.iconUrl'
-  | 'block.properties'
-  | 'block.properties.label'
-  | 'block.properties.key'
-  | 'block.properties.type'
-  | 'block.properties.default'
-  | 'block.properties.value.stringValue'
-  | 'block.properties.value.booleanValue'
-  | 'block.properties.value.numericValue'
+  | 'blockProperties'
+  | 'blockProperties.label'
+  | 'blockProperties.key'
+  | 'blockProperties.type'
+  | 'blockProperties.default'
+  | 'blockProperties.value.stringValue'
+  | 'blockProperties.value.booleanValue'
+  | 'blockProperties.value.numericValue'
+  | 'blockProperties.value.imageValue.assetUrl'
+  | 'blockProperties.value.imageValue.assetId'
+  | 'blockProperties.value.colorValue.aliasTo'
+  | 'blockProperties.value.colorValue.value'
+  | 'blockProperties.value.typographyValue.aliasTo'
   | 'backgroundColor'
   | 'showCode'
   | 'code'
@@ -4462,6 +4467,7 @@ type DocumentationBlockFilterInput = {
   readonly alignment: Maybe<StringQueryOperatorInput>;
   readonly key: Maybe<StringQueryOperatorInput>;
   readonly block: Maybe<DocumentationCustomBlockFilterInput>;
+  readonly blockProperties: Maybe<DocumentationCustomBlockPropertyFilterListInput>;
   readonly backgroundColor: Maybe<StringQueryOperatorInput>;
   readonly showCode: Maybe<BooleanQueryOperatorInput>;
   readonly code: Maybe<StringQueryOperatorInput>;
@@ -6429,18 +6435,79 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type QueryAllExporterConfigurationPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllExporterConfigurationPropertiesQuery = { readonly allExporterConfigurationProperty: { readonly nodes: ReadonlyArray<(
+      Pick<ExporterConfigurationProperty, 'category' | 'description' | 'id' | 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
+      & { readonly default: Maybe<(
+        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
+          Pick<MultitypeTypographyValue, 'aliasTo'>
+          & { readonly value: Maybe<(
+            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'unit' | 'measure'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+          )> }
+        )> }
+      )>, readonly value: Maybe<(
+        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
+          Pick<MultitypeTypographyValue, 'aliasTo'>
+          & { readonly value: Maybe<(
+            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+          )> }
+        )> }
+      )> }
+    )> } };
+
 type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url' | 'title' | 'description' | 'thumbnailUrl'>
-      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly shortcuts: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockShortcut, 'title' | 'description' | 'previewUrl' | 'externalUrl' | 'internalId' | 'shortcutType'>>>>, readonly block: Maybe<(
-        Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>
-        & { readonly properties: Maybe<ReadonlyArray<Maybe<Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>>>> }
-      )>, readonly properties: Maybe<Pick<DocumentationBlockProperties, 'alignment' | 'color' | 'layout' | 'markdownUrl'>>, readonly size: Maybe<Pick<Size, 'height' | 'width'>>, readonly text: Maybe<{ readonly spans: Maybe<ReadonlyArray<Maybe<(
+      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url' | 'title' | 'description' | 'thumbnailUrl' | 'columnId' | 'variantKey'>
+      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly shortcuts: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockShortcut, 'title' | 'description' | 'previewUrl' | 'externalUrl' | 'internalId' | 'shortcutType'>>>>, readonly properties: Maybe<Pick<DocumentationBlockProperties, 'alignment' | 'color' | 'layout' | 'markdownUrl'>>, readonly size: Maybe<Pick<Size, 'height' | 'width'>>, readonly text: Maybe<{ readonly spans: Maybe<ReadonlyArray<Maybe<(
           Pick<DocumentationBlockTextSpan, 'text'>
           & { readonly attributes: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockTextSpansAttribute, 'link' | 'type'>>>> }
-        )>>> }> }
+        )>>> }>, readonly tableProperties: Maybe<(
+        Pick<DocumentationTableProperties, 'showBorders'>
+        & { readonly columns: ReadonlyArray<Maybe<(
+          Pick<DocumentationTableColumn, 'id'>
+          & { readonly width: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+        )>> }
+      )>, readonly block: Maybe<Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>>, readonly blockProperties: Maybe<ReadonlyArray<Maybe<(
+        Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>
+        & { readonly value: Maybe<(
+          Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+          & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
+            Pick<MultitypeTypographyValue, 'aliasTo'>
+            & { readonly value: Maybe<(
+              Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+              & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'measure' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'unit' | 'referencedTokenId'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+            )> }
+          )> }
+        )> }
+      )>>> }
+    )> } };
+
+type QueryAllExporterBlockQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllExporterBlockQuery = { readonly allExporterBlock: { readonly nodes: ReadonlyArray<(
+      Pick<ExporterBlock, 'category' | 'description' | 'iconUrl' | 'id' | 'key' | 'mode' | 'title'>
+      & { readonly properties: Maybe<ReadonlyArray<Maybe<(
+        Pick<ExporterBlockProperty, 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
+        & { readonly default: Maybe<(
+          Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+          & { readonly typographyValue: Maybe<(
+            Pick<MultitypeTypographyValue, 'aliasTo'>
+            & { readonly value: Maybe<(
+              Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+              & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+            )> }
+          )>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>> }
+        )> }
+      )>>> }
     )> } };
 
 type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -6463,20 +6530,6 @@ type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
-
-type QueryAllTokensQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllTokensQuery = { readonly allToken: { readonly nodes: ReadonlyArray<(
-      Pick<Token, 'brandId' | 'description' | 'id' | 'name' | 'tokenType'>
-      & { readonly origin: Maybe<Pick<SourceOrigin, 'id' | 'name' | 'source'>>, readonly properties: ReadonlyArray<Maybe<Pick<TokenProperty, 'booleanValue' | 'codeName' | 'name' | 'numericValue' | 'stringValue' | 'type'>>>, readonly value: Maybe<(
-        Pick<TokenValue, 'a' | 'aspectRatio' | 'b' | 'family' | 'g' | 'hex' | 'measure' | 'opacity' | 'position' | 'r' | 'referencedTokenId' | 'subfamily' | 'text' | 'textCase' | 'textDecoration' | 'type' | 'unit'>
-        & { readonly bottomLeft: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly bottomRight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly color: Maybe<Pick<ColorTokenValue, 'a' | 'b' | 'g' | 'hex' | 'r' | 'referencedTokenId'>>, readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly from: Maybe<Pick<GradientPosition, 'x' | 'y'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly radius: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly spread: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly stops: Maybe<ReadonlyArray<Maybe<(
-          Pick<GradientStopValue, 'position' | 'referencedTokenId'>
-          & { readonly color: Maybe<Pick<ColorTokenValue, 'a' | 'b' | 'g' | 'hex' | 'r' | 'referencedTokenId'>> }
-        )>>>, readonly to: Maybe<Pick<GradientPosition, 'x' | 'y'>>, readonly topLeft: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'measure' | 'unit'>>, readonly topRight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly width: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly x: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly y: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
-      )> }
-    )> } };
 
 type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6505,55 +6558,23 @@ type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: Rea
       )> }
     )> } };
 
-type QueryAllExporterBlockQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllTokensQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllExporterBlockQuery = { readonly allExporterBlock: { readonly nodes: ReadonlyArray<(
-      Pick<ExporterBlock, 'category' | 'description' | 'iconUrl' | 'id' | 'key' | 'mode' | 'title'>
-      & { readonly properties: Maybe<ReadonlyArray<Maybe<(
-        Pick<ExporterBlockProperty, 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
-        & { readonly default: Maybe<(
-          Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
-          & { readonly typographyValue: Maybe<(
-            Pick<MultitypeTypographyValue, 'aliasTo'>
-            & { readonly value: Maybe<(
-              Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
-              & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
-            )> }
-          )>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>> }
-        )> }
-      )>>> }
+type QueryAllTokensQuery = { readonly allToken: { readonly nodes: ReadonlyArray<(
+      Pick<Token, 'brandId' | 'description' | 'id' | 'name' | 'tokenType'>
+      & { readonly origin: Maybe<Pick<SourceOrigin, 'id' | 'name' | 'source'>>, readonly properties: ReadonlyArray<Maybe<Pick<TokenProperty, 'booleanValue' | 'codeName' | 'name' | 'numericValue' | 'stringValue' | 'type'>>>, readonly value: Maybe<(
+        Pick<TokenValue, 'a' | 'aspectRatio' | 'b' | 'family' | 'g' | 'hex' | 'measure' | 'opacity' | 'position' | 'r' | 'referencedTokenId' | 'subfamily' | 'text' | 'textCase' | 'textDecoration' | 'type' | 'unit'>
+        & { readonly bottomLeft: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly bottomRight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly color: Maybe<Pick<ColorTokenValue, 'a' | 'b' | 'g' | 'hex' | 'r' | 'referencedTokenId'>>, readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly from: Maybe<Pick<GradientPosition, 'x' | 'y'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly radius: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly spread: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly stops: Maybe<ReadonlyArray<Maybe<(
+          Pick<GradientStopValue, 'position' | 'referencedTokenId'>
+          & { readonly color: Maybe<Pick<ColorTokenValue, 'a' | 'b' | 'g' | 'hex' | 'r' | 'referencedTokenId'>> }
+        )>>>, readonly to: Maybe<Pick<GradientPosition, 'x' | 'y'>>, readonly topLeft: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'measure' | 'unit'>>, readonly topRight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly width: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly x: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly y: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+      )> }
     )> } };
 
 type QueryAllExporterBlockVariantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllExporterBlockVariantsQuery = { readonly allExporterBlockVariant: { readonly nodes: ReadonlyArray<Pick<ExporterBlockVariant, 'blockKey' | 'isDefault' | 'id' | 'name' | 'variantKey'>> } };
-
-type QueryAllExporterConfigurationPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllExporterConfigurationPropertiesQuery = { readonly allExporterConfigurationProperty: { readonly nodes: ReadonlyArray<(
-      Pick<ExporterConfigurationProperty, 'category' | 'description' | 'id' | 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
-      & { readonly default: Maybe<(
-        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
-        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
-          Pick<MultitypeTypographyValue, 'aliasTo'>
-          & { readonly value: Maybe<(
-            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
-            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'unit' | 'measure'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
-          )> }
-        )> }
-      )>, readonly value: Maybe<(
-        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
-        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
-          Pick<MultitypeTypographyValue, 'aliasTo'>
-          & { readonly value: Maybe<(
-            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
-            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
-          )> }
-        )> }
-      )> }
-    )> } };
 
 }

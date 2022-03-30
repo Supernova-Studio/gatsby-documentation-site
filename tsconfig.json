@@ -22,7 +22,13 @@
       ],
       "noEmit": false,
       "noEmitOnError": true,
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      "paths": {
+        "@supernovaio/gatsby-source-supernova/*": [
+          "./node_modules/@supernovaio/gatsby-source-supernova/*",
+          "../Gatsby Source Plugin/*",
+        ]
+      }
     },
     "include": [
       "./src/**/*",

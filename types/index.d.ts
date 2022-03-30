@@ -418,6 +418,7 @@ type DocumentationBlock = Node & {
   readonly blockIds: ReadonlyArray<Maybe<Scalars['String']>>;
   readonly blockType: Scalars['String'];
   readonly groupId: Maybe<Scalars['String']>;
+  readonly variantKey: Maybe<Scalars['String']>;
   readonly showNestedGroups: Maybe<Scalars['Boolean']>;
   readonly text: Maybe<DocumentationBlockText>;
   readonly calloutType: Maybe<Scalars['String']>;
@@ -444,10 +445,22 @@ type DocumentationBlock = Node & {
   readonly title: Maybe<Scalars['String']>;
   readonly description: Maybe<Scalars['String']>;
   readonly thumbnailUrl: Maybe<Scalars['String']>;
+  readonly columnId: Maybe<Scalars['String']>;
+  readonly tableProperties: Maybe<DocumentationTableProperties>;
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
   readonly children: ReadonlyArray<Node>;
   readonly internal: Internal;
+};
+
+type DocumentationTableProperties = {
+  readonly showBorders: Scalars['Boolean'];
+  readonly columns: ReadonlyArray<Maybe<DocumentationTableColumn>>;
+};
+
+type DocumentationTableColumn = {
+  readonly id: Maybe<Scalars['String']>;
+  readonly width: Maybe<MeasureTokenValue>;
 };
 
 type DocumentationBlockText = {
@@ -517,6 +530,7 @@ type DocumentationCustomBlockProperty = {
   readonly key: Maybe<Scalars['String']>;
   readonly type: Maybe<Scalars['String']>;
   readonly default: Maybe<Scalars['String']>;
+  readonly value: Maybe<MultitypeValue>;
 };
 
 type Asset = Node & {
@@ -658,6 +672,126 @@ type GroupToken = Node & {
   readonly internal: Internal;
 };
 
+type MultitypeValue = {
+  readonly stringValue: Maybe<Scalars['String']>;
+  readonly booleanValue: Maybe<Scalars['Boolean']>;
+  readonly numericValue: Maybe<Scalars['Float']>;
+  readonly imageValue: Maybe<MultitypeImageValue>;
+  readonly colorValue: Maybe<MultitypeColorValue>;
+  readonly typographyValue: Maybe<MultitypeTypographyValue>;
+};
+
+type MultitypeImageValue = {
+  readonly assetUrl: Maybe<Scalars['String']>;
+  readonly assetId: Maybe<Scalars['String']>;
+};
+
+type MultitypeColorValue = {
+  readonly aliasTo: Maybe<Scalars['String']>;
+  readonly value: Maybe<Scalars['String']>;
+};
+
+type MultitypeTypographyValue = {
+  readonly aliasTo: Maybe<Scalars['String']>;
+  readonly value: Maybe<TypographyTokenValue>;
+};
+
+type TypographyTokenValue = {
+  readonly font: Maybe<FontTokenValue>;
+  readonly fontSize: Maybe<MeasureTokenValue>;
+  readonly textDecoration: Maybe<Scalars['String']>;
+  readonly textCase: Maybe<Scalars['String']>;
+  readonly letterSpacing: Maybe<MeasureTokenValue>;
+  readonly lineHeight: Maybe<MeasureTokenValue>;
+  readonly paragraphIndent: Maybe<MeasureTokenValue>;
+};
+
+type ExporterBlock = Node & {
+  readonly key: Scalars['String'];
+  readonly title: Scalars['String'];
+  readonly description: Maybe<Scalars['String']>;
+  readonly category: Maybe<Scalars['String']>;
+  readonly iconUrl: Maybe<Scalars['String']>;
+  readonly mode: Maybe<Scalars['String']>;
+  readonly properties: Maybe<ReadonlyArray<Maybe<ExporterBlockProperty>>>;
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+};
+
+type ExporterBlockProperty = {
+  readonly label: Scalars['String'];
+  readonly key: Scalars['String'];
+  readonly type: Scalars['String'];
+  readonly inputType: Maybe<Scalars['String']>;
+  readonly isMultiline: Maybe<Scalars['Boolean']>;
+  readonly default: Maybe<MultitypeValue>;
+  readonly values: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+};
+
+type ExporterBlockVariant = Node & {
+  readonly blockKey: Scalars['String'];
+  readonly variantKey: Scalars['String'];
+  readonly name: Scalars['String'];
+  readonly isDefault: Scalars['Boolean'];
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+};
+
+type ExporterConfigurationProperty = Node & {
+  readonly label: Scalars['String'];
+  readonly category: Scalars['String'];
+  readonly description: Maybe<Scalars['String']>;
+  readonly key: Scalars['String'];
+  readonly type: Scalars['String'];
+  readonly inputType: Maybe<Scalars['String']>;
+  readonly isMultiline: Maybe<Scalars['Boolean']>;
+  readonly default: Maybe<MultitypeValue>;
+  readonly value: Maybe<MultitypeValue>;
+  readonly values: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+};
+
+type Exporter = Node & {
+  readonly id: Scalars['ID'];
+  readonly packageId: Scalars['String'];
+  readonly isPrivate: Scalars['Boolean'];
+  readonly isDefaultDocumentationExporter: Scalars['Boolean'];
+  readonly usesBrands: Scalars['Boolean'];
+  readonly name: Scalars['String'];
+  readonly description: Maybe<Scalars['String']>;
+  readonly version: Scalars['String'];
+  readonly author: Maybe<Scalars['String']>;
+  readonly organization: Maybe<Scalars['String']>;
+  readonly homepage: Maybe<Scalars['String']>;
+  readonly readme: Maybe<Scalars['String']>;
+  readonly iconURL: Maybe<Scalars['String']>;
+  readonly tags: ReadonlyArray<Maybe<Scalars['String']>>;
+  readonly origin: ExporterOrigin;
+  readonly contributes: ExporterContribution;
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+};
+
+type ExporterOrigin = {
+  readonly repositoryUrl: Scalars['String'];
+  readonly repositoryBranch: Maybe<Scalars['String']>;
+  readonly repositoryDirectory: Maybe<Scalars['String']>;
+};
+
+type ExporterContribution = {
+  readonly customBlocks: ReadonlyArray<Maybe<ExporterBlock>>;
+  readonly customConfigurationProperties: ReadonlyArray<Maybe<ExporterConfigurationProperty>>;
+  readonly customBlockVariants: ReadonlyArray<Maybe<ExporterBlockVariant>>;
+};
+
 type Query = {
   readonly file: Maybe<File>;
   readonly allFile: FileConnection;
@@ -693,6 +827,14 @@ type Query = {
   readonly allToken: TokenConnection;
   readonly groupToken: Maybe<GroupToken>;
   readonly allGroupToken: GroupTokenConnection;
+  readonly exporterBlock: Maybe<ExporterBlock>;
+  readonly allExporterBlock: ExporterBlockConnection;
+  readonly exporterBlockVariant: Maybe<ExporterBlockVariant>;
+  readonly allExporterBlockVariant: ExporterBlockVariantConnection;
+  readonly exporterConfigurationProperty: Maybe<ExporterConfigurationProperty>;
+  readonly allExporterConfigurationProperty: ExporterConfigurationPropertyConnection;
+  readonly exporter: Maybe<Exporter>;
+  readonly allExporter: ExporterConnection;
 };
 
 
@@ -1014,6 +1156,7 @@ type Query_documentationBlockArgs = {
   blockIds: Maybe<StringQueryOperatorInput>;
   blockType: Maybe<StringQueryOperatorInput>;
   groupId: Maybe<StringQueryOperatorInput>;
+  variantKey: Maybe<StringQueryOperatorInput>;
   showNestedGroups: Maybe<BooleanQueryOperatorInput>;
   text: Maybe<DocumentationBlockTextFilterInput>;
   calloutType: Maybe<StringQueryOperatorInput>;
@@ -1040,6 +1183,8 @@ type Query_documentationBlockArgs = {
   title: Maybe<StringQueryOperatorInput>;
   description: Maybe<StringQueryOperatorInput>;
   thumbnailUrl: Maybe<StringQueryOperatorInput>;
+  columnId: Maybe<StringQueryOperatorInput>;
+  tableProperties: Maybe<DocumentationTablePropertiesFilterInput>;
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
   children: Maybe<NodeFilterListInput>;
@@ -1140,6 +1285,106 @@ type Query_groupTokenArgs = {
 type Query_allGroupTokenArgs = {
   filter: Maybe<GroupTokenFilterInput>;
   sort: Maybe<GroupTokenSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_exporterBlockArgs = {
+  key: Maybe<StringQueryOperatorInput>;
+  title: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  category: Maybe<StringQueryOperatorInput>;
+  iconUrl: Maybe<StringQueryOperatorInput>;
+  mode: Maybe<StringQueryOperatorInput>;
+  properties: Maybe<ExporterBlockPropertyFilterListInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+type Query_allExporterBlockArgs = {
+  filter: Maybe<ExporterBlockFilterInput>;
+  sort: Maybe<ExporterBlockSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_exporterBlockVariantArgs = {
+  blockKey: Maybe<StringQueryOperatorInput>;
+  variantKey: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  isDefault: Maybe<BooleanQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+type Query_allExporterBlockVariantArgs = {
+  filter: Maybe<ExporterBlockVariantFilterInput>;
+  sort: Maybe<ExporterBlockVariantSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_exporterConfigurationPropertyArgs = {
+  label: Maybe<StringQueryOperatorInput>;
+  category: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  key: Maybe<StringQueryOperatorInput>;
+  type: Maybe<StringQueryOperatorInput>;
+  inputType: Maybe<StringQueryOperatorInput>;
+  isMultiline: Maybe<BooleanQueryOperatorInput>;
+  default: Maybe<MultitypeValueFilterInput>;
+  value: Maybe<MultitypeValueFilterInput>;
+  values: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+type Query_allExporterConfigurationPropertyArgs = {
+  filter: Maybe<ExporterConfigurationPropertyFilterInput>;
+  sort: Maybe<ExporterConfigurationPropertySortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_exporterArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  packageId: Maybe<StringQueryOperatorInput>;
+  isPrivate: Maybe<BooleanQueryOperatorInput>;
+  isDefaultDocumentationExporter: Maybe<BooleanQueryOperatorInput>;
+  usesBrands: Maybe<BooleanQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  version: Maybe<StringQueryOperatorInput>;
+  author: Maybe<StringQueryOperatorInput>;
+  organization: Maybe<StringQueryOperatorInput>;
+  homepage: Maybe<StringQueryOperatorInput>;
+  readme: Maybe<StringQueryOperatorInput>;
+  iconURL: Maybe<StringQueryOperatorInput>;
+  tags: Maybe<StringQueryOperatorInput>;
+  origin: Maybe<ExporterOriginFilterInput>;
+  contributes: Maybe<ExporterContributionFilterInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+type Query_allExporterArgs = {
+  filter: Maybe<ExporterFilterInput>;
+  sort: Maybe<ExporterSortInput>;
   skip: Maybe<Scalars['Int']>;
   limit: Maybe<Scalars['Int']>;
 };
@@ -3881,6 +4126,67 @@ type DocumentationCustomBlockPropertyFilterInput = {
   readonly key: Maybe<StringQueryOperatorInput>;
   readonly type: Maybe<StringQueryOperatorInput>;
   readonly default: Maybe<StringQueryOperatorInput>;
+  readonly value: Maybe<MultitypeValueFilterInput>;
+};
+
+type MultitypeValueFilterInput = {
+  readonly stringValue: Maybe<StringQueryOperatorInput>;
+  readonly booleanValue: Maybe<BooleanQueryOperatorInput>;
+  readonly numericValue: Maybe<FloatQueryOperatorInput>;
+  readonly imageValue: Maybe<MultitypeImageValueFilterInput>;
+  readonly colorValue: Maybe<MultitypeColorValueFilterInput>;
+  readonly typographyValue: Maybe<MultitypeTypographyValueFilterInput>;
+};
+
+type MultitypeImageValueFilterInput = {
+  readonly assetUrl: Maybe<StringQueryOperatorInput>;
+  readonly assetId: Maybe<StringQueryOperatorInput>;
+};
+
+type MultitypeColorValueFilterInput = {
+  readonly aliasTo: Maybe<StringQueryOperatorInput>;
+  readonly value: Maybe<StringQueryOperatorInput>;
+};
+
+type MultitypeTypographyValueFilterInput = {
+  readonly aliasTo: Maybe<StringQueryOperatorInput>;
+  readonly value: Maybe<TypographyTokenValueFilterInput>;
+};
+
+type TypographyTokenValueFilterInput = {
+  readonly font: Maybe<FontTokenValueFilterInput>;
+  readonly fontSize: Maybe<MeasureTokenValueFilterInput>;
+  readonly textDecoration: Maybe<StringQueryOperatorInput>;
+  readonly textCase: Maybe<StringQueryOperatorInput>;
+  readonly letterSpacing: Maybe<MeasureTokenValueFilterInput>;
+  readonly lineHeight: Maybe<MeasureTokenValueFilterInput>;
+  readonly paragraphIndent: Maybe<MeasureTokenValueFilterInput>;
+};
+
+type FontTokenValueFilterInput = {
+  readonly family: Maybe<StringQueryOperatorInput>;
+  readonly subfamily: Maybe<StringQueryOperatorInput>;
+  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
+};
+
+type MeasureTokenValueFilterInput = {
+  readonly unit: Maybe<StringQueryOperatorInput>;
+  readonly measure: Maybe<FloatQueryOperatorInput>;
+  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
+};
+
+type DocumentationTablePropertiesFilterInput = {
+  readonly showBorders: Maybe<BooleanQueryOperatorInput>;
+  readonly columns: Maybe<DocumentationTableColumnFilterListInput>;
+};
+
+type DocumentationTableColumnFilterListInput = {
+  readonly elemMatch: Maybe<DocumentationTableColumnFilterInput>;
+};
+
+type DocumentationTableColumnFilterInput = {
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly width: Maybe<MeasureTokenValueFilterInput>;
 };
 
 type DocumentationBlockConnection = {
@@ -3934,6 +4240,7 @@ type DocumentationBlockFieldsEnum =
   | 'blockIds'
   | 'blockType'
   | 'groupId'
+  | 'variantKey'
   | 'showNestedGroups'
   | 'text.spans'
   | 'text.spans.text'
@@ -3984,6 +4291,9 @@ type DocumentationBlockFieldsEnum =
   | 'block.properties.key'
   | 'block.properties.type'
   | 'block.properties.default'
+  | 'block.properties.value.stringValue'
+  | 'block.properties.value.booleanValue'
+  | 'block.properties.value.numericValue'
   | 'backgroundColor'
   | 'showCode'
   | 'code'
@@ -3995,6 +4305,13 @@ type DocumentationBlockFieldsEnum =
   | 'title'
   | 'description'
   | 'thumbnailUrl'
+  | 'columnId'
+  | 'tableProperties.showBorders'
+  | 'tableProperties.columns'
+  | 'tableProperties.columns.id'
+  | 'tableProperties.columns.width.unit'
+  | 'tableProperties.columns.width.measure'
+  | 'tableProperties.columns.width.referencedTokenId'
   | 'id'
   | 'parent.id'
   | 'parent.parent.id'
@@ -4129,6 +4446,7 @@ type DocumentationBlockFilterInput = {
   readonly blockIds: Maybe<StringQueryOperatorInput>;
   readonly blockType: Maybe<StringQueryOperatorInput>;
   readonly groupId: Maybe<StringQueryOperatorInput>;
+  readonly variantKey: Maybe<StringQueryOperatorInput>;
   readonly showNestedGroups: Maybe<BooleanQueryOperatorInput>;
   readonly text: Maybe<DocumentationBlockTextFilterInput>;
   readonly calloutType: Maybe<StringQueryOperatorInput>;
@@ -4155,6 +4473,8 @@ type DocumentationBlockFilterInput = {
   readonly title: Maybe<StringQueryOperatorInput>;
   readonly description: Maybe<StringQueryOperatorInput>;
   readonly thumbnailUrl: Maybe<StringQueryOperatorInput>;
+  readonly columnId: Maybe<StringQueryOperatorInput>;
+  readonly tableProperties: Maybe<DocumentationTablePropertiesFilterInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
@@ -4610,18 +4930,6 @@ type TokenValueFilterInput = {
   readonly aspectRatio: Maybe<FloatQueryOperatorInput>;
   readonly stops: Maybe<GradientStopValueFilterListInput>;
   readonly text: Maybe<StringQueryOperatorInput>;
-  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
-};
-
-type FontTokenValueFilterInput = {
-  readonly family: Maybe<StringQueryOperatorInput>;
-  readonly subfamily: Maybe<StringQueryOperatorInput>;
-  readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
-};
-
-type MeasureTokenValueFilterInput = {
-  readonly unit: Maybe<StringQueryOperatorInput>;
-  readonly measure: Maybe<FloatQueryOperatorInput>;
   readonly referencedTokenId: Maybe<StringQueryOperatorInput>;
 };
 
@@ -5140,6 +5448,969 @@ type GroupTokenSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
+type ExporterBlockPropertyFilterListInput = {
+  readonly elemMatch: Maybe<ExporterBlockPropertyFilterInput>;
+};
+
+type ExporterBlockPropertyFilterInput = {
+  readonly label: Maybe<StringQueryOperatorInput>;
+  readonly key: Maybe<StringQueryOperatorInput>;
+  readonly type: Maybe<StringQueryOperatorInput>;
+  readonly inputType: Maybe<StringQueryOperatorInput>;
+  readonly isMultiline: Maybe<BooleanQueryOperatorInput>;
+  readonly default: Maybe<MultitypeValueFilterInput>;
+  readonly values: Maybe<StringQueryOperatorInput>;
+};
+
+type ExporterBlockConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterBlockEdge>;
+  readonly nodes: ReadonlyArray<ExporterBlock>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterBlockGroupConnection>;
+};
+
+
+type ExporterBlockConnection_distinctArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockConnection_maxArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockConnection_minArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockConnection_sumArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterBlockFieldsEnum;
+};
+
+type ExporterBlockEdge = {
+  readonly next: Maybe<ExporterBlock>;
+  readonly node: ExporterBlock;
+  readonly previous: Maybe<ExporterBlock>;
+};
+
+type ExporterBlockFieldsEnum =
+  | 'key'
+  | 'title'
+  | 'description'
+  | 'category'
+  | 'iconUrl'
+  | 'mode'
+  | 'properties'
+  | 'properties.label'
+  | 'properties.key'
+  | 'properties.type'
+  | 'properties.inputType'
+  | 'properties.isMultiline'
+  | 'properties.default.stringValue'
+  | 'properties.default.booleanValue'
+  | 'properties.default.numericValue'
+  | 'properties.default.imageValue.assetUrl'
+  | 'properties.default.imageValue.assetId'
+  | 'properties.default.colorValue.aliasTo'
+  | 'properties.default.colorValue.value'
+  | 'properties.default.typographyValue.aliasTo'
+  | 'properties.values'
+  | 'id'
+  | 'parent.id'
+  | 'parent.parent.id'
+  | 'parent.parent.parent.id'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.children.children'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.children'
+  | 'parent.children.id'
+  | 'parent.children.parent.id'
+  | 'parent.children.parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.children.children'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'children'
+  | 'children.id'
+  | 'children.parent.id'
+  | 'children.parent.parent.id'
+  | 'children.parent.parent.children'
+  | 'children.parent.children'
+  | 'children.parent.children.id'
+  | 'children.parent.children.children'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.children'
+  | 'children.children.id'
+  | 'children.children.parent.id'
+  | 'children.children.parent.children'
+  | 'children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.children.children'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type';
+
+type ExporterBlockGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterBlockEdge>;
+  readonly nodes: ReadonlyArray<ExporterBlock>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterBlockGroupConnection>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+
+type ExporterBlockGroupConnection_distinctArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockGroupConnection_maxArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockGroupConnection_minArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockGroupConnection_sumArgs = {
+  field: ExporterBlockFieldsEnum;
+};
+
+
+type ExporterBlockGroupConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterBlockFieldsEnum;
+};
+
+type ExporterBlockFilterInput = {
+  readonly key: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly category: Maybe<StringQueryOperatorInput>;
+  readonly iconUrl: Maybe<StringQueryOperatorInput>;
+  readonly mode: Maybe<StringQueryOperatorInput>;
+  readonly properties: Maybe<ExporterBlockPropertyFilterListInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type ExporterBlockSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<ExporterBlockFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
+type ExporterBlockVariantConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterBlockVariantEdge>;
+  readonly nodes: ReadonlyArray<ExporterBlockVariant>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterBlockVariantGroupConnection>;
+};
+
+
+type ExporterBlockVariantConnection_distinctArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantConnection_maxArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantConnection_minArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantConnection_sumArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+type ExporterBlockVariantEdge = {
+  readonly next: Maybe<ExporterBlockVariant>;
+  readonly node: ExporterBlockVariant;
+  readonly previous: Maybe<ExporterBlockVariant>;
+};
+
+type ExporterBlockVariantFieldsEnum =
+  | 'blockKey'
+  | 'variantKey'
+  | 'name'
+  | 'isDefault'
+  | 'id'
+  | 'parent.id'
+  | 'parent.parent.id'
+  | 'parent.parent.parent.id'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.children.children'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.children'
+  | 'parent.children.id'
+  | 'parent.children.parent.id'
+  | 'parent.children.parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.children.children'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'children'
+  | 'children.id'
+  | 'children.parent.id'
+  | 'children.parent.parent.id'
+  | 'children.parent.parent.children'
+  | 'children.parent.children'
+  | 'children.parent.children.id'
+  | 'children.parent.children.children'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.children'
+  | 'children.children.id'
+  | 'children.children.parent.id'
+  | 'children.children.parent.children'
+  | 'children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.children.children'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type';
+
+type ExporterBlockVariantGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterBlockVariantEdge>;
+  readonly nodes: ReadonlyArray<ExporterBlockVariant>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterBlockVariantGroupConnection>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+
+type ExporterBlockVariantGroupConnection_distinctArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantGroupConnection_maxArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantGroupConnection_minArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantGroupConnection_sumArgs = {
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+
+type ExporterBlockVariantGroupConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterBlockVariantFieldsEnum;
+};
+
+type ExporterBlockVariantFilterInput = {
+  readonly blockKey: Maybe<StringQueryOperatorInput>;
+  readonly variantKey: Maybe<StringQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly isDefault: Maybe<BooleanQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type ExporterBlockVariantSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<ExporterBlockVariantFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
+type ExporterConfigurationPropertyConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterConfigurationPropertyEdge>;
+  readonly nodes: ReadonlyArray<ExporterConfigurationProperty>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterConfigurationPropertyGroupConnection>;
+};
+
+
+type ExporterConfigurationPropertyConnection_distinctArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyConnection_maxArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyConnection_minArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyConnection_sumArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+type ExporterConfigurationPropertyEdge = {
+  readonly next: Maybe<ExporterConfigurationProperty>;
+  readonly node: ExporterConfigurationProperty;
+  readonly previous: Maybe<ExporterConfigurationProperty>;
+};
+
+type ExporterConfigurationPropertyFieldsEnum =
+  | 'label'
+  | 'category'
+  | 'description'
+  | 'key'
+  | 'type'
+  | 'inputType'
+  | 'isMultiline'
+  | 'default.stringValue'
+  | 'default.booleanValue'
+  | 'default.numericValue'
+  | 'default.imageValue.assetUrl'
+  | 'default.imageValue.assetId'
+  | 'default.colorValue.aliasTo'
+  | 'default.colorValue.value'
+  | 'default.typographyValue.aliasTo'
+  | 'default.typographyValue.value.textDecoration'
+  | 'default.typographyValue.value.textCase'
+  | 'value.stringValue'
+  | 'value.booleanValue'
+  | 'value.numericValue'
+  | 'value.imageValue.assetUrl'
+  | 'value.imageValue.assetId'
+  | 'value.colorValue.aliasTo'
+  | 'value.colorValue.value'
+  | 'value.typographyValue.aliasTo'
+  | 'value.typographyValue.value.textDecoration'
+  | 'value.typographyValue.value.textCase'
+  | 'values'
+  | 'id'
+  | 'parent.id'
+  | 'parent.parent.id'
+  | 'parent.parent.parent.id'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.children.children'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.children'
+  | 'parent.children.id'
+  | 'parent.children.parent.id'
+  | 'parent.children.parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.children.children'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'children'
+  | 'children.id'
+  | 'children.parent.id'
+  | 'children.parent.parent.id'
+  | 'children.parent.parent.children'
+  | 'children.parent.children'
+  | 'children.parent.children.id'
+  | 'children.parent.children.children'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.children'
+  | 'children.children.id'
+  | 'children.children.parent.id'
+  | 'children.children.parent.children'
+  | 'children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.children.children'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type';
+
+type ExporterConfigurationPropertyGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterConfigurationPropertyEdge>;
+  readonly nodes: ReadonlyArray<ExporterConfigurationProperty>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterConfigurationPropertyGroupConnection>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+
+type ExporterConfigurationPropertyGroupConnection_distinctArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyGroupConnection_maxArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyGroupConnection_minArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyGroupConnection_sumArgs = {
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+
+type ExporterConfigurationPropertyGroupConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterConfigurationPropertyFieldsEnum;
+};
+
+type ExporterConfigurationPropertyFilterInput = {
+  readonly label: Maybe<StringQueryOperatorInput>;
+  readonly category: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly key: Maybe<StringQueryOperatorInput>;
+  readonly type: Maybe<StringQueryOperatorInput>;
+  readonly inputType: Maybe<StringQueryOperatorInput>;
+  readonly isMultiline: Maybe<BooleanQueryOperatorInput>;
+  readonly default: Maybe<MultitypeValueFilterInput>;
+  readonly value: Maybe<MultitypeValueFilterInput>;
+  readonly values: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type ExporterConfigurationPropertySortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<ExporterConfigurationPropertyFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
+type ExporterOriginFilterInput = {
+  readonly repositoryUrl: Maybe<StringQueryOperatorInput>;
+  readonly repositoryBranch: Maybe<StringQueryOperatorInput>;
+  readonly repositoryDirectory: Maybe<StringQueryOperatorInput>;
+};
+
+type ExporterContributionFilterInput = {
+  readonly customBlocks: Maybe<ExporterBlockFilterListInput>;
+  readonly customConfigurationProperties: Maybe<ExporterConfigurationPropertyFilterListInput>;
+  readonly customBlockVariants: Maybe<ExporterBlockVariantFilterListInput>;
+};
+
+type ExporterBlockFilterListInput = {
+  readonly elemMatch: Maybe<ExporterBlockFilterInput>;
+};
+
+type ExporterConfigurationPropertyFilterListInput = {
+  readonly elemMatch: Maybe<ExporterConfigurationPropertyFilterInput>;
+};
+
+type ExporterBlockVariantFilterListInput = {
+  readonly elemMatch: Maybe<ExporterBlockVariantFilterInput>;
+};
+
+type ExporterConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterEdge>;
+  readonly nodes: ReadonlyArray<Exporter>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterGroupConnection>;
+};
+
+
+type ExporterConnection_distinctArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterConnection_maxArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterConnection_minArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterConnection_sumArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterFieldsEnum;
+};
+
+type ExporterEdge = {
+  readonly next: Maybe<Exporter>;
+  readonly node: Exporter;
+  readonly previous: Maybe<Exporter>;
+};
+
+type ExporterFieldsEnum =
+  | 'id'
+  | 'packageId'
+  | 'isPrivate'
+  | 'isDefaultDocumentationExporter'
+  | 'usesBrands'
+  | 'name'
+  | 'description'
+  | 'version'
+  | 'author'
+  | 'organization'
+  | 'homepage'
+  | 'readme'
+  | 'iconURL'
+  | 'tags'
+  | 'origin.repositoryUrl'
+  | 'origin.repositoryBranch'
+  | 'origin.repositoryDirectory'
+  | 'contributes.customBlocks'
+  | 'contributes.customBlocks.key'
+  | 'contributes.customBlocks.title'
+  | 'contributes.customBlocks.description'
+  | 'contributes.customBlocks.category'
+  | 'contributes.customBlocks.iconUrl'
+  | 'contributes.customBlocks.mode'
+  | 'contributes.customBlocks.properties'
+  | 'contributes.customBlocks.properties.label'
+  | 'contributes.customBlocks.properties.key'
+  | 'contributes.customBlocks.properties.type'
+  | 'contributes.customBlocks.properties.inputType'
+  | 'contributes.customBlocks.properties.isMultiline'
+  | 'contributes.customBlocks.properties.values'
+  | 'contributes.customBlocks.id'
+  | 'contributes.customBlocks.parent.id'
+  | 'contributes.customBlocks.parent.children'
+  | 'contributes.customBlocks.children'
+  | 'contributes.customBlocks.children.id'
+  | 'contributes.customBlocks.children.children'
+  | 'contributes.customBlocks.internal.content'
+  | 'contributes.customBlocks.internal.contentDigest'
+  | 'contributes.customBlocks.internal.description'
+  | 'contributes.customBlocks.internal.fieldOwners'
+  | 'contributes.customBlocks.internal.ignoreType'
+  | 'contributes.customBlocks.internal.mediaType'
+  | 'contributes.customBlocks.internal.owner'
+  | 'contributes.customBlocks.internal.type'
+  | 'contributes.customConfigurationProperties'
+  | 'contributes.customConfigurationProperties.label'
+  | 'contributes.customConfigurationProperties.category'
+  | 'contributes.customConfigurationProperties.description'
+  | 'contributes.customConfigurationProperties.key'
+  | 'contributes.customConfigurationProperties.type'
+  | 'contributes.customConfigurationProperties.inputType'
+  | 'contributes.customConfigurationProperties.isMultiline'
+  | 'contributes.customConfigurationProperties.default.stringValue'
+  | 'contributes.customConfigurationProperties.default.booleanValue'
+  | 'contributes.customConfigurationProperties.default.numericValue'
+  | 'contributes.customConfigurationProperties.value.stringValue'
+  | 'contributes.customConfigurationProperties.value.booleanValue'
+  | 'contributes.customConfigurationProperties.value.numericValue'
+  | 'contributes.customConfigurationProperties.values'
+  | 'contributes.customConfigurationProperties.id'
+  | 'contributes.customConfigurationProperties.parent.id'
+  | 'contributes.customConfigurationProperties.parent.children'
+  | 'contributes.customConfigurationProperties.children'
+  | 'contributes.customConfigurationProperties.children.id'
+  | 'contributes.customConfigurationProperties.children.children'
+  | 'contributes.customConfigurationProperties.internal.content'
+  | 'contributes.customConfigurationProperties.internal.contentDigest'
+  | 'contributes.customConfigurationProperties.internal.description'
+  | 'contributes.customConfigurationProperties.internal.fieldOwners'
+  | 'contributes.customConfigurationProperties.internal.ignoreType'
+  | 'contributes.customConfigurationProperties.internal.mediaType'
+  | 'contributes.customConfigurationProperties.internal.owner'
+  | 'contributes.customConfigurationProperties.internal.type'
+  | 'contributes.customBlockVariants'
+  | 'contributes.customBlockVariants.blockKey'
+  | 'contributes.customBlockVariants.variantKey'
+  | 'contributes.customBlockVariants.name'
+  | 'contributes.customBlockVariants.isDefault'
+  | 'contributes.customBlockVariants.id'
+  | 'contributes.customBlockVariants.parent.id'
+  | 'contributes.customBlockVariants.parent.children'
+  | 'contributes.customBlockVariants.children'
+  | 'contributes.customBlockVariants.children.id'
+  | 'contributes.customBlockVariants.children.children'
+  | 'contributes.customBlockVariants.internal.content'
+  | 'contributes.customBlockVariants.internal.contentDigest'
+  | 'contributes.customBlockVariants.internal.description'
+  | 'contributes.customBlockVariants.internal.fieldOwners'
+  | 'contributes.customBlockVariants.internal.ignoreType'
+  | 'contributes.customBlockVariants.internal.mediaType'
+  | 'contributes.customBlockVariants.internal.owner'
+  | 'contributes.customBlockVariants.internal.type'
+  | 'parent.id'
+  | 'parent.parent.id'
+  | 'parent.parent.parent.id'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.children.children'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.children'
+  | 'parent.children.id'
+  | 'parent.children.parent.id'
+  | 'parent.children.parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.children.children'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'children'
+  | 'children.id'
+  | 'children.parent.id'
+  | 'children.parent.parent.id'
+  | 'children.parent.parent.children'
+  | 'children.parent.children'
+  | 'children.parent.children.id'
+  | 'children.parent.children.children'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.children'
+  | 'children.children.id'
+  | 'children.children.parent.id'
+  | 'children.children.parent.children'
+  | 'children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.children.children'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type';
+
+type ExporterGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<ExporterEdge>;
+  readonly nodes: ReadonlyArray<Exporter>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly group: ReadonlyArray<ExporterGroupConnection>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+
+type ExporterGroupConnection_distinctArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterGroupConnection_maxArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterGroupConnection_minArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterGroupConnection_sumArgs = {
+  field: ExporterFieldsEnum;
+};
+
+
+type ExporterGroupConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ExporterFieldsEnum;
+};
+
+type ExporterFilterInput = {
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly packageId: Maybe<StringQueryOperatorInput>;
+  readonly isPrivate: Maybe<BooleanQueryOperatorInput>;
+  readonly isDefaultDocumentationExporter: Maybe<BooleanQueryOperatorInput>;
+  readonly usesBrands: Maybe<BooleanQueryOperatorInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly description: Maybe<StringQueryOperatorInput>;
+  readonly version: Maybe<StringQueryOperatorInput>;
+  readonly author: Maybe<StringQueryOperatorInput>;
+  readonly organization: Maybe<StringQueryOperatorInput>;
+  readonly homepage: Maybe<StringQueryOperatorInput>;
+  readonly readme: Maybe<StringQueryOperatorInput>;
+  readonly iconURL: Maybe<StringQueryOperatorInput>;
+  readonly tags: Maybe<StringQueryOperatorInput>;
+  readonly origin: Maybe<ExporterOriginFilterInput>;
+  readonly contributes: Maybe<ExporterContributionFilterInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+};
+
+type ExporterSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<ExporterFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
 type TemplatePageContentQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
@@ -5158,21 +6429,40 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
-      )> }
+type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url' | 'title' | 'description' | 'thumbnailUrl'>
+      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly shortcuts: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockShortcut, 'title' | 'description' | 'previewUrl' | 'externalUrl' | 'internalId' | 'shortcutType'>>>>, readonly block: Maybe<(
+        Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>
+        & { readonly properties: Maybe<ReadonlyArray<Maybe<Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>>>> }
+      )>, readonly properties: Maybe<Pick<DocumentationBlockProperties, 'alignment' | 'color' | 'layout' | 'markdownUrl'>>, readonly size: Maybe<Pick<Size, 'height' | 'width'>>, readonly text: Maybe<{ readonly spans: Maybe<ReadonlyArray<Maybe<(
+          Pick<DocumentationBlockTextSpan, 'text'>
+          & { readonly attributes: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockTextSpansAttribute, 'link' | 'type'>>>> }
+        )>>> }> }
     )> } };
 
 type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
+
+type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
+      )> }
+    )> } };
+
+type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
 
 type QueryAllTokensQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5193,6 +6483,17 @@ type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
 type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
 
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
+      )> }
+    )> } };
+
 type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5204,33 +6505,54 @@ type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: Rea
       )> }
     )> } };
 
-type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllExporterBlockQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationBlock, 'alignment' | 'backgroundColor' | 'beginsTypeChain' | 'blockIds' | 'blockType' | 'calloutType' | 'caption' | 'code' | 'codeLanguage' | 'endsTypeChain' | 'headingType' | 'groupId' | 'height' | 'id' | 'key' | 'packageJSON' | 'sandboxData' | 'sandboxType' | 'showCode' | 'showNestedGroups' | 'tokenIds' | 'url' | 'title' | 'description' | 'thumbnailUrl'>
-      & { readonly assets: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockAsset, 'assetId' | 'backgroundColor' | 'title' | 'description' | 'previewUrl'>>>>, readonly frames: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockFigmaFrame, 'sourceFileId' | 'sourceFrameId' | 'sourceFileName' | 'title' | 'description' | 'previewUrl' | 'backgroundColor'>>>>, readonly shortcuts: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockShortcut, 'title' | 'description' | 'previewUrl' | 'externalUrl' | 'internalId' | 'shortcutType'>>>>, readonly block: Maybe<(
-        Pick<DocumentationCustomBlock, 'category' | 'description' | 'iconUrl' | 'key' | 'title'>
-        & { readonly properties: Maybe<ReadonlyArray<Maybe<Pick<DocumentationCustomBlockProperty, 'default' | 'key' | 'label' | 'type'>>>> }
-      )>, readonly properties: Maybe<Pick<DocumentationBlockProperties, 'alignment' | 'color' | 'layout' | 'markdownUrl'>>, readonly size: Maybe<Pick<Size, 'height' | 'width'>>, readonly text: Maybe<{ readonly spans: Maybe<ReadonlyArray<Maybe<(
-          Pick<DocumentationBlockTextSpan, 'text'>
-          & { readonly attributes: Maybe<ReadonlyArray<Maybe<Pick<DocumentationBlockTextSpansAttribute, 'link' | 'type'>>>> }
-        )>>> }> }
+type QueryAllExporterBlockQuery = { readonly allExporterBlock: { readonly nodes: ReadonlyArray<(
+      Pick<ExporterBlock, 'category' | 'description' | 'iconUrl' | 'id' | 'key' | 'mode' | 'title'>
+      & { readonly properties: Maybe<ReadonlyArray<Maybe<(
+        Pick<ExporterBlockProperty, 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
+        & { readonly default: Maybe<(
+          Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+          & { readonly typographyValue: Maybe<(
+            Pick<MultitypeTypographyValue, 'aliasTo'>
+            & { readonly value: Maybe<(
+              Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+              & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+            )> }
+          )>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>> }
+        )> }
+      )>>> }
     )> } };
 
-type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllExporterBlockVariantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
+type QueryAllExporterBlockVariantsQuery = { readonly allExporterBlockVariant: { readonly nodes: ReadonlyArray<Pick<ExporterBlockVariant, 'blockKey' | 'isDefault' | 'id' | 'name' | 'variantKey'>> } };
 
-type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllExporterConfigurationPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
+type QueryAllExporterConfigurationPropertiesQuery = { readonly allExporterConfigurationProperty: { readonly nodes: ReadonlyArray<(
+      Pick<ExporterConfigurationProperty, 'category' | 'description' | 'id' | 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
+      & { readonly default: Maybe<(
+        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
+          Pick<MultitypeTypographyValue, 'aliasTo'>
+          & { readonly value: Maybe<(
+            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'unit' | 'measure'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+          )> }
+        )> }
+      )>, readonly value: Maybe<(
+        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
+          Pick<MultitypeTypographyValue, 'aliasTo'>
+          & { readonly value: Maybe<(
+            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+          )> }
+        )> }
       )> }
     )> } };
 

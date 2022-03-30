@@ -20,6 +20,7 @@ import ContentMenu from "./components/structure/ContentMenu"
 import ContentBlockLevel from "./components/blocks/ContentBlockLevel"
 import Onload from "./components/structure/Onload"
 import Footer from "./components/structure/Footer"
+import PreviousNext from "./components/structure/PreviousNext"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
@@ -44,6 +45,7 @@ function TemplatePageContent(props: any) {
                 <div className="container">
                   <section id="section-content-page">
                     <ContentBlockLevel blockIds={page.blockIds} />
+                    <PreviousNext pageId={page.id} />
                   </section>
                   <ContentMenu pageId={page.id} />
                 </div>

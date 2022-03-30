@@ -388,6 +388,8 @@ type DocumentationItem = Node & {
   readonly subitemIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly groupBehavior: Maybe<Scalars['String']>;
   readonly blockIds: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly nextPageId: Maybe<Scalars['String']>;
+  readonly previousPageId: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
   readonly children: ReadonlyArray<Node>;
@@ -1135,6 +1137,8 @@ type Query_documentationItemArgs = {
   subitemIds: Maybe<StringQueryOperatorInput>;
   groupBehavior: Maybe<StringQueryOperatorInput>;
   blockIds: Maybe<StringQueryOperatorInput>;
+  nextPageId: Maybe<StringQueryOperatorInput>;
+  previousPageId: Maybe<StringQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
   children: Maybe<NodeFilterListInput>;
@@ -3882,6 +3886,8 @@ type DocumentationItemFieldsEnum =
   | 'subitemIds'
   | 'groupBehavior'
   | 'blockIds'
+  | 'nextPageId'
+  | 'previousPageId'
   | 'id'
   | 'parent.id'
   | 'parent.parent.id'
@@ -4025,6 +4031,8 @@ type DocumentationItemFilterInput = {
   readonly subitemIds: Maybe<StringQueryOperatorInput>;
   readonly groupBehavior: Maybe<StringQueryOperatorInput>;
   readonly blockIds: Maybe<StringQueryOperatorInput>;
+  readonly nextPageId: Maybe<StringQueryOperatorInput>;
+  readonly previousPageId: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
@@ -6435,47 +6443,6 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
-
-type QueryAllExporterBlockVariantsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllExporterBlockVariantsQuery = { readonly allExporterBlockVariant: { readonly nodes: ReadonlyArray<Pick<ExporterBlockVariant, 'blockKey' | 'isDefault' | 'id' | 'name' | 'variantKey'>> } };
-
-type QueryAllExporterBlockQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllExporterBlockQuery = { readonly allExporterBlock: { readonly nodes: ReadonlyArray<(
-      Pick<ExporterBlock, 'category' | 'description' | 'iconUrl' | 'id' | 'key' | 'mode' | 'title'>
-      & { readonly properties: Maybe<ReadonlyArray<Maybe<(
-        Pick<ExporterBlockProperty, 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
-        & { readonly default: Maybe<(
-          Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
-          & { readonly typographyValue: Maybe<(
-            Pick<MultitypeTypographyValue, 'aliasTo'>
-            & { readonly value: Maybe<(
-              Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
-              & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
-            )> }
-          )>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>> }
-        )> }
-      )>>> }
-    )> } };
-
-type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
-      )> }
-    )> } };
-
 type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6505,6 +6472,31 @@ type QueryAllBlocksQuery = { readonly allDocumentationBlock: { readonly nodes: R
       )>>> }
     )> } };
 
+type QueryAllExporterBlockQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllExporterBlockQuery = { readonly allExporterBlock: { readonly nodes: ReadonlyArray<(
+      Pick<ExporterBlock, 'category' | 'description' | 'iconUrl' | 'id' | 'key' | 'mode' | 'title'>
+      & { readonly properties: Maybe<ReadonlyArray<Maybe<(
+        Pick<ExporterBlockProperty, 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
+        & { readonly default: Maybe<(
+          Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+          & { readonly typographyValue: Maybe<(
+            Pick<MultitypeTypographyValue, 'aliasTo'>
+            & { readonly value: Maybe<(
+              Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+              & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+            )> }
+          )>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>> }
+        )> }
+      )>>> }
+    )> } };
+
+type QueryAllExporterBlockVariantsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllExporterBlockVariantsQuery = { readonly allExporterBlockVariant: { readonly nodes: ReadonlyArray<Pick<ExporterBlockVariant, 'blockKey' | 'isDefault' | 'id' | 'name' | 'variantKey'>> } };
+
 type QueryAllExporterConfigurationPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6531,6 +6523,11 @@ type QueryAllExporterConfigurationPropertiesQuery = { readonly allExporterConfig
       )> }
     )> } };
 
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
+
 type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6541,6 +6538,33 @@ type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: Rea
         & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
       )> }
     )> } };
+
+type QueryAllGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'isRoot' | 'subpageIds' | 'subitemIds' | 'subgroupIds' | 'groupBehavior'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
+      )> }
+    )> } };
+
+type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'previousPageId' | 'nextPageId' | 'title' | 'blockIds'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
+      )> }
+    )> } };
+
+type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
 
 type QueryAllTokensQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6556,25 +6580,9 @@ type QueryAllTokensQuery = { readonly allToken: { readonly nodes: ReadonlyArray<
       )> }
     )> } };
 
-type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
-
-type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
-
-type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title' | 'blockIds'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
-      )> }
-    )> } };
+type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
 
 }

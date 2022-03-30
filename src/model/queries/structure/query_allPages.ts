@@ -24,6 +24,8 @@ const QueryAllPages = (): Array<SupernovaTypes.DocumentationPage> => {
           firstPageSlug
           parentGroupId
           parentGroupChain
+          previousPageId
+          nextPageId
           title
           blockIds
           configuration {

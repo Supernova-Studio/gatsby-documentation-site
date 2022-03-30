@@ -1,0 +1,197 @@
+.no-container-tabs {
+    width: 100%;
+    height: 20px;
+}
+
+.index-header {
+    height: 600px;
+    width: 100%;
+    background-image: url(../../static/assets/fp-bg-1.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container.index-slider .slider {
+    max-width: 400px;
+    margin: auto 0;
+}
+
+.container.index-slider .slider h1 {
+    font-weight: 900;
+    line-height: 3rem;
+}
+
+.container.index-slider {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    height: 100%;
+    position: relative;
+}
+
+.index-infobanner-float {
+    position: absolute;
+    bottom: -42px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+.index-infobanner {
+    display: inline-flex;
+}
+
+.index-infobanner>div {
+    width: 400px;
+    height: 72px;
+    background-color: #4589FF;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.index-infobanner span {
+    display: block;
+    padding: 0px 8px;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+}
+
+.index-infobanner::before {
+    content: url("data:image/svg+xml,%3Csvg width='80' height='72' viewBox='0 0 80 72' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M80 0C40 0 40 36 0 36C40 36 40 72 80 72V0Z' fill='%234589FF'/%3E%3C/svg%3E%0A");
+}
+
+.index-infobanner::after {
+    content: url("data:image/svg+xml,%3Csvg width='80' height='72' viewBox='0 0 80 72' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.62939e-06 0C40 0 40 36 80 36C40 36 40 72 7.62939e-06 72V0Z' fill='%234589FF'/%3E%3C/svg%3E%0A");
+}
+
+.docs-content.fullscreen.index {
+    border-top: 1px solid #DCE0E4;
+    padding-top: 80px;
+}
+
+.docs-content.fullscreen.index .container {
+    justify-content: left;
+}
+
+.docs-content.fullscreen.index .container .row {
+    width: 100%;
+}
+
+.mainpage-tile {
+    height: 168px;
+    width: 100%;
+    border: 1px solid #DCE0E4;
+    margin: 8px 8px;
+}
+
+.index .tile-container {
+    width: 100%;
+}
+
+.index-tile {
+    height: 160px;
+    padding: 16px 0px 16px 16px;
+}
+
+.index-tile a,
+.index-tile .content {
+    width: calc(100% - 100px);
+}
+
+.index-tile {
+    display: flex;
+    border-radius: 0px !important;
+}
+
+.index .grid.c2 a {
+    width: calc(100% - 100px);
+    display: inline-grid;
+}
+
+.tile-container .grid>a>div.index-tile p.title {
+    font-weight: 600;
+    font-size: 24px;
+    margin: 8px 0 16px 0;
+    line-height: 1.8rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.tile-container .grid>a>div.index-tile p.subtitle {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.2rem;
+    color: rgba(20, 22, 24, 0.8);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.tile-container .grid>a:hover {
+    color: #4589FF !important;
+    text-decoration: none;
+}
+
+.tile-container .grid>a:hover>div p.title,
+.tile-container .grid>a:hover>div p.subtitle {
+    color: #4589FF !important;
+    text-decoration: none;
+    opacity: 1;
+}
+
+.tile-container .grid>a:hover>div div.number {
+    opacity: 1;
+    background: #4589FF;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tile-container .grid>a>div.index-tile .number {
+    width: 100px;
+    font-size: 120px;
+    font-weight: 900;
+    text-align: center;
+    background: -webkit-linear-gradient(#000, #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.2;
+}
+
+.index .container .row {
+    margin: 0px;
+}
+
+.index .tile-container .grid {
+    justify-content: space-between;
+}
+
+.index-slider .btn {
+    margin-top: 16px;
+    border-radius: 0px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.index-slider .btn-primary {
+    background-color: #4589FF;
+    border-color: #4589FF;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.index-slider .btn-primary:hover {
+    background-color: #0355b3;
+    border-color: #0355b3;
+}

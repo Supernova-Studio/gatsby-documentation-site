@@ -15,7 +15,7 @@ import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
 
-export default function ContentBlockTableCell(props: { block: SupernovaTypes.DocumentationPageBlockTable }) {
+export default function ContentBlockTableCell(props: { block: SupernovaTypes.DocumentationPageBlockTableCell }) {
   return (
     <div>Table cells are not yet supported</div>
   )

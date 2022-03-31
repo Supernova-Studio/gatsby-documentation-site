@@ -18,7 +18,7 @@ import ContentBlock from "./ContentBlock"
 // MARK: - Template implementation
 
 export default function ContentBlockLevel(props: { blockIds: Array<string> }) {
-  let blocks = props.blockIds.map((blockId) => QueryBlockById(blockId))
+  let blocks = independentBlocks(props.blockIds.map((blockId) => QueryBlockById(blockId)))  
   let resultingElements: Array<JSX.Element> = []
 
   while (blocks.length > 0) {
@@ -67,4 +67,15 @@ function seekAllBlocksOfUniqueType(blocks: Array<SupernovaTypes.DocumentationPag
     }
   }
   return resultingBlocks
+}
+
+function independentBlocks(blocks: Array<SupernovaTypes.DocumentationPageBlock>): Array<SupernovaTypes.DocumentationPageBlock> {
+  
+  // Don't directly render blocks that are dependent on parent block - their rendering is handled by the parent
+  return blocks.filter(b => { 
+    return b.blockType !== SupernovaTypes.DocumentationPageBlockType.tabItem &&
+           b.blockType !== SupernovaTypes.DocumentationPageBlockType.columnItem &&
+           b.blockType !== SupernovaTypes.DocumentationPageBlockType.tableCell &&
+           b.blockType !== SupernovaTypes.DocumentationPageBlockType.tableRow
+  })
 }

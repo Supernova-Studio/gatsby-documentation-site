@@ -35,6 +35,12 @@ import ContentBlockTokenGroup from "./specific/ContentBlockTokenGroup"
 import ContentBlockTokenList from "./specific/ContentBlockTokenList"
 import ContentBlockUnorderedList from "./specific/ContentBlockUnorderedList"
 import ContentBlockYoutubeEmbed from "./specific/ContentBlockYoutubeEmbed"
+import ContentBlockTabs from "./specific/ContentBlockTabs"
+import ContentBlockTabItem from "./specific/ContentBlockTabItem"
+import ContentBlockTableCell from "./specific/upcoming/ContentBlockTableCell"
+import ContentBlockTableRow from "./specific/upcoming/ContentBlockTableRow"
+import ContentBlockColumn from "./specific/upcoming/ContentBlockColumn"
+import ContentBlockColumnItem from "./specific/upcoming/ContentBlockColumnItem"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
@@ -42,6 +48,7 @@ import ContentBlockYoutubeEmbed from "./specific/ContentBlockYoutubeEmbed"
 export default function ContentBlock(props: { blockId: string }) {
   let block = QueryBlockById(props.blockId)
   let contentBlock: JSX.Element
+  console.log(block.blockType)
   switch (block.blockType) {
     case SupernovaTypes.DocumentationPageBlockType.text:
       contentBlock = <ContentBlockText block={block as SupernovaTypes.DocumentationPageBlockText} />
@@ -108,6 +115,29 @@ export default function ContentBlock(props: { blockId: string }) {
       break
     case SupernovaTypes.DocumentationPageBlockType.componentAssets:
       contentBlock = <ContentBlockComponentAssets block={block as SupernovaTypes.DocumentationPageBlockAssets} />
+      break
+    case SupernovaTypes.DocumentationPageBlockType.tabs:
+      console.log("creating tabs")
+      contentBlock = <ContentBlockTabs block={block as SupernovaTypes.DocumentationPageBlockTabs} />
+      break
+    case SupernovaTypes.DocumentationPageBlockType.tabItem:
+      console.log("creating tab item")
+      contentBlock = <></> // Content is handled within user tabs
+      break
+    case SupernovaTypes.DocumentationPageBlockType.table:
+      contentBlock = <ContentBlockTabs block={block as SupernovaTypes.DocumentationPageBlockTabs} />
+      break
+    case SupernovaTypes.DocumentationPageBlockType.tableRow:
+      contentBlock = <ContentBlockTableRow block={block as SupernovaTypes.DocumentationPageBlockTableRow} />
+      break
+    case SupernovaTypes.DocumentationPageBlockType.tableCell:
+      contentBlock = <ContentBlockTableCell block={block as SupernovaTypes.DocumentationPageBlockTableCell} />
+      break
+    case SupernovaTypes.DocumentationPageBlockType.column:
+      contentBlock = <ContentBlockColumn block={block as SupernovaTypes.DocumentationPageBlockColumn} />
+      break
+    case SupernovaTypes.DocumentationPageBlockType.columnItem:
+      contentBlock = <ContentBlockColumnItem block={block as SupernovaTypes.DocumentationPageBlockColumnItem} />
       break
     default:
       throw new Error(`Unsupported block type ${block.blockType}`)

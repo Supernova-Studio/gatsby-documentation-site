@@ -20,17 +20,6 @@ We have aligned implementation of default pulsar exporter and Gatsby example. Yo
 - Fixed rendering of transparent background for figma frames
 - Fixed rendering of transparent background for assets
 - Significantly improved rendering of Figma frames, especially in large, single-image mode
-|- Foreground and background color of page titles can now be properly configured using both raw values and tokens
-|- Quotes, Callouts, Texts, Headers and all other blocks with rich text type will properly render soft newlines
-|- Page headers will properly render soft newlines for both title and description fields
-|- Added option to show / hide frame titles on figma frames
-|- Fixed overriden asset titles now properly showing
-|- Added option to override background colors for frames and assets, also on per-asset basis
-|- Added option to apply header image to all pages at once by using documentation settings
-|- Added option to apply header background color to all pages at once by using documentation settings
-|- Added option to apply header text color to all pages at once by using documentation settings
-|- Added option to apply header height to all pages at once by using documentation settings
-|- All header properties that are set through the page configuration will now take precedence over the documentation configuration settings
 
 **Block variants**
 - Added ability to define block variants. You can now select variant inside editor and access it through `variantKey` property
@@ -49,6 +38,7 @@ We have aligned implementation of default pulsar exporter and Gatsby example. Yo
 **Previous & Next navigation**
 - It is now possible to navigate back and forth between pages with new navigation menu
 - Added option to enable / disable this behavior
+
 
 ## [until 0.6.X] - 2021 - 2022
 ### Initial implementation

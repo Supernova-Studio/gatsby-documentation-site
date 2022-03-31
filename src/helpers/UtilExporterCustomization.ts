@@ -30,7 +30,6 @@ export class UtilExporterCustomization {
     static configurationValue(key: string): any {
         
         let property = UtilExporterCustomization.configurationProperty(key)
-        console.log(property)
         let value = property.value
         if (value === null || value === undefined) {
             return null

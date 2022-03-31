@@ -13,7 +13,7 @@ import React from "react"
 import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 import QueryBlockById from "../../../../model/queries/blocks/query_blockById"
 import ContentBlockLevel from "../ContentBlockLevel"
-import { Tab, Tabs } from "react-bootstrap"
+import { Col, Nav, Row, Tab, Tabs } from "react-bootstrap"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Template implementation
@@ -21,7 +21,8 @@ import { Tab, Tabs } from "react-bootstrap"
 export default function ContentBlockTabs(props: { block: SupernovaTypes.DocumentationPageBlockTabs }) {
 
   // Tabs are variant enabled, so we have different rendering for each mode
-  if (props.block.variantKey === "Pills") {
+  console.log(`variant key: ${props.block.variantKey}`)
+  if (props.block.variantKey === "pills") {
     // Pills
     return <TabVariantPills block={props.block} />
   } else {
@@ -36,12 +37,10 @@ function TabVariantTabs(props: { block: SupernovaTypes.DocumentationPageBlockTab
   let blockId = `T${block.id}`
   let blocks = block.blockIds.map((blockId) => QueryBlockById(blockId))
 
-  console.log("creating tabs")
   return <Tabs id={blockId} className="nav nav-tabs nav-tabs-inline">
     { blocks.map((block, index) => {
       let tabBlock = block as SupernovaTypes.DocumentationPageBlockTabItem
       let id = `TI${tabBlock.id}`
-      console.log("creating tab xxx")
       return <Tab eventKey={id} title={tabBlock.caption} className="tab-content tab-content-block">
         <ContentBlockLevel blockIds={tabBlock.blockIds} />
       </Tab>
@@ -52,29 +51,34 @@ function TabVariantTabs(props: { block: SupernovaTypes.DocumentationPageBlockTab
 
 function TabVariantPills(props: { block: SupernovaTypes.DocumentationPageBlockTabs }) {
 
-  return <div></div>
+  let block = props.block
+  let blockId = `T${block.id}`
+  let blocks = block.blockIds.map((blockId) => QueryBlockById(blockId))
+
+  return <Tab.Container id={blockId}>
+  <Row className="row no-gutters tab-pills">
+    <Col sm={3}>
+      <Nav variant="pills" className="nav nav-pills flex-sm-column">
+        { blocks.map((block, index) => {
+          let tabBlock = block as SupernovaTypes.DocumentationPageBlockTabItem
+          let id = `TI${tabBlock.id}`
+          return <Nav.Item>
+            <Nav.Link eventKey={id} className={"nav-item"}>{tabBlock.caption}</Nav.Link>
+          </Nav.Item>
+        })}
+      </Nav>
+    </Col>
+    <Col sm={9}>
+      <Tab.Content className="tab-content tab-content-block">
+        { blocks.map((block, index) => {
+          let tabBlock = block as SupernovaTypes.DocumentationPageBlockTabItem
+          let id = `TI${tabBlock.id}`
+          return <Tab.Pane eventKey={id} className="tab-pane fade">
+            <ContentBlockLevel blockIds={tabBlock.blockIds} />
+          </Tab.Pane>
+        })}
+      </Tab.Content>
+    </Col>
+  </Row>
+</Tab.Container>
 }
-
-/*
-return <>
-<ul className="nav nav-tabs nav-tabs-inline" id={blockId} role="tablist">
-{ blocks.map((block, index) => {
-  let tabBlock = block as SupernovaTypes.DocumentationPageBlockTabItem
-  let id = `TI${tabBlock.id}`
-  return <li className="nav-item" role="presentation">
-    <a className={`nav-link ${index === 0 ? "active" : ""}`} id={`${id}-tab`} data-toggle="tab" href={`#${id}`} role="tab" aria-controls={id} aria-selected={index === 0 ? true : false}>{tabBlock.caption ?? ""}</a>
-  </li>
-})}
-</ul>
-
-<div className="tab-content tab-content-block" id={`${blockId}-content`}>
-{ blocks.map((block, index) => {
-  let tabBlock = block as SupernovaTypes.DocumentationPageBlockTabItem
-  let id = `TI${tabBlock.id}`
-  return <div className={`tab-pane fade ${index === 0 ? "active show" : ""}`} id={`${id}`} role="tabpanel" aria-labelledby={`${id}-tab`}>
-    <ContentBlockLevel blockIds={tabBlock.blockIds} />
-  </div>
-})}
-</div>
-</>
-*/

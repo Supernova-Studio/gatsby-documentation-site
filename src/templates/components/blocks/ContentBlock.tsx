@@ -48,7 +48,6 @@ import ContentBlockColumnItem from "./specific/upcoming/ContentBlockColumnItem"
 export default function ContentBlock(props: { blockId: string }) {
   let block = QueryBlockById(props.blockId)
   let contentBlock: JSX.Element
-  console.log(block.blockType)
   switch (block.blockType) {
     case SupernovaTypes.DocumentationPageBlockType.text:
       contentBlock = <ContentBlockText block={block as SupernovaTypes.DocumentationPageBlockText} />
@@ -117,11 +116,9 @@ export default function ContentBlock(props: { blockId: string }) {
       contentBlock = <ContentBlockComponentAssets block={block as SupernovaTypes.DocumentationPageBlockAssets} />
       break
     case SupernovaTypes.DocumentationPageBlockType.tabs:
-      console.log("creating tabs")
       contentBlock = <ContentBlockTabs block={block as SupernovaTypes.DocumentationPageBlockTabs} />
       break
     case SupernovaTypes.DocumentationPageBlockType.tabItem:
-      console.log("creating tab item")
       contentBlock = <></> // Content is handled within user tabs
       break
     case SupernovaTypes.DocumentationPageBlockType.table:

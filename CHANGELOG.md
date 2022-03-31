@@ -26,15 +26,15 @@ We have aligned implementation of default pulsar exporter and Gatsby example. Yo
 |- Added option to show / hide frame titles on figma frames
 |- Fixed overriden asset titles now properly showing
 |- Added option to override background colors for frames and assets, also on per-asset basis
-
-**Block variants**
 |- Added option to apply header image to all pages at once by using documentation settings
 |- Added option to apply header background color to all pages at once by using documentation settings
 |- Added option to apply header text color to all pages at once by using documentation settings
 |- Added option to apply header height to all pages at once by using documentation settings
 |- All header properties that are set through the page configuration will now take precedence over the documentation configuration settings
-|- Added ability to define block variants. You can now select variant inside editor and access it through `variantKey` property
-|- Added tab mode rendering variant "pill"
+
+**Block variants**
+- Added ability to define block variants. You can now select variant inside editor and access it through `variantKey` property
+- Added tab mode rendering variant "pill"
 
 **Custom CSS, Custom Footers**
 - Added ability to define custom CSS for the entire doc site configurable from editor / configuration
@@ -43,7 +43,7 @@ We have aligned implementation of default pulsar exporter and Gatsby example. Yo
 - Unified CSS definitions to be just one file
 
 **Tab Blocks**
-|- It is now possible to render tab blocks
+- It is now possible to render tab blocks
 - Data model and wrappers for upcoming table and column blocks is now available for preview - both blocks can't yet be spawned inside editor however
 
 **Previous & Next navigation**

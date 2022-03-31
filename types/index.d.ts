@@ -6443,16 +6443,6 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
-type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
-
-type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
-
 type QueryAllBlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6502,21 +6492,63 @@ type QueryAllExporterBlockQuery = { readonly allExporterBlock: { readonly nodes:
       )>>> }
     )> } };
 
+type QueryAllAssetsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllAssetsQuery = { readonly allAsset: { readonly nodes: ReadonlyArray<Pick<Asset, 'id' | 'brandId' | 'thumbnailUrl' | 'name' | 'description' | 'componentId' | 'previouslyDuplicatedNames'>> } };
+
 type QueryAllExporterBlockVariantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllExporterBlockVariantsQuery = { readonly allExporterBlockVariant: { readonly nodes: ReadonlyArray<Pick<ExporterBlockVariant, 'blockKey' | 'isDefault' | 'id' | 'name' | 'variantKey'>> } };
 
-type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+type QueryAllExporterConfigurationPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
+type QueryAllExporterConfigurationPropertiesQuery = { readonly allExporterConfigurationProperty: { readonly nodes: ReadonlyArray<(
+      Pick<ExporterConfigurationProperty, 'category' | 'description' | 'id' | 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
+      & { readonly default: Maybe<(
+        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
+          Pick<MultitypeTypographyValue, 'aliasTo'>
+          & { readonly value: Maybe<(
+            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'unit' | 'measure'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+          )> }
+        )> }
+      )>, readonly value: Maybe<(
+        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
+        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
+          Pick<MultitypeTypographyValue, 'aliasTo'>
+          & { readonly value: Maybe<(
+            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
+            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
+          )> }
+        )> }
+      )> }
+    )> } };
 
 type QueryAllPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type QueryAllPagesQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
       Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'previousPageId' | 'nextPageId' | 'title' | 'blockIds'>
+      & { readonly configuration: Maybe<(
+        Pick<DocumentationItemConfiguration, 'showSidebar'>
+        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
+      )> }
+    )> } };
+
+type QueryAllGroupTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllGroupTokenQuery = { readonly allGroupToken: { readonly nodes: ReadonlyArray<Pick<GroupToken, 'id' | 'brandId' | 'tokenType' | 'name' | 'description' | 'isRoot' | 'parentId' | 'childrenIds' | 'subgroupIds' | 'tokenIds' | 'path'>> } };
+
+type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
+      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
       & { readonly configuration: Maybe<(
         Pick<DocumentationItemConfiguration, 'showSidebar'>
         & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
@@ -6548,41 +6580,9 @@ type QueryAllGroupsQuery = { readonly allDocumentationItem: { readonly nodes: Re
       )> }
     )> } };
 
-type QueryAllExporterConfigurationPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
+type ConfigurationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type QueryAllExporterConfigurationPropertiesQuery = { readonly allExporterConfigurationProperty: { readonly nodes: ReadonlyArray<(
-      Pick<ExporterConfigurationProperty, 'category' | 'description' | 'id' | 'inputType' | 'isMultiline' | 'key' | 'label' | 'type' | 'values'>
-      & { readonly default: Maybe<(
-        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
-        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
-          Pick<MultitypeTypographyValue, 'aliasTo'>
-          & { readonly value: Maybe<(
-            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
-            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'referencedTokenId' | 'unit' | 'measure'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
-          )> }
-        )> }
-      )>, readonly value: Maybe<(
-        Pick<MultitypeValue, 'booleanValue' | 'numericValue' | 'stringValue'>
-        & { readonly colorValue: Maybe<Pick<MultitypeColorValue, 'aliasTo' | 'value'>>, readonly imageValue: Maybe<Pick<MultitypeImageValue, 'assetId' | 'assetUrl'>>, readonly typographyValue: Maybe<(
-          Pick<MultitypeTypographyValue, 'aliasTo'>
-          & { readonly value: Maybe<(
-            Pick<TypographyTokenValue, 'textCase' | 'textDecoration'>
-            & { readonly font: Maybe<Pick<FontTokenValue, 'family' | 'referencedTokenId' | 'subfamily'>>, readonly fontSize: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly letterSpacing: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly lineHeight: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>>, readonly paragraphIndent: Maybe<Pick<MeasureTokenValue, 'measure' | 'referencedTokenId' | 'unit'>> }
-          )> }
-        )> }
-      )> }
-    )> } };
-
-type QueryAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type QueryAllItemsQuery = { readonly allDocumentationItem: { readonly nodes: ReadonlyArray<(
-      Pick<DocumentationItem, 'id' | 'persistentId' | 'itemType' | 'slug' | 'firstPageSlug' | 'parentGroupId' | 'parentGroupChain' | 'title'>
-      & { readonly configuration: Maybe<(
-        Pick<DocumentationItemConfiguration, 'showSidebar'>
-        & { readonly header: Pick<DocumentationItemHeader, 'backgroundImageAssetId' | 'backgroundImageAssetUrl' | 'backgroundImageScaleType' | 'alignment' | 'foregroundColor' | 'description' | 'minHeight' | 'showBackgroundOverlay' | 'showCoverText'> }
-      )> }
-    )> } };
+type ConfigurationQuery = { readonly documentationConfiguration: Maybe<Pick<DocumentationConfiguration, 'tabbedNavigation' | 'storybookError' | 'packageJson'>> };
 
 }

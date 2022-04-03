@@ -9,7 +9,12 @@ const supernovaConfig = {
     apiToken: process.env.SUPERNOVA_API_TOKEN,
     workspaceId: process.env.SUPERNOVA_WORKSPACE_ID,
     designSystemId: process.env.SUPERNOVA_DESIGN_SYSTEM_ID,
-    designSystemVersionId: process.env.SUPERNOVA_DESIGN_SYSTEM_VERSION_ID
+    designSystemVersionId: process.env.SUPERNOVA_DESIGN_SYSTEM_VERSION_ID,
+    searchOptions: {
+        indexText: true,
+        indexPageTitles: true,
+        indexGroupTitles: true
+    }
 };
 
 const { apiToken, workspaceId, designSystemId, designSystemVersionId } = supernovaConfig;

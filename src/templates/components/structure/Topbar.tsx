@@ -15,6 +15,7 @@ import QueryConfiguration from "../../../model/queries/configuration/query_confi
 import QueryItemsByIds from "../../../model/queries/structure/query_itemsByIds"
 import QueryPageById from "../../../model/queries/structure/query_pageById"
 import QueryRootGroup from "../../../model/queries/structure/query_rootGroup"
+import Search from "./search/Search"
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -120,7 +121,7 @@ export default function Topbar(props: { pageId: string | null }) {
                 */}
                 <div className="dropdown-menu pull-right" aria-labelledby="version-selector"></div>
               </div>
-              <i className="fas fa-search search"></i>
+              <Search />
             </div>
           </div>
         </div>

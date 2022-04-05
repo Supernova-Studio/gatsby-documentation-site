@@ -12,9 +12,10 @@
 import React, { useState } from "react"
 import { Modal } from "react-bootstrap"
 import { SearchEngine } from "../../../../modules/search/SearchEngine"
+import { SearchEngineResult } from "../../../../modules/search/SearchEngineResult"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// MARK: - Template implementation
+// MARK: - Search form
 
 export default function SearchForm(props: { show: boolean; onHide: () => any }) {
   const [searchString, setSearchString] = useState("");
@@ -50,7 +51,7 @@ export default function SearchForm(props: { show: boolean; onHide: () => any }) 
             <div className="SNSearch-close search"></div>
           </header>
           <div className="SNSearch-results">
-            <SearchState results={searchResult} query={""} />
+            <SearchState results={searchResult} query={searchString} />
           </div>
           <footer className="SNSearch-footer">
             <div></div>
@@ -78,6 +79,10 @@ function SearchInputLabel() {
   )
 }
 
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Search states
+
 function EmptyState(props: {}) {
   return <p className="section-title empty">Start your search by typing your phrase</p>
 }
@@ -86,7 +91,8 @@ function NotFoundState(props: {}) {
   return <p className="section-title empty">No results found, change your search phrase</p>
 }
 
-function SearchState(props: { results: Array<any>; query: string }) {
+function SearchState(props: { results: Array<SearchEngineResult>; query: string }) {
+
   if (props.query.length < 2) {
     return <EmptyState />
   } else if (props.results.length === 0) {
@@ -94,71 +100,64 @@ function SearchState(props: { results: Array<any>; query: string }) {
   } else {
     return <ActiveSearchState results={props.results} query={props.query} />
   }
-  return <></>
 }
 
-function ActiveSearchState(props: { results: Array<any>; query: string }): JSX.Element {
-  let textResults = []
-  let headingResults = []
+function ActiveSearchState(props: { results: Array<SearchEngineResult>; query: string }): JSX.Element {
 
-  for (let result of props.results) {
-    let item = result.item
-    item.startIndex = item.text.toLowerCase().indexOf(props.query.toLowerCase())
-    item.endIndex = item.startIndex + props.query.length
+  // Add results matching titles first, then text block results, then pages, if any
+  let sectionsPredicate: (r: SearchEngineResult) => boolean = r => r.item.origin.type === "block" && r.item.origin.blockType === "Heading"
+  let textPredicate: (r: SearchEngineResult) => boolean = r => r.item.origin.type === "block" && r.item.origin.blockType !== "Heading"
+  let pagePredicate: (r: SearchEngineResult) => boolean = r => r.item.origin.type === "page"
+  // Group search is also possible using origin.type === "group"
 
-    if (item.type === "body") {
-      textResults.push(item)
-    } else {
-      headingResults.push(item)
-    }
-  }
+  // Retrieve constructed sections
+  return <>
+    <SearchSection results={props.results} header={"Sections"} maxResults={5} predicate={sectionsPredicate} />
+    <SearchSection results={props.results} header={"Text"} maxResults={5} predicate={textPredicate} />
+    <SearchSection results={props.results} header={"Pages"} maxResults={5} predicate={pagePredicate} />
+  </>
+}
 
-  let elements = []
 
-  // Add results matching titles first, then text block results
-  if (headingResults.length > 0) {
-    elements.push(<p className="section-title">Sections (${headingResults.length})</p>)
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Search blocks
+
+function SearchSection(props: {
+  results: Array<SearchEngineResult>,
+  header: string,
+  maxResults: number,
+  predicate: (r: SearchEngineResult) => boolean
+}): JSX.Element {
+
+  let nodes = []
+  let entries = props.results.filter(props.predicate)
+  if (entries.length > 0) {
+    nodes.push(<p className="section-title">{props.header} ({entries.length})</p>)
     let count = 0
-    for (let heading of headingResults) {
-      elements.push(
-        <a href="${heading.url}">
-          <div className="result">
-            <p className="section-result-header">{highlightRanges(heading.text, heading.startIndex, heading.endIndex)}</p>
-            <p className="section-result-text">On page {heading.path}</p>
-          </div>
-        </a>
-      )
+    for (let entry of entries) {
+      nodes.push(<SearchEntry entry={entry} />)
       // Allow up to 5 results to be shown
-      if (++count > 5) {
+      if (++count > props.maxResults) {
         break
       }
     }
   }
 
-  // Add text block results
-  if (textResults.length > 0) {
-    elements.push(<p className="section-title">Text ({textResults.length})</p>)
-    let count = 0
-    for (let text of textResults) {
-      elements.push(
-        <a href="${text.url}">
-          <div className="result">
-            <p className="section-result-header">{highlightRanges(text.text, text.startIndex, text.endIndex)}</p>
-            <p className="section-result-text">On page {text.path}</p>
-          </div>
-        </a>
-      )
-      // Allow up to 5 results to be shown
-      if (++count > 5) {
-        break
-      }
-    }
-  }
+  return <>{nodes}</>
+}
 
-  return <>{elements}</>
+function SearchEntry(props: { entry: SearchEngineResult }): JSX.Element {
+
+  return <a href="${heading.url}">
+    <div className="result">
+      <p className="section-result-header">{highlightRanges(props.entry.item.text, props.entry.startIndex, props.entry.endIndex)}</p>
+      <p className="section-result-text">On page [TODO PAGE PATH]</p>
+    </div>
+  </a>
 }
 
 function highlightRanges(s: string, startIndex: number, endIndex: number) {
+
   if (startIndex === -1) {
     return s
   }

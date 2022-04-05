@@ -9,10 +9,16 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
+import * as SupernovaTypes from "@supernovaio/gatsby-source-supernova"
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Search result
 
 export type SearchEngineResult = {
-    
+    item: SupernovaTypes.SearchIndexEntry,
+    page: SupernovaTypes.DocumentationPage | null,
+    group: SupernovaTypes.DocumentationGroup | null,
+    startIndex: number
+    endIndex: number
 }
+

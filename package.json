@@ -2,14 +2,14 @@
     "name": "supernova-gatsby-starter",
     "description": "Supernova DS Documentation Starter",
     "private": true,
-    "version": "0.7.1",
+    "version": "0.7.2",
     "author": "Supernova.io",
     "bugs": {
         "url": "https://github.com/Supernova-Studio/gatsby-example/issues"
     },
     "dependencies": {
         "@graphql-codegen/cli": "^2.3.0",
-        "@supernovaio/gatsby-source-supernova": "0.7.1",
+        "@supernovaio/gatsby-source-supernova": "0.7.2",
         "@supernovaio/supernova-sdk": "^1.7.1",
         "bootstrap": "^4.6.0",
         "crypto-browserify": "^3.12.0",

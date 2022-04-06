@@ -9,8 +9,9 @@
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Imports
 
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { Modal } from "react-bootstrap"
+import QueryItemsByIds from "../../../../model/queries/structure/query_itemsByIds"
 import { SearchEngine } from "../../../../modules/search/SearchEngine"
 import { SearchEngineResult } from "../../../../modules/search/SearchEngineResult"
 
@@ -20,15 +21,21 @@ import { SearchEngineResult } from "../../../../modules/search/SearchEngineResul
 export default function SearchForm(props: { show: boolean; onHide: () => any }) {
   const [searchString, setSearchString] = useState("");
 
+  const inputRef: any = useRef()
   const onSearchChanged = (event: any) => {
     let newValue = event.target.value
     setSearchString(newValue)
   };
 
+  const onModalShow = () => {
+    (inputRef?.current as any).focus()
+    setSearchString("")
+  }
+
   let searchResult = SearchEngine.getInstance().search(searchString)
 
   return (
-    <Modal {...props} size="lg" aria-labelledby="search-box" centered>
+    <Modal {...props} size="lg" aria-labelledby="search-box" onShow={onModalShow} animation={false}>
       <Modal.Body>
         <div className="SNSearch-box">
           <header className="SNSearch-header">
@@ -36,6 +43,7 @@ export default function SearchForm(props: { show: boolean; onHide: () => any }) 
             <form action="" className="SNSearch-form">
               <input
               value={searchString}
+              ref={inputRef}
               onChange={onSearchChanged}
                 className="SNSearch-input"
                 id="SNSearch-input"
@@ -108,13 +116,14 @@ function ActiveSearchState(props: { results: Array<SearchEngineResult>; query: s
   let sectionsPredicate: (r: SearchEngineResult) => boolean = r => r.item.origin.type === "block" && r.item.origin.blockType === "Heading"
   let textPredicate: (r: SearchEngineResult) => boolean = r => r.item.origin.type === "block" && r.item.origin.blockType !== "Heading"
   let pagePredicate: (r: SearchEngineResult) => boolean = r => r.item.origin.type === "page"
-  // Group search is also possible using origin.type === "group"
+  let groupPredicate: (r: SearchEngineResult) => boolean = r => r.item.origin.type === "group"
 
   // Retrieve constructed sections
   return <>
-    <SearchSection results={props.results} header={"Sections"} maxResults={5} predicate={sectionsPredicate} />
-    <SearchSection results={props.results} header={"Text"} maxResults={5} predicate={textPredicate} />
-    <SearchSection results={props.results} header={"Pages"} maxResults={5} predicate={pagePredicate} />
+    <SearchSection results={props.results} header={"Sections"} maxResults={5} predicate={sectionsPredicate} isPageLevelObject={false} />
+    <SearchSection results={props.results} header={"Text"} maxResults={5} predicate={textPredicate} isPageLevelObject={false} />
+    <SearchSection results={props.results} header={"Pages"} maxResults={5} predicate={pagePredicate} isPageLevelObject={true} />
+    <SearchSection results={props.results} header={"Categories"} maxResults={5} predicate={groupPredicate} isPageLevelObject={true} />
   </>
 }
 
@@ -126,6 +135,7 @@ function SearchSection(props: {
   results: Array<SearchEngineResult>,
   header: string,
   maxResults: number,
+  isPageLevelObject: boolean
   predicate: (r: SearchEngineResult) => boolean
 }): JSX.Element {
 
@@ -135,7 +145,7 @@ function SearchSection(props: {
     nodes.push(<p className="section-title">{props.header} ({entries.length})</p>)
     let count = 0
     for (let entry of entries) {
-      nodes.push(<SearchEntry entry={entry} />)
+      nodes.push(<SearchEntry entry={entry} isPageLevelObject={props.isPageLevelObject} />)
       // Allow up to 5 results to be shown
       if (++count > props.maxResults) {
         break
@@ -146,12 +156,30 @@ function SearchSection(props: {
   return <>{nodes}</>
 }
 
-function SearchEntry(props: { entry: SearchEngineResult }): JSX.Element {
+function SearchEntry(props: { entry: SearchEngineResult, isPageLevelObject: boolean }): JSX.Element {
 
-  return <a href="${heading.url}">
+  let path = ""
+  let readablePath = ""
+  if (props.entry.page) {
+    path = props.entry.page.firstPageSlug ?? ""
+  } else if (props.entry.group) {
+    path = props.entry.group.firstPageSlug ?? ""
+  }
+
+  if (!props.isPageLevelObject) {
+    let pageOrGroup = props.entry.group ?? props.entry.page
+    if (pageOrGroup) {
+      let itemIds = pageOrGroup.parentGroupChain ?? []
+      itemIds.push(pageOrGroup.id)
+      itemIds.splice(0, 1)
+      readablePath = QueryItemsByIds(itemIds).map(i => i.title).join(" / ")
+    }
+  }
+
+  return <a href={path}>
     <div className="result">
       <p className="section-result-header">{highlightRanges(props.entry.item.text, props.entry.startIndex, props.entry.endIndex)}</p>
-      <p className="section-result-text">On page [TODO PAGE PATH]</p>
+      {!props.isPageLevelObject ? <p className="section-result-text">On page {readablePath}</p> : null }
     </div>
   </a>
 }
@@ -166,5 +194,5 @@ function highlightRanges(s: string, startIndex: number, endIndex: number) {
   let searchResult = s.substring(startIndex, endIndex)
   let end = s.substring(endIndex)
 
-  return `${beginning}<span>${searchResult}</span>${end}`
+  return <>{beginning}<span>{searchResult}</span>{end}</>
 }

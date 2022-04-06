@@ -2,6 +2,12 @@
 
 All notable changes to this Supernova <> Gatsby Starter are mentioned here in this file.
 
+## [0.7.1] - 2022-01-04
+### Search!
+
+We have added fully working search. Search works using Fuse.js and works completely locally without any dependencies. Data for the search is provided out of the box by Supernova GQL plugin. You can tweak search behaviors by changing configuration inside `SearchEngine.ts` object.
+
+
 ## [0.7.0] - 2022-30-03
 ### Unending tide of upgrades
 

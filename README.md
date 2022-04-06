@@ -12,6 +12,8 @@ This starter implements all functionality you might need for your design system 
 - [x] Rendering of design tokens, assets, components, rich text, images + all other necessary elements
 - [x] Responsive layout and 2 different ways how to structure your content
 - [x] Integration with Supernova editor configuration options
+- [x] Fully customizable landing page included with the starter
+- [x] Fully implemented client-side site search using Fuse.js
 
 And of course, features that make all developers happy!
 
@@ -110,10 +112,8 @@ Runs production server locally with your site hosted on it. Run `npm run build` 
 As this is still beta, we are working hard on improving it before the first official release. The following are areas we'd like to solve before general release:
 
 - [ ] Better CSS structure, and cleaner styling, likely using SCSS or some other preprocessor
-- [ ] Seamless integration with Algolia
-- [ ] Several types of rendering modes for each DS elements like tokens or components
 - [ ] SEO improvements like dynamic titles, header, descriptions, tw and fb tags and more
-- [ ] Fully customizable landing page with multiple options
+- [ ] Implementation of custom configurable properties from exporter packages
 
 
 ## Using data plugin separately
